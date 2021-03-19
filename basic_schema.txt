@@ -1,0 +1,162 @@
+Band 
+{
+	name: "..."
+	kapitel: [...],
+	glossar: [...],
+}
+
+Lehrerband 
+{
+	kapitel: [...],
+	methoden: [...]
+}
+
+Kapitel
+{
+	Inhalt: Inhalt,
+	name: "..."
+	unterkapitel: [...],
+	band: "id"
+
+}
+
+Lehrerband_Kapitel
+{
+	Inhalt: Inhalt,
+	name: "..."
+	lehrerband_unterkapitel: [...],
+	band: "id"	
+}
+
+Lehrerband_unterkapitel
+{
+	Inhalt: Inhalt,
+	ressourcen: [Ressource ...]
+	name: "...",
+	kapitel: "id"
+}
+
+Unterkapitel 
+{
+	Inhalt: Inhalt,
+	ressourcen: {
+		textquellen: [],
+		bildquellen: [],
+		arbeitsblätter: [],
+		karten: [],
+		kultur: [],
+	}
+	name: "...",
+	kapitel: "id",
+	lehrerband_unterkapitel: "id"
+}
+
+Inhalt 
+{
+	content: [
+	{
+		typ: "text",
+		glossar_entries: [id1, id2 ...]
+		heading: "bliblablub"
+		text: "bliblablub"
+		tip: [
+			{
+				heading: "bliblablub"
+				text: "bliblablub"
+			}
+		]	
+	},
+	{
+		typ: "bildquelle",
+		id: "..."
+	}
+	]
+}
+
+Textcontent
+{
+	typ: "text",
+	glossar_entries: [id1, id2 ...]
+	heading: "bliblablub"
+	text: "bliblablub"
+	tip: [
+		{
+			heading: "bliblablub"
+			text: "bliblablub"
+		}
+	]	
+},
+
+Ressource
+{
+	typ: "...",
+	author: "asldj",
+	quellenverweis: "asdasd",
+	kapitel: "id"
+}
+
+Bildquelle
+{
+	typ: "...",
+	author: "asldj",
+	quellenverweis: "asdasd",
+	url: "link/bliblablub.com"
+	annotations: [
+		{
+			tip: ...
+			x: 12
+			y: 60
+		}
+	]
+	text_content: Textcontent
+	caption: "..."
+}
+
+Textquelle
+{
+	typ: "...",
+	author: "asldj",
+	quellenverweis: "asdasd",
+	text: "..."
+	tips: [...]
+	text_content: Textcontent
+}
+
+Filmquelle {
+	...
+}
+
+Audioquelle {
+	...
+}
+
+Annotation 
+{
+	tip: ...
+	x: 12
+	y: 60
+}
+
+Tip
+{
+	heading: "bliblablub"
+	text: "bliblablub"
+}
+
+Geschichtskultur:
+{
+	[
+		Ressource ...
+	]
+}
+
+Arbeitsblatt
+{
+	aufgabe: [...]
+}
+
+Aufgabe
+{
+	arbeitsblatt: "id",
+	content: Textcontent
+}
