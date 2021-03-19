@@ -1,0 +1,21 @@
+children: [
+    {
+      path: 'subchapter/:id',
+      name: 'Subchapter',
+      component: Subchapter,
+      children: [
+        {
+          path: 'source/:id',
+          name: 'Source',
+          component: Source
+        },
+        {
+          path: 'worksheet/:id',
+          name: 'Worksheet',
+        },
+      ],
+    },
+    {
+      path: 'sources',
+    },
+  ],
