@@ -8,7 +8,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import {
-  RouteLocationNormalizedLoaded, Router, useRoute, useRouter,
+  Router, useRouter,
 } from 'vue-router';
 
 Vue.registerHooks([
@@ -26,11 +26,6 @@ export default class Source extends Vue {
   private pageId = ''
 
   private backLink = ''
-
-  /* eslint class-methods-use-this: "off" */
-  beforeRouteEnter(): void {
-    console.log('route entered');
-  }
 }
 </script>
 

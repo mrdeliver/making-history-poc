@@ -5,10 +5,12 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 
 @Options({})
 export default class PageSlider extends Vue {
-
+  @Prop({ type: String })
+  private pageId = ''
 }
 </script>
 
