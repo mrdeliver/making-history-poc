@@ -1,6 +1,5 @@
 <template>
-  <div>{{currentPage.content}}</div>
-  <div>{{currentPage.type}}</div>
+  <content-frame :contentBlocks="currentPage.content"></content-frame>
   <router-link :to='sourceLink'>this is a link</router-link>
 </template>
 
@@ -8,9 +7,13 @@
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
+import ContentFrame from '../content/content-frame.vue';
 
 @Options({
   name: 'page',
+  components: {
+    ContentFrame,
+  },
 })
 export default class PageComponent extends Vue {
   @Prop({ type: String })
@@ -21,6 +24,7 @@ export default class PageComponent extends Vue {
   @Watch('pageId')
   onpageIdChange(value: string): void{
     this.currentPage = PageStore.singlePage(value);
+    console.log(this.currentPage);
     // updat action buttons with page related actions
   }
 
