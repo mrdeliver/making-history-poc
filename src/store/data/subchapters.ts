@@ -13,10 +13,11 @@ export default {
           text: 'Der Nationalkonvent beschloss am 5. September 1793 unter dem Druck der Septemberbewegung, die das Gebäude besetzt hielt, die Einführung von Terrormaßnahmen zur Unterdrückung aller „konterrevolutionären“ Aktivitäten. Etwa 21.000 „Überwachungsausschüsse“ wurden gebildet. Das Revolutionstribunal führte als Gerichtshof die Prozesse gegen politische Täter. Gegen seine Urteile war keine Berufung möglich. Ähnliche Tribunale gab es auch in den Provinzen. Gemeinsam mit dem Wohlfahrtsausschuss beriet sich wöchentlich der Sicherheitsausschuss. Dieser beauftragte die Revolutionskomitees mit der listenmäßigen Erfassung von verdächtigen Personen. Am 17. September 1793 wurde das Gesetz über die Verdächtigen beschlossen: Adlige, ehemalige Beamte des Ancien Régimes, Spekulanten, heimgekehrte Emigranten und überhaupt alle, die nicht Gewähr boten, jederzeit für die Revolution einzustehen, wurden auf eigene Kosten unbefristet in Haft genommen. Dies betraf zwischen 300.000 und 800.000 Personen, also 1 – 4 % der Bevölkerung Frankreichs.',
           glossarEntries: [],
           tipps: [
-          {
-            heading: 'Frankreich Supchapter',
-            text: 'Frankreich im Westen Europas ist ein Land mit mittelalterlichen Städten, Bergdörfern und Mittelmeerstränden. Die Hauptstadt Paris gilt als erstrangiges Mode- und Kulturzentrum.',
-          }],
+            {
+              heading: 'Frankreich Supchapter',
+              text: 'Frankreich im Westen Europas ist ein Land mit mittelalterlichen Städten, Bergdörfern und Mittelmeerstränden. Die Hauptstadt Paris gilt als erstrangiges Mode- und Kulturzentrum.',
+            },
+          ],
         },
         {
           type: ContentBlockType.SOURCE_CONTENT_BLOCK,
