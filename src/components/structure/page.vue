@@ -11,19 +11,18 @@ import { Prop, Watch } from 'vue-property-decorator';
   name: 'page',
 })
 export default class Page extends Vue {
-  private ok = ''
-
   @Prop({ type: String })
   private pageId = '';
 
-  get sourceLink(): string {
-    return `/page/${this.pageId}/source/1`;
-  }
-
   @Watch('pageId')
   onpageIdChange(value: string): void{
-    this.ok = '';
     console.log(value);
+    // fetch content for page id from store
+    // updat action buttons with page related actions
+  }
+
+  get sourceLink(): string {
+    return `/page/${this.pageId}/source/1`;
   }
 }
 </script>
