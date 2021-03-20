@@ -1,4 +1,5 @@
 <template>
+  <Slider :allLinks="pageSliderLinks"></Slider>
   <router-link v-for="page in allPages" :to="'/page/' + page.id" :key="page.id">
     {{page.heading}}
   </router-link>
@@ -9,16 +10,36 @@ import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 import PageStore, { Page } from '../../store/page-module';
+import Slider from '../slider/slider.vue';
+import SliderLink from '../slider/slider';
 
-@Options({})
+@Options({
+  components: {
+    Slider,
+  },
+})
 export default class PageSlider extends Vue {
   @Prop({ type: String })
   private pageId = '';
 
   private allPages: Page[] = []
 
-  mounted(): void {
+  private pageSliderLinks: SliderLink [] = []
+
+  created(): void {
     this.allPages = PageStore.allPages;
+    this.pageSliderLinks = this.mapPageToSliderLink(this.allPages);
+    console.log(this.pageSliderLinks);
+  }
+
+  mapPageToSliderLink(pages: Page[]): SliderLink[] {
+    // primary --> link = page/pageId | content = name
+    return pages.map((page):SliderLink => ({
+      primaryLink: {
+        link: `page/${page.id}`,
+        content: page.heading,
+      },
+    }));
   }
 }
 </script>
