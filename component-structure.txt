@@ -1,0 +1,42 @@
+--> Unterkapitel
+
+Body
+	Navbar
+		Home
+		User-settings
+	Container
+		Contentarea (*Band*, Setting ...)
+			Inhaltsslider
+			Unterkapitel
+				Contentblöcke (Inhalt)
+					Textcontent
+						Text
+						Tipp
+					Inline-Ressource
+			Menü-Button
+				Sub-Menü-Buttons
+			Glossarbutton
+
+--> Quelle1
+
+Body
+	Navbar
+		Home
+		User-settings
+	Container
+		Contentarea
+			Inhaltsslider - Quelle
+			Quelle1 - Fullpagequelle
+				Contentblöcke (Inhalt)
+					Image
+						Annotations
+						caption
+					Textcontent
+						Text
+						Tipp
+			Menü-Button
+				Sub-Menü-Buttons
+			Glossarbutton
+
+--> Leherband
+
