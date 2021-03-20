@@ -1,6 +1,5 @@
 <template>
   <content-frame :contentBlocks="currentPage.content"></content-frame>
-  <router-link :to='sourceLink'>this is a link</router-link>
 </template>
 
 <script lang="ts">
@@ -25,11 +24,6 @@ export default class PageComponent extends Vue {
   onpageIdChange(value: string): void{
     this.currentPage = PageStore.singlePage(value);
     console.log(this.currentPage);
-    // updat action buttons with page related actions
-  }
-
-  get sourceLink(): string {
-    return `/page/${this.pageId}/source/1`;
   }
 
   mounted(): void {

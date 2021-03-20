@@ -1,5 +1,7 @@
 <template>
+  <tipp-area></tipp-area>
   <div>{{sourceId}}</div>
+  <tipp-area></tipp-area>
 </template>
 
 <script lang="ts">
