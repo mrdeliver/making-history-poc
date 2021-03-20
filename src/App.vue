@@ -1,30 +1,45 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="iPadFrame">
+    <div id="app-navigation">
+      <router-link to="/band/1">Band</router-link>
+      <router-link to="/">About</router-link>
+    </div>
+    <div id="app-content">
+      <router-view/>
+    </div>
   </div>
-  <router-view/>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import "colors";
+@import "text";
+
+html {
+  height: 100%;
 }
 
-#nav {
-  padding: 30px;
+#app {
+  font-family: Raleway, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: $font_weight_text;
+  line-height: $line_height_text;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+#iPadFrame {
+  max-width: 834px;
+  height: 100%;
+  margin: 0 auto;
+  color: $color_grey_10;
+  font-size: $font_size_text;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  #app-navigation {
+    height: 2%;
+  }
+
+  #app-content {
+    height: 98%;
   }
 }
 </style>
