@@ -15,11 +15,11 @@ export default {
           tipps: [
             {
               heading: 'Frankreich',
-              text: 'Frankreich im Westen Europas ist ein Land mit mittelalterlichen Städten, Bergdörfern und Mittelmeerstränden. Die Hauptstadt Paris gilt als erstrangiges Mode- und Kulturzentrum.'
+              text: 'Frankreich im Westen Europas ist ein Land mit mittelalterlichen Städten, Bergdörfern und Mittelmeerstränden. Die Hauptstadt Paris gilt als erstrangiges Mode- und Kulturzentrum.',
             },
             {
               heading: 'Europa',
-              text: 'Europa ist ein Erdteil, der sich über das westliche Fünftel der eurasischen Landmasse erstreckt. Obwohl es geographisch gesehen nur ein Subkontinent ist, der mit Asien zusammen den Kontinent Eurasien bildet, wird es historisch und kulturell begründet oft als eigenständiger Kontinent betrachtet.'
+              text: 'Europa ist ein Erdteil, der sich über das westliche Fünftel der eurasischen Landmasse erstreckt. Obwohl es geographisch gesehen nur ein Subkontinent ist, der mit Asien zusammen den Kontinent Eurasien bildet, wird es historisch und kulturell begründet oft als eigenständiger Kontinent betrachtet.',
             },
           ],
         },
@@ -38,7 +38,7 @@ export default {
           tipps: [
             {
               heading: 'Terror',
-              text: 'Der Terror ist die systematische und oftmals willkürlich erscheinende Verbreitung von Angst und Schrecken durch ausgeübte oder angedrohte Gewalt, um Menschen gefügig zu machen.'
+              text: 'Der Terror ist die systematische und oftmals willkürlich erscheinende Verbreitung von Angst und Schrecken durch ausgeübte oder angedrohte Gewalt, um Menschen gefügig zu machen.',
             },
           ],
         },
