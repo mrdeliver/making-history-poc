@@ -44,8 +44,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: [],
-        imageSources: [],
+        textSources: ['1'],
+        imageSources: ['1'],
         audioSources: [],
         workSheets: [],
       },
