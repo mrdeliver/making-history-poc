@@ -13,13 +13,13 @@ class RessourceModule extends VuexModule {
   private textRessources: TextRessource[] = [];
 
   // getters
-  get imageRessourcesWithId(): CallableFunction {
+  get imageRessourcesWithIds(): CallableFunction {
     return (ressourceIds: string[]): ImageRessource[] => this.imageRessources.filter(
       (res) => ressourceIds.includes(res.id),
     );
   }
 
-  get textRessourcesWithId(): CallableFunction {
+  get textRessourcesWithIds(): CallableFunction {
     return (ressourceIds: string[]): TextRessource[] => this.textRessources.filter(
       (res) => ressourceIds.includes(res.id),
     );

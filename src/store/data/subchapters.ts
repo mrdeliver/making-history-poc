@@ -35,8 +35,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: [],
-        imageSources: ['1'],
+        textSources: ['1'],
+        imageSources: ['1', '2'],
         audioSources: [],
         workSheets: [],
       },

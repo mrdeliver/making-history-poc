@@ -21,6 +21,23 @@ export default {
         },
       ],
     },
+    {
+      id: '2',
+      typ: RessourceType.IMAGE_SOURCE,
+      author: 'Jean-Jacques Le Barbier',
+      url: 'https://de.wikipedia.org/wiki/Franz%C3%B6sische_Revolution#/media/Datei:Declaration_of_the_Rights_of_Man_and_of_the_Citizen_in_1789.jpg',
+      caption: 'Déclaration des Droits de l’Homme et du Citoyen. Die Erklärung der Menschen- und Bürgerrechte in einer Darstellung von Jean-Jacques Le Barbier',
+      annotations: [],
+      content: [
+        {
+          type: ContentBlockType.TEXT_CONTENT_BLOCK,
+          heading: 'Die Erklärung der Menschen- und Bürgerrechte',
+          glossarEntries: [],
+          text: 'Als ein Gründungsereignis, das so tief wie kaum ein anderes die Geschichte der Moderne geprägt habe, wird die Französische Revolution in einer neueren Überblicksdarstellung bezeichnet.[1] Nicht nur im Bewusstsein der Franzosen hat diese Revolution eine enorme Bedeutung. Mit der Erklärung der Menschen- und Bürgerrechte vom 26. August 1789 wurden auf dem europäischen Kontinent jene Prinzipien bekräftigt und gegen absolutistische Monarchien in Stellung gebracht, die in der Unabhängigkeitserklärung der nordamerikanischen Kolonisten angelegt waren und die heutzutage von den Vereinten Nationen weltweit propagiert und eingefordert werden.',
+          tipps: [],
+        },
+      ],
+    },
   ],
 };
 
