@@ -7,8 +7,10 @@ import Source from '../components/structure/source.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'Home',
+
+    path: '/band/:bandId/',
+    name: 'Band',
+    props: true,
     component: Band,
     children: [
       {
@@ -32,11 +34,8 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/about',
+    path: '/',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
 ];
