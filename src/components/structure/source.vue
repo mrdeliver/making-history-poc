@@ -1,15 +1,13 @@
 <template>
   <div>PageId: {{pageId}}</div>
   <div>Sourceid: {{sourceId}} </div>
-  <router-link :to="backLink"> BACK</router-link>
+  <router-link :to="backLink">BACK</router-link>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import {
-  Router, useRouter,
-} from 'vue-router';
+import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 
 Vue.registerHooks([
   'beforeRouteEnter',
@@ -17,7 +15,7 @@ Vue.registerHooks([
 
 @Options({})
 export default class Source extends Vue {
-  router: Router = useRouter()
+  private route: RouteLocationNormalizedLoaded = useRoute();
 
   @Prop({ type: String })
   private sourceId = ''
@@ -25,7 +23,10 @@ export default class Source extends Vue {
   @Prop({ type: String })
   private pageId = ''
 
-  private backLink = ''
+  get backLink(): string {
+    const pageMatch = /page\/\d/;
+    return `/${this.route.fullPath.match(pageMatch)}`;
+  }
 }
 </script>
 

@@ -15,5 +15,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'class-methods-use-this': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error']
   }
 }

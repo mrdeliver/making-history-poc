@@ -1,28 +1,35 @@
 <template>
-  <div>{{pageId}}</div>
+  <div>{{currentPage.content}}</div>
+  <div>{{currentPage.type}}</div>
   <router-link :to='sourceLink'>this is a link</router-link>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
+import PageStore, { Page } from '../../store/page-module';
 
 @Options({
   name: 'page',
 })
-export default class Page extends Vue {
+export default class PageComponent extends Vue {
   @Prop({ type: String })
   private pageId = '';
 
+  private currentPage: Page = {} as Page;
+
   @Watch('pageId')
   onpageIdChange(value: string): void{
-    console.log(value);
-    // fetch content for page id from store
+    this.currentPage = PageStore.singlePage(value);
     // updat action buttons with page related actions
   }
 
   get sourceLink(): string {
     return `/page/${this.pageId}/source/1`;
+  }
+
+  mounted(): void {
+    this.currentPage = PageStore.singlePage(this.pageId);
   }
 }
 </script>

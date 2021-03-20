@@ -1,16 +1,25 @@
 <template>
-  <router-link to="/page/1">page1</router-link>
-  <router-link to="/page/2">page2</router-link>
+  <router-link v-for="page in allPages" :to="'/page/' + page.id" :key="page.id">
+    {{page.heading}}
+  </router-link>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
+import PageStore, { Page } from '../../store/page-module';
+
 @Options({})
 export default class PageSlider extends Vue {
   @Prop({ type: String })
-  private pageId = ''
+  private pageId = '';
+
+  private allPages: Page[] = []
+
+  mounted(): void {
+    this.allPages = PageStore.allPages;
+  }
 }
 </script>
 
