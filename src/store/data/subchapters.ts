@@ -1,4 +1,6 @@
-import { ContentBlock, ContentBlockType, Ressources } from './data-types';
+import {
+  ContentBlock, ContentBlockType, Ressources, RessourceType,
+} from './data-types';
 
 export default {
   result: [
@@ -21,7 +23,7 @@ export default {
         },
         {
           type: ContentBlockType.SOURCE_CONTENT_BLOCK,
-          sourceType: 'imageSource',
+          sourceType: RessourceType.IMAGE_SOURCE,
           id: '1',
         },
         {
@@ -33,8 +35,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: [],
-        imageSources: ['1'],
+        textSources: ['1'],
+        imageSources: ['1', '2'],
         audioSources: [],
         workSheets: [],
       },

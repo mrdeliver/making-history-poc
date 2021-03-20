@@ -2,7 +2,7 @@ import {
   VuexModule, Module, Action, Mutation,
 } from 'vuex-class-modules';
 import Chapters, { Chapter } from './data/chapters';
-import { ContentBlock, Ressources } from './data/data-types';
+import { ContentBlock, Ressources, PageType } from './data/data-types';
 import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
 
@@ -68,7 +68,7 @@ class PageModule extends VuexModule {
 
   mapChapterToPage(chapter: Chapter): Page {
     return {
-      type: 'chapter',
+      type: PageType.CHAPTER,
       heading: chapter.name,
       subheading: '',
       content: chapter.content,
@@ -78,7 +78,7 @@ class PageModule extends VuexModule {
 
   mapSubChapterToPage(subchapter: Subchapter, chapter: Chapter): Page {
     return {
-      type: 'subchapter',
+      type: PageType.SUB_CHAPTER,
       heading: subchapter.name,
       subheading: chapter.name,
       content: subchapter.content,
