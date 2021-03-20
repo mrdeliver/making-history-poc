@@ -55,8 +55,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: [],
-        imageSources: [],
+        textSources: ['1'],
+        imageSources: ['2'],
         audioSources: [],
         workSheets: [],
       },
