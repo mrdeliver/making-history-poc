@@ -2,15 +2,20 @@
   <div>{{currentPage.content}}</div>
   <div>{{currentPage.type}}</div>
   <router-link :to='sourceLink'>this is a link</router-link>
+  <action-menu :ressources="currentPage.ressources"></action-menu>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
+import ActionMenu from '../action-menu.vue';
 
 @Options({
   name: 'page',
+  components: {
+    ActionMenu,
+  },
 })
 export default class PageComponent extends Vue {
   @Prop({ type: String })

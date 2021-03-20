@@ -73,20 +73,6 @@ Inhalt
 	]
 }
 
-Textcontent
-{
-	typ: "text",
-	glossar_entries: [id1, id2 ...]
-	heading: "bliblablub"
-	text: "bliblablub"
-	tip: [
-		{
-			heading: "bliblablub"
-			text: "bliblablub"
-		}
-	]	
-},
-
 Ressource
 {
 	typ: "...",
