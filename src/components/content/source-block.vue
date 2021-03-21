@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { SourceType } from '@/store/data/data-types';
+import { RessourceType } from '@/store/data/data-types';
 import { Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
@@ -14,7 +14,7 @@ export default class SourceBlock extends Vue {
   private sourceId = ''
 
   @Prop({})
-  private sourceType: SourceType = SourceType.IMAGE_SOURCE
+  private sourceType: RessourceType = RessourceType.IMAGE_SOURCE
 }
 </script>
 
