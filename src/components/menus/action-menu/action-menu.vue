@@ -29,9 +29,9 @@ import { ImageRessource } from '@/store/data/ressources/image-ressources';
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
-import { TextRessource } from '../../store/data/ressources/text-ressources';
-import { Ressources } from '../../store/data/data-types';
-import RessourceStore from '../../store/ressource-module';
+import { TextRessource } from '../../../store/data/ressources/text-ressources';
+import { Ressources } from '../../../store/data/data-types';
+import RessourceStore from '../../../store/ressource-module';
 
 @Options({
   name: 'ActionMenu',

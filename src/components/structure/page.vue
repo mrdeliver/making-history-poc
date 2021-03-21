@@ -9,7 +9,7 @@
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
-import ActionMenu from '../menus/action-menu.vue';
+import ActionMenu from '../menus/action-menu/action-menu.vue';
 import ContentFrame from '../content/content-frame.vue';
 import ExpandableButton from '../menus/expandable-button.vue';
 

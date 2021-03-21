@@ -16,7 +16,7 @@ import { Prop } from 'vue-property-decorator';
 @Options({
   name: 'ExpandableButton',
 })
-export default class ExpandabelButton extends Vue {
+export default class ExpandableButton extends Vue {
   private expand = false;
 
   @Prop({ type: String })
@@ -95,8 +95,8 @@ $button_diameter_negative: -30px;
   left: 50%;
   transform: translate(-50%,-50%);
   display: block;
-  width: 80%;
-  height: 80%;
+  width: 60%;
+  height: 60%;
   color: $color_grey_0;
   margin: auto;
 }
