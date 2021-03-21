@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(tipp, idx) in tipps" class="tipp-container" :key="idx">tipp</div>
+    <div v-for="(tipp, idx) in tipps" class="tipp-container" :key="idx">{{tipp.heading}}</div>
   </div>
 </template>
 
