@@ -37,7 +37,6 @@ class RessourceModule extends VuexModule {
 
   @Action
   buildRessources(): void {
-    // combine all ressources
     this.imageRessources = ImageRessources.result;
     this.textRessources = TextRessources.result;
   }

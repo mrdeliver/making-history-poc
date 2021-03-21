@@ -13,6 +13,7 @@ import { Prop } from 'vue-property-decorator';
 import { Router, useRouter } from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
+import GlossarStore from '../store/glossar-module';
 
 @Options({})
 export default class Band extends Vue {
@@ -24,6 +25,7 @@ export default class Band extends Vue {
   created(): void {
     PageStore.buildPages(this.bandId);
     RessourceStore.buildRessources();
+    GlossarStore.buildGlossarEntries();
     this.router.push({ name: 'Page', params: { pageId: '1', bandId: this.bandId } });
   }
 }

@@ -11,9 +11,9 @@ export default {
       content: [
         {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
-          heading: '',
+          heading: 'Der Nationlakonvent',
           text: 'Der Nationalkonvent beschloss am 5. September 1793 unter dem Druck der Septemberbewegung, die das Gebäude besetzt hielt, die Einführung von Terrormaßnahmen zur Unterdrückung aller „konterrevolutionären“ Aktivitäten. Etwa 21.000 „Überwachungsausschüsse“ wurden gebildet. Das Revolutionstribunal führte als Gerichtshof die Prozesse gegen politische Täter. Gegen seine Urteile war keine Berufung möglich. Ähnliche Tribunale gab es auch in den Provinzen. Gemeinsam mit dem Wohlfahrtsausschuss beriet sich wöchentlich der Sicherheitsausschuss. Dieser beauftragte die Revolutionskomitees mit der listenmäßigen Erfassung von verdächtigen Personen. Am 17. September 1793 wurde das Gesetz über die Verdächtigen beschlossen: Adlige, ehemalige Beamte des Ancien Régimes, Spekulanten, heimgekehrte Emigranten und überhaupt alle, die nicht Gewähr boten, jederzeit für die Revolution einzustehen, wurden auf eigene Kosten unbefristet in Haft genommen. Dies betraf zwischen 300.000 und 800.000 Personen, also 1 – 4 % der Bevölkerung Frankreichs.',
-          glossarEntries: [],
+          glossarEntries: ['1', '2', '3'],
           tipps: [
             {
               heading: 'Frankreich Supchapter',
@@ -28,9 +28,9 @@ export default {
         },
         {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
-          heading: '',
+          heading: 'Todesstrafe',
           text: 'Mit dem Gesetz vom 22. Prairial vom 10. Juni 1794 begann die Grande Terreur: Die Todesstrafe wurde gegen alle „Feinde des Volkes“ verbindlich festgeschrieben. Die vage Definition öffnete der Denunziation Tür und Tor.',
-          glossarEntries: [2],
+          glossarEntries: ['1', '2', '3'],
           tipps: [],
         },
       ],
@@ -48,9 +48,9 @@ export default {
       content: [
         {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
-          heading: '',
+          heading: 'Terrorherrschaft',
           text: 'Die Terrorherrschaft führte in Frankreich nach Archivunterlagen, die von Donald Greer ausgewertet wurden, zu mindestens 16.594 Todesurteilen[4] vollstreckt durch die Guillotine, davon über 2500 in Paris. 1306 der in Paris Hingerichteten liegen auf dem Friedhof Picpus begraben, weitere auf dem Cimetière des Errancis, dem Cimetière de la Madeleine und dem Cimetière de Sainte-Marguerite.',
-          glossarEntries: [],
+          glossarEntries: ['4'],
           tipps: [],
         },
       ],
