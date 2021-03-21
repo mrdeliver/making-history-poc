@@ -16,6 +16,10 @@ class GlossarModule extends VuexModule {
     )[0];
   }
 
+  get allGlossarEntries(): GlossarEntry[] {
+    return this.glossarEntries;
+  }
+
   @Mutation
   setGlossarEntries(glossarEntries: GlossarEntry[]) {
     this.glossarEntries = glossarEntries;
