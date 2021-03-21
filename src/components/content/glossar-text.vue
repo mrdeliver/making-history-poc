@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
-import glossar, { GlossarEntry } from '../../store/data/glossar';
+import { GlossarEntry } from '../../store/data/glossar';
 import GlossarStore from '../../store/glossar-module';
 
 @Options({})
@@ -24,7 +24,7 @@ export default class GlossarText extends Vue {
   }
 
   @Watch('text')
-  change() {
+  updateText(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
   }
@@ -39,7 +39,7 @@ export default class GlossarText extends Vue {
 
   createElementFromText(): string {
     let richText = this.text;
-    const glossarElements = this.glossarEntries.map((entry) => {
+    const glossarElements = this.glossarEntries.map(() => {
       const elem = document.createElement('span');
       elem.classList.add('glossar-entry');
       return elem;

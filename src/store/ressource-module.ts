@@ -4,6 +4,7 @@ import {
 import store from './index';
 import ImageRessources, { ImageRessource } from './data/ressources/image-ressources';
 import TextRessources, { TextRessource } from './data/ressources/text-ressources';
+import { RessourceType } from './data/data-types';
 
 @Module({ generateMutationSetters: true })
 class RessourceModule extends VuexModule {
@@ -13,16 +14,37 @@ class RessourceModule extends VuexModule {
   private textRessources: TextRessource[] = [];
 
   // getters
+  get ressource(): CallableFunction {
+    return (ressourceType: RessourceType, id: string) => {
+      switch (ressourceType) {
+        case RessourceType.IMAGE_SOURCE:
+          return this.imageRessource(id);
+        case RessourceType.TEXT_SOURCE:
+          return this.textRessource(id);
+        case RessourceType.AUDIO_SOURCE:
+          throw Error('Not implemented');
+        case RessourceType.MOVIE_SOURCE:
+          throw Error('Not implemented');
+        default:
+          throw Error('Not implemented');
+      }
+    };
+  }
+
+  get imageRessource(): CallableFunction {
+    return (id: string) => this.imageRessources.filter((re) => re.id === id)[0];
+  }
+
+  get textRessource(): CallableFunction {
+    return (id: string) => this.textRessources.filter((re) => re.id === id)[0];
+  }
+
   get imageRessourcesWithIds(): CallableFunction {
-    return (ressourceIds: string[]): ImageRessource[] => this.imageRessources.filter(
-      (res) => ressourceIds.includes(res.id),
-    );
+    return (ids: string[]): ImageRessource[] => ids.map((id) => this.imageRessource(id));
   }
 
   get textRessourcesWithIds(): CallableFunction {
-    return (ressourceIds: string[]): TextRessource[] => this.textRessources.filter(
-      (res) => ressourceIds.includes(res.id),
-    );
+    return (ids: string[]): TextRessource[] => ids.map((id) => this.textRessource(id));
   }
 
   @Mutation
