@@ -56,6 +56,7 @@ export default class Slider extends Vue {
   height: 120px !important;
 }
 .carousel-cell {
+  transition: 0.2s ease;
   text-align: center;
   width: 175px;
   height: 50px;
@@ -86,63 +87,4 @@ export default class Slider extends Vue {
     }
 
 }
-
-/*
-}
-
-  /* a {
-    font-weight: bold;
-    text-align:center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-    line-height: $heigth;
-    width: 120px;
-    height: $heigth;
-    margin-left: 5px;
-    margin-right: 5px;
-    text-decoration: none;
-
-    border: 3px solid transparent;
-    border-radius: 15px;
-    &.router-link-exact-active {
-      border-color: $color_grey_6;
-      color:$color_grey_10;
-      font-size:22px;
-      width: 325px;
-      height: 100px;
-      line-height: 100px;
-
-    }
-  }*//*
-  a {
-    &.router-link-exact-active {
-      border-color: $color_grey_6;
-      color:$color_grey_10;
-    }
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: $color_grey_0;
-    color: $color_grey_6;
-    font-weight: bold;
-    text-decoration: none;
-    border: 3px solid transparent;
-    border-radius: 15px;
-    scroll-snap-align: center;
-    flex-shrink: 0;
-    width: 120px;
-    height: 50px;
-    margin-right: 20px;
-    margin-left: 20px;
-    transform-origin: center center;
-    transform: scale(1);
-    transition: transform 0.5s;
-    position: relative;
-    display: inline-block;
-    line-height: 50px;
-    /* justify-content: center;
-    align-items: center; *//*
-    }
-}
-*/
 </style>
