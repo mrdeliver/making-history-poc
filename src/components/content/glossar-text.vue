@@ -1,5 +1,5 @@
 <template>
-  <div ref="richTextContainer"></div>
+  <div ref="richTextContainer" class="text-block"></div>
 </template>
 
 <script lang="ts">
