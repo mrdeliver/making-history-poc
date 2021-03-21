@@ -1,20 +1,22 @@
 <template>
   <content-frame :contentBlocks="currentPage.content"></content-frame>
-  <action-menu :ressourceIds="currentPage.ressources"></action-menu>
+  <expandable-button><action-menu :ressourceIds="currentPage.ressources"/></expandable-button>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
-import ActionMenu from '../action-menu.vue';
+import ActionMenu from '../menus/action-menu.vue';
 import ContentFrame from '../content/content-frame.vue';
+import ExpandableButton from '../menus/expandable-button.vue';
 
 @Options({
   name: 'page',
   components: {
     ActionMenu,
     ContentFrame,
+    ExpandableButton,
   },
 })
 export default class PageComponent extends Vue {
