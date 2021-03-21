@@ -59,6 +59,66 @@ export default {
         workSheets: [],
       },
     },
+    {
+      id: '3',
+      chapterId: '1',
+      name: 'Napoleon Bonaparte',
+      content: [
+        {
+          type: ContentBlockType.TEXT_CONTENT_BLOCK,
+          heading: '',
+          text: 'Die nach der Entwertung des Papiergelds eingetretene Wirtschaftsdepression, die vor allem durch einen Preisverfall für bäuerliche Produkte und als Folge davon durch eine anhaltende allgemeine Geschäftsflaute bedingt war, hatte breite Kreise der Bevölkerung mehr und mehr gegen das Direktorium aufgebracht.[99]',
+          glossarEntries: [],
+          tipps: [],
+        },
+      ],
+      ressources: {
+        textSources: [],
+        imageSources: [],
+        audioSources: [],
+        workSheets: [],
+      },
+    },
+    {
+      id: '4',
+      chapterId: '1',
+      name: 'Rezeption und Deutung',
+      content: [
+        {
+          type: ContentBlockType.TEXT_CONTENT_BLOCK,
+          heading: '',
+          text: 'Geschichte und Geschichtsschreibung der Französischen Revolution sind von ihrem Anbeginn bereits unter Zeitgenossen vielschichtig-facettenreich und kontrovers erfasst worden. In Frankreich hatte die „Große Revolution“ zeitüberdauernd auch politisch identitätsstiftende Bedeutung. Sie wirkte auf akademischer Ebene epochen- und schulbildend, führte zu politischen Polemiken und historiographischen Grabenkriegen.',
+          glossarEntries: [],
+          tipps: [],
+        },
+      ],
+      ressources: {
+        textSources: [],
+        imageSources: [],
+        audioSources: [],
+        workSheets: [],
+      },
+    },
+    {
+      id: '5',
+      chapterId: '1',
+      name: 'Siehe auch',
+      content: [
+        {
+          type: ContentBlockType.TEXT_CONTENT_BLOCK,
+          heading: '',
+          text: 'Dem liberalen Ansatz zuzurechnen sind laut Pelzer unter anderen Adolphe Thiers und François-Auguste Mignet; als national-romantisch eingeordnet wird Jules Michelet, strukturanalytisch Alexis de Tocqueville, kulturkritisch Hippolyte Taine, politisch-religiös Alphonse Aulard, internationalistisch Albert Sorel, sozialistisch Louis Blanc Albert Mathiez und Georges Lefèbvre, revisionistisch François Furet und Denis Richet.[103]',
+          glossarEntries: [],
+          tipps: [],
+        },
+      ],
+      ressources: {
+        textSources: [],
+        imageSources: [],
+        audioSources: [],
+        workSheets: [],
+      },
+    },
   ],
 };
 
