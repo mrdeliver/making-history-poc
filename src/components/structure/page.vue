@@ -57,7 +57,7 @@ a {
 
 .positionFixed {
   position: fixed;
-  bottom: 20px;
   right: 20px;
+  bottom: 20px;
 }
 </style>

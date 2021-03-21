@@ -48,12 +48,23 @@ export default class ExpandabelButton extends Vue {
   }
 
   expandContent(): void {
+    this.expandDirectionClass = this.getExpandDirectionClass();
     this.expand = !this.expand;
   }
 
   getExpandDirectionClass(): string {
     const buttonPosition = this.$refs.button.getBoundingClientRect();
-    return 'expandLeftTop';
+
+    if (buttonPosition.x > (this.iPadWidth / 2)) {
+      if (buttonPosition.y > (this.iPadHeight / 2)) {
+        return 'expandLeftTop';
+      }
+      return 'expandLeftDown';
+    }
+    if (buttonPosition.y > (this.iPadHeight / 2)) {
+      return 'expandRightTop';
+    }
+    return 'expandRightDown';
   }
 }
 </script>
