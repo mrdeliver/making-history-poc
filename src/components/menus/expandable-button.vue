@@ -1,6 +1,12 @@
 <template>
-    <div v-on:click="expandContent" :class="[buttonFlavour, defaultStyle]">X</div>
-    <slot v-if="expand"></slot>
+  <div>
+    <div v-on:click="expandContent" :class="[buttonFlavour, defaultStyle]" ref="button">
+      <fa :icon="iconToDisplay" class="icon"></fa>
+    </div>
+    <div v-if="expand" class="positionAbsolute" :class="expandDirectionClass">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -18,8 +24,36 @@ export default class ExpandabelButton extends Vue {
 
   private defaultStyle = 'defaultStyle'
 
+  @Prop({ type: String })
+  private buttonOpenIcon = 'circle';
+
+  private closeIcon = 'times';
+
+  $refs!:{
+    button: HTMLElement
+  }
+
+  private iPadHeight = window.innerHeight;
+
+  private iPadWidth = 834;
+
+  private expandDirectionClass = ''
+
+  mounted(): void {
+    this.expandDirectionClass = this.getExpandDirectionClass();
+  }
+
+  get iconToDisplay(): string {
+    return this.expand ? this.closeIcon : this.buttonOpenIcon;
+  }
+
   expandContent(): void {
     this.expand = !this.expand;
+  }
+
+  getExpandDirectionClass(): string {
+    const buttonPosition = this.$refs.button.getBoundingClientRect();
+    return 'expandLeftTop';
   }
 }
 </script>
@@ -29,15 +63,54 @@ export default class ExpandabelButton extends Vue {
 
 @import "../../colors";
 
+$button_diameter: 30px;
+$button_diameter_negative: -30px;
+
 .defaultStyle {
-  height: 30px;
-  width: 30px;
-  display:block;
+  height: $button_diameter;
+  width: $button_diameter;
+  display: block;
   border-radius: 50%;
+  position: relative;
 }
 
 .defaultFlavour {
   background-color: $color_grey_5;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: block;
+  width: 80%;
+  height: 80%;
+  color: $color_grey_0;
+  margin: auto;
+}
+
+.positionAbsolute {
+  position: absolute;
+}
+
+.expandRightTop {
+  top: -40px;
+  right: 40px;
+}
+
+.expandRightDown {
+
+}
+
+.expandLeftTop {
+  position: absolut;
+  top: $button_diameter_negative;
+  right: $button_diameter;
+}
+
+.expandLeftDown {
+
 }
 
 </style>
