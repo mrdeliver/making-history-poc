@@ -9,7 +9,9 @@
       </div>
     </div>
     <div class='row'>
-        <content-frame :contentBlocks="content" name="alskdj"></content-frame>
+      <text-block v-for="(tb, idx) in content" :key="idx"
+      :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
+      </text-block>
     </div>
   </div>
 </template>
@@ -20,11 +22,11 @@ import { Prop } from 'vue-property-decorator';
 import {
   RessourceType, TextContentBlock, Annotation,
 } from '../../../store/data/data-types';
-import ContentFrame from '../content-frame.vue';
+import TextBlock from '../text-block.vue';
 
 @Options({
   components: {
-    ContentFrame,
+    TextBlock,
   },
 })
 export default class InlineImageRessource extends Vue {
