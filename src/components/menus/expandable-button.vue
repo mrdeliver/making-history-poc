@@ -95,12 +95,15 @@ $button_diameter_negative: -30px;
 }
 
 .expandRightTop {
-  top: -40px;
-  right: 40px;
+  position: absolute;
+  top: $button_diameter_negative;
+  left: $button_diameter;
 }
 
 .expandRightDown {
-
+  position: absolute;
+  top: $button_diameter;
+  left: $button_diameter;
 }
 
 .expandLeftTop {
@@ -110,7 +113,9 @@ $button_diameter_negative: -30px;
 }
 
 .expandLeftDown {
-
+  position: absolute;
+  top: $button_diameter;
+  right: $button_diameter;
 }
 
 </style>
