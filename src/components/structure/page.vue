@@ -1,6 +1,8 @@
 <template>
   <content-frame :contentBlocks="currentPage.content"></content-frame>
-  <expandable-button><action-menu :ressourceIds="currentPage.ressources"/></expandable-button>
+  <expandable-button class="positionFixed">
+    <action-menu :ressourceIds="currentPage.ressources"/>
+  </expandable-button>
 </template>
 
 <script lang="ts">
@@ -51,5 +53,11 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.positionFixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 </style>
