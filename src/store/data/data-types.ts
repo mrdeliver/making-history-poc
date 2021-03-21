@@ -23,7 +23,7 @@ export interface TextContentBlock extends ContentBlock {
   tipps: Tip[]
 }
 
-export enum SourceType {
+export enum RessourceType {
   IMAGE_SOURCE=1,
   TEXT_SOURCE,
   AUDIO_SOURCE,
@@ -31,7 +31,7 @@ export enum SourceType {
 }
 
 export interface SourceContentBlock extends ContentBlock {
-  sourceType: SourceType,
+  resourceType: RessourceType,
   sourceId: string,
 }
 
@@ -40,4 +40,29 @@ export interface Ressources {
   imageSources: string[],
   audioSources: string[],
   workSheets: string[]
+}
+
+export interface Annotation {
+  tip: Tip,
+  x: number,
+  y: number
+}
+
+export interface Ressource {
+  id: string
+  typ: RessourceType,
+  author: string,
+  caption: string,
+  content: TextContentBlock[]
+}
+
+export type TextRessource = Ressource
+
+export interface AudioRessource extends Ressource {
+  url: string,
+}
+
+export enum PageType {
+  CHAPTER='chapter',
+  SUB_CHAPTER='subchapter'
 }

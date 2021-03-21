@@ -11,7 +11,7 @@ export default {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
           heading: 'Definition',
           text: 'Die Terrorherrschaft, die Schreckensherrschaft oder der Schrecken (französisch La Terreur, „Der Schrecken“) war eine Periode der Französischen Revolution von Anfang Juni 1793 bis Ende Juli 1794, die durch die brutale Unterdrückung aller Personen gekennzeichnet war, die verdächtigt wurden, Gegner der Revolution zu sein. Die Terrorherrschaft wurde vom Wohlfahrtsausschuss, einem Komitee von zwölf Männern, geleitet. Zuerst wurde es von Georges Danton und dann zunehmend von Maximilien de Robespierre angeführt.',
-          glossarEntries: ['1'],
+          glossarEntries: ['1', '2'],
           tipps: [
             {
               heading: 'Frankreich',
@@ -27,14 +27,14 @@ export default {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
           heading: 'Wie alles begann...',
           text: 'Die Terrorherrschaft begann mit dem Aufstand der Pariser Sansculotten gegen den Konvent vom 31. Mai bis 2. Juni 1793 und der Annahme der Verfassung vom 24. Juni 1793, die allerdings nie in Kraft trat. Ihren Höhepunkt erreichte sie im Juni und Juli 1794; diese Zeit wird auch als Der Große Terror (frz. la Grande Terreur) bezeichnet. Sie fand ein Ende mit der Verhaftung und Hinrichtung Robespierres und der Machtübernahme der Thermidorianer am 9. Thermidor II (27. Juli 1794).',
-          glossarEntries: [2],
+          glossarEntries: ['1', '2'],
           tipps: [],
         },
         {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
           heading: 'Opferzahlen',
           text: 'Je nach Schätzung wurden 25.000 bis 40.000 Menschen Opfer des Terrors. Dabei sind die hohen Opferzahlen etwa bei der Niederschlagung des Aufstands in der Vendée nicht vollständig mitgezählt.',
-          glossarEntries: [],
+          glossarEntries: ['1', '2'],
           tipps: [
             {
               heading: 'Terror',
@@ -44,8 +44,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: [],
-        imageSources: [],
+        textSources: ['1'],
+        imageSources: ['1'],
         audioSources: [],
         workSheets: [],
       },

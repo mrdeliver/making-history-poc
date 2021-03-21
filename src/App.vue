@@ -24,22 +24,18 @@ html {
   font-weight: $font_weight_text;
   line-height: $line_height_text;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #iPadFrame {
   max-width: 834px;
-  height: 100%;
+  min-height: 100%;
   margin: 0 auto;
   color: $color_grey_10;
   font-size: $font_size_text;
 
   #app-navigation {
-    height: 2%;
-  }
-
-  #app-content {
-    height: 98%;
+    height: 20px;
   }
 }
 </style>

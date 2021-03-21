@@ -31,7 +31,6 @@ export default class PageSlider extends Vue {
   created(): void {
     this.allPages = PageStore.allPages;
     this.pageSliderLinks = this.mapPageToSliderLink(this.allPages);
-    console.log(this.pageSliderLinks);
   }
 
   mapPageToSliderLink(pages: Page[]): SliderLink[] {
