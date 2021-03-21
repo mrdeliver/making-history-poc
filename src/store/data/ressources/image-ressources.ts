@@ -8,7 +8,7 @@ export default {
       id: '1',
       typ: RessourceType.IMAGE_SOURCE,
       author: 'James Gillray  (1756–1815)',
-      url: 'https://de.wikipedia.org/wiki/Datei:James_Gillray_Pinnacle_of_Liberty.jpeg',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/James_Gillray_Pinnacle_of_Liberty.jpeg',
       caption: 'Schönes Bild von James Gillray (1756-1815), als er damals abgemalt wurde.',
       annotations: [],
       content: [
