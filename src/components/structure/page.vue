@@ -1,6 +1,5 @@
 <template>
-  <div>{{currentPage.content}}</div>
-  <div>{{currentPage.type}}</div>
+  <content-frame :contentBlocks="currentPage.content"></content-frame>
   <action-menu :ressourceIds="currentPage.ressources"></action-menu>
 </template>
 
@@ -9,11 +8,13 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
 import ActionMenu from '../action-menu.vue';
+import ContentFrame from '../content/content-frame.vue';
 
 @Options({
   name: 'page',
   components: {
     ActionMenu,
+    ContentFrame,
   },
 })
 export default class PageComponent extends Vue {
@@ -25,10 +26,6 @@ export default class PageComponent extends Vue {
   @Watch('pageId')
   onpageIdChange(value: string): void {
     this.currentPage = PageStore.singlePage(value);
-  }
-
-  get sourceLink(): string {
-    return `/page/${this.pageId}/source/1`;
   }
 
   mounted(): void {
