@@ -15,11 +15,6 @@ import { Prop } from 'vue-property-decorator';
 export default class TippArea extends Vue {
   @Prop({})
   private tipps: Tip[] = []
-
-  mounted(): void {
-    console.log('this is a tip');
-    console.log(`tipp area: ${this.tipps}`);
-  }
 }
 </script>
 

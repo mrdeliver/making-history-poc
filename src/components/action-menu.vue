@@ -57,7 +57,6 @@ export default class ActionMenu extends Vue {
   onRessourceIdsChanges() {
     this.imageRessources = RessourceStore.imageRessourcesWithIds(this.ressourceIds.imageSources);
     this.textRessources = RessourceStore.textRessourcesWithIds(this.ressourceIds.textSources);
-    console.log(this.imageRessources);
   }
 
   expandActionsMenu() {
