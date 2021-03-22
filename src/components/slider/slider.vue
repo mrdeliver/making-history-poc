@@ -1,5 +1,8 @@
 <template>
+
   <div class="slider-container">
+    <div class="overlay-R"></div>
+    <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
       <div :class="[sliderFlavour]" class="carousel-cell"
       @click="setFlickitySlide(index, link.primaryLink.link )"
@@ -55,6 +58,31 @@ export default class Slider extends Vue {
 <style lang="scss" >
 
 @import "src/colors";
+
+.slider-container{
+  position: relative;
+}
+.overlay-L {
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image:linear-gradient(to right,white , rgba(0,0,0,0));
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+.overlay-R {
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-image:linear-gradient(to left,white , rgba(0,0,0,0) );
+    overflow-x: hidden;
+}
 
 .flickity-viewport{
   height: 120px !important;
