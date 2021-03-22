@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: 'page/:pageId/source/:sourceId/',
+        path: 'page/:pageId/source/:type/:ressourceId',
         name: 'Source',
         props: true,
         components: {
