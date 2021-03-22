@@ -2,13 +2,18 @@
     <div class="menu">
       <button class="sources-button"
       v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
+        <fa :icon="pictureIcon" class="icon sources-icon"></fa>
         Bildquellen</button>
       <button class="sources-button"
       v-on:click="expandTextRessources=!expandTextRessources; expandImageRessources = false">
+        <fa :icon="textIcon" class="icon sources-icon"></fa>
         Textquellen</button>
-      <button class="sources-button">Audioquellen</button>
-      <button class="teacher-button">Lehrerband</button>
-      <button class="worksheet-button">Arbeitsblätter</button>
+      <button class="sources-button">
+        <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
+      <button class="teacher-button">
+        <fa :icon="penIcon" class="icon teacher-icon"></fa>Lehrerband</button>
+      <button class="worksheet-button">
+        <fa :icon="bookIcon" class="icon worksheet-icon"></fa>Arbeitsblätter</button>
     </div>
     <div v-if="expandImageRessources">
       <router-link v-for="ir in imageRessources" :key="ir.id"
@@ -55,6 +60,16 @@ export default class ActionMenu extends Vue {
     this.imageRessources = RessourceStore.imageRessourcesWithIds(this.ressourceIds.imageSources);
     this.textRessources = RessourceStore.textRessourcesWithIds(this.ressourceIds.textSources);
   }
+
+  private pictureIcon = 'images';
+
+  private textIcon = 'file';
+
+  private penIcon = 'pen';
+
+  private volumeIcon = 'music';
+
+  private bookIcon = 'book';
 }
 </script>
 
@@ -62,29 +77,57 @@ export default class ActionMenu extends Vue {
 <style scoped lang="scss">
 @import "src/colors";
 @import "src/text";
+
+.icon {
+  width: 20px;
+  height: 100%;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .menu {
-  min-width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 650px;
 }
 
 button{
+  display: flex;
+  flex: 1 0 30%; /* explanation below */
+  justify-content: left;
   border-color: transparent;
-  border-radius: 15px;
+  border-radius: 20px;
   margin: 5px;
   box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
-  width: calc(400px/3);
-  height: 30px;
+  width: calc(475px/3);
+  height: 35px;
   @include regular-text()
 }
 
 .sources-button{
-  background-color: $color_yellow_2
+  background-color: $color_yellow_2;
+  color: $color_yellow_9
+}
+
+.sources-icon{
+    color: $color_yellow_4;
 }
 
 .worksheet-button{
-  background-color: $color_blue_2
+  background-color: $color_blue_2;
+  color: $color_blue_9
+}
+
+.worksheet-icon{
+   color: $color_blue_3
 }
 
 .teacher-button{
-  background-color: $color_red_2
+  background-color: $color_red_2;
+  color: $color_red_9
+}
+
+.teacher-icon{
+  color: $color_red_3
 }
 </style>
