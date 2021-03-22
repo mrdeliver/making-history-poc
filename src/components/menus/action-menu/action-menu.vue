@@ -1,14 +1,14 @@
 <template>
     <div class="menu">
-      <button
+      <button class="sources-button"
       v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
         Bildquellen</button>
-      <button
+      <button class="sources-button"
       v-on:click="expandTextRessources=!expandTextRessources; expandImageRessources = false">
         Textquellen</button>
-      <button>Audioquellen</button>
-      <button>Lehrerband</button>
-      <button>Arbeitsblätter</button>
+      <button class="sources-button">Audioquellen</button>
+      <button class="teacher-button">Lehrerband</button>
+      <button class="worksheet-button">Arbeitsblätter</button>
     </div>
     <div v-if="expandImageRessources">
       <router-link v-for="ir in imageRessources" :key="ir.id"
@@ -60,7 +60,31 @@ export default class ActionMenu extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "src/colors";
+@import "src/text";
 .menu {
   min-width: 500px;
+}
+
+button{
+  border-color: transparent;
+  border-radius: 15px;
+  margin: 5px;
+  box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
+  width: calc(400px/3);
+  height: 30px;
+  @include regular-text()
+}
+
+.sources-button{
+  background-color: $color_yellow_2
+}
+
+.worksheet-button{
+  background-color: $color_blue_2
+}
+
+.teacher-button{
+  background-color: $color_red_2
 }
 </style>
