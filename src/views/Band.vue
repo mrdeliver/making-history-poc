@@ -48,8 +48,34 @@ export default class Band extends Vue {
 
 @import "../colors";
 
+$slider_height: 115px;
+
 #content-slider {
-  height: 120px;
+  height: $slider_height;
+}
+
+#content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  &::-webkit-scrollbar
+  {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    background-color: $color_grey_1;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  box-sizing: content-box;
+  max-height: calc(100% - 125px);
 }
 
 .glossarButton {

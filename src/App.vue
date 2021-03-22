@@ -15,7 +15,12 @@
 @import "text";
 
 html {
-  height: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  height: inherit;
 }
 
 #app {
@@ -24,18 +29,22 @@ html {
   font-weight: $font_weight_text;
   line-height: $line_height_text;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  height: inherit;
 }
 
 #iPadFrame {
   max-width: 834px;
-  min-height: 100%;
   margin: 0 auto;
   color: $color_grey_10;
   font-size: $font_size_text;
+  height: inherit;
 
   #app-navigation {
-    height: 20px;
+    max-height: 3vh;
+  }
+
+  #app-content {
+    height: 97vh;
   }
 }
 </style>
