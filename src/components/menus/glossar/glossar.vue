@@ -40,7 +40,9 @@ export default class Glossar extends Vue {
   }
 
   mounted(): void {
-    this.glossarEntries = GlossarStore.allGlossarEntries;
+    this.glossarEntries = GlossarStore.allGlossarEntries.sort(
+      (a, b) => (a.heading < b.heading ? -1 : 1),
+    );
   }
 }
 </script>
@@ -57,7 +59,7 @@ export default class Glossar extends Vue {
   input {
     width: 100%;
     background-color: $color_orange_1;
-    border: transparent;
+    border: 3px transparent;
     border-radius: 15px;
     height: 20px;
     padding-left: 10px;
