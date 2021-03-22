@@ -1,36 +1,45 @@
 <template>
     <div class="menu">
-      <button class="sources-button"
-      v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
-        <fa :icon="pictureIcon" class="icon sources-icon"></fa>
-        Bildquellen</button>
-      <button class="sources-button"
-      v-on:click="expandTextRessources=!expandTextRessources; expandImageRessources = false">
-        <fa :icon="textIcon" class="icon sources-icon"></fa>
-        Textquellen</button>
-      <button class="sources-button">
-        <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
-      <button class="teacher-button">
-        <fa :icon="penIcon" class="icon teacher-icon"></fa>Lehrerband</button>
-      <button class="worksheet-button">
-        <fa :icon="bookIcon" class="icon worksheet-icon"></fa>Arbeitsblätter</button>
-    </div>
-    <div v-if="expandImageRessources" class="expandDirection">
-      <box-content-frame frameFlavour="actionMenuFrame">
-        <router-link v-for="ir in imageRessources" :key="ir.id"
-        :to="route.fullPath + '/source/' + ir.id">
-        {{ir.content[0].heading}} | <br>
-        </router-link>
-      </box-content-frame>
-    </div>
-    <div v-if="expandTextRessources" class="expandDirection">
-       <box-content-frame frameFlavour="actionMenuFrame">
-          <router-link v-for="ir in textRessources" :key="ir.id"
-          :to="route.fullPath + '/source/' + ir.id">
-          {{ir.content[0].heading}}  |
+      <div class="menu-item">
+        <box-content-frame v-if="expandImageRessources" frameFlavour="ressourcePreview">
+          <router-link v-for="ir in imageRessources" :key="ir.id"
+          :to="buildPathToRource(ir)">
+          {{ir.heading}} | <br>
           </router-link>
         </box-content-frame>
+        <button class="sources-button"
+        v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
+          <fa :icon="pictureIcon" class="icon sources-icon"></fa>
+          Bildquellen
+        </button>
+      </div>
+      <div class="menu-item">
+        <box-content-frame v-if="expandTextRessources" frameFlavour="ressourcePreview">
+          <router-link v-for="tr in textRessources" :key="tr.id"
+          :to="buildPathToRource(tr)">
+          {{tr.heading}}  |
+          </router-link>
+        </box-content-frame>
+        <button class="sources-button"
+        v-on:click="expandTextRessources=!expandTextRessources; expandImageRessources = false">
+          <fa :icon="textIcon" class="icon sources-icon"></fa>
+          Textquellen
+        </button>
+      </div>
+      <div class="menu-item">
+        <button class="sources-button">
+        <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
+      </div>
+      <div class="menu-item">
+        <button class="teacher-button">
+        <fa :icon="penIcon" class="icon teacher-icon"></fa>Lehrerband</button>
+      </div>
+      <div class="menu-item">
+        <button class="worksheet-button">
+              <fa :icon="bookIcon" class="icon worksheet-icon"></fa>Arbeitsblätter</button>
+      </div>
     </div>
+
 </template>
 
 <script lang="ts">
@@ -39,7 +48,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import { TextRessource } from '../../../store/data/ressources/text-ressources';
-import { Ressources } from '../../../store/data/data-types';
+import { Ressource, Ressources } from '../../../store/data/data-types';
 import RessourceStore from '../../../store/ressource-module';
 import PageStore, { Page } from '../../../store/page-module';
 import BoxContentFrame from '../box-content-frame.vue';
@@ -52,9 +61,24 @@ export default class ActionMenu extends Vue {
   @Prop({ type: String })
   private pageId = '';
 
+  @Prop({ type: String })
+  private bandId = '';
+
   private ressourceIds: Ressources = {} as Ressources;
 
   private currentPage: Page = {} as Page;
+
+  private imageRessources: ImageRessource[] = [];
+
+  private pictureIcon = 'images';
+
+  private textRessources: TextRessource[] = [];
+
+  private textIcon = 'file';
+
+  private expandImageRessources = false;
+
+  private expandTextRessources = false;
 
   @Watch('pageId')
   onpageIdChange(value: string): void {
@@ -64,19 +88,9 @@ export default class ActionMenu extends Vue {
   }
 
   mounted(): void {
-    console.log('mount action menü');
     this.currentPage = PageStore.singlePage(this.pageId);
-    console.log(this.currentPage);
     this.ressourceIds = this.currentPage.ressources;
   }
-
-  private imageRessources: ImageRessource[] = [];
-
-  private textRessources: TextRessource[] = [];
-
-  private expandImageRessources = false;
-
-  private expandTextRessources = false;
 
   private route: RouteLocationNormalizedLoaded = useRoute();
 
@@ -86,15 +100,15 @@ export default class ActionMenu extends Vue {
     this.textRessources = RessourceStore.textRessourcesWithIds(this.ressourceIds.textSources);
   }
 
-  private pictureIcon = 'images';
-
-  private textIcon = 'file';
-
   private penIcon = 'pen';
 
   private volumeIcon = 'music';
 
   private bookIcon = 'book';
+
+  buildPathToRource(res: Ressource): string {
+    return `/band/${this.bandId}/page/${this.pageId}/source/${res.typ}/${res.id}`;
+  }
 }
 </script>
 
@@ -114,18 +128,32 @@ export default class ActionMenu extends Vue {
   display: flex;
   flex-wrap: wrap;
   min-width: 650px;
-}
 
-button{
-  display: flex;
-  flex: 1 0 30%; /* explanation below */
-  justify-content: left;
-  border-color: transparent;
-  border-radius: 20px;
-  margin: 5px;
-  box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
-  height: 35px;
-  @include regular-text()
+  .menu-item {
+    margin: 5px;
+    flex: 1 0 30%;
+    position: relative;
+
+    button{
+      width: 100%;
+      display: flex;
+      outline: none;
+      justify-content: left;
+      border-color: transparent;
+      border-radius: 20px;
+      box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
+      height: 35px;
+      @include regular-text()
+    }
+
+    .ressourcePreview {
+      position: absolute;
+      width: calc(650px/3 - 30px);
+      bottom: 45px;
+      border: 2px solid $color_yellow_4;
+      background-color: $color_yellow_2;
+    }
+  }
 }
 
 .sources-button{
@@ -153,18 +181,6 @@ button{
 
 .teacher-icon{
   color: $color_red_3
-}
-
-.actionMenuFrame {
-  border: 2px solid $color_yellow_4;
-  background-color: $color_yellow_2;
-  width: 200px;
-  height: 200px;
-}
-
-.expandDirection {
-  position: absolute;
-  bottom: 100px;
 }
 
 </style>

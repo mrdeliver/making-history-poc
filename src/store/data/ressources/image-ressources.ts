@@ -5,7 +5,7 @@ import {
 export default {
   result: [
     {
-      id: '1',
+      id: '0',
       typ: RessourceType.IMAGE_SOURCE,
       heading: 'M1',
       author: 'James Gillray  (1756–1815)',
@@ -23,7 +23,7 @@ export default {
       ],
     },
     {
-      id: '2',
+      id: '1',
       heading: 'M2',
       typ: RessourceType.IMAGE_SOURCE,
       author: 'Jean-Jacques Le Barbier',

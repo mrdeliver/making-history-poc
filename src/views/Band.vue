@@ -5,14 +5,14 @@
   <div id="content">
     <router-view id="content-view"></router-view>
   </div>
-  <expandable-button
+  <expandable-button style="z-index: 10"
     class="glossarButton"
     buttonFlavour="glossarButtonColor"
     buttonOpenIcon="search">
     <glossar></glossar>
   </expandable-button>
   <expandable-button class="positionFixed">
-    <action-menu :pageId="pageId"/>
+    <action-menu :pageId="pageId" :bandId="bandId"/>
   </expandable-button>
 </template>
 
@@ -88,7 +88,7 @@ $slider_height: 115px;
 
 .glossarButton {
   position: fixed;
-  top: 100px;
+  top: 150px;
   left: 30px;
 }
 

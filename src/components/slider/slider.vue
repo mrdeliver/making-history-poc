@@ -1,11 +1,10 @@
 <template>
-
   <div class="slider-container">
     <div class="overlay-R"></div>
     <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
       <div :class="[sliderFlavour]" class="carousel-cell"
-      @click="setFlickitySlide(index, link.primaryLink.link )"
+      @click="setRoute(link.primaryLink.link )"
       v-for="(link, index) in allLinks" :key="index" >
         <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
       </div>
@@ -15,7 +14,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Watch } from 'vue-property-decorator';
 import Flickity from 'vue-flickity/src/flickity.vue';
 import { Router, useRouter } from 'vue-router';
 import SliderLink from './slider';
@@ -30,13 +29,29 @@ export default class Slider extends Vue {
   @Prop({ })
   allLinks: SliderLink[] = [];
 
+  @Prop({})
+  currentIndex = '0';
+
+  @Watch('currentIndex')
+  onCurrentIndexChange(): void {
+    this.scrollSliderToCurrentIndex();
+  }
+
+  mounted(): void {
+    this.scrollSliderToCurrentIndex();
+  }
+
+  get getIndexInt(): number {
+    return parseInt(this.currentIndex, 10);
+  }
+
   @Prop({ type: String })
   private sliderFlavour = 'defaultFlavour';
 
   private router: Router = useRouter();
 
   flickityOptions = {
-    initialIndex: 3,
+    initialIndex: this.getIndexInt,
     prevNextButtons: false,
     pageDots: false,
     wrapAround: false,
@@ -46,11 +61,14 @@ export default class Slider extends Vue {
 
   $refs!:{
   flickity: typeof Flickity
-}
+  }
 
-  setFlickitySlide(index:number, link: string):void {
-    this.$refs.flickity.select(index);
+  setRoute(link: string):void {
     this.router.push(link);
+  }
+
+  scrollSliderToCurrentIndex(): void {
+    this.$refs.flickity.select(this.getIndexInt);
   }
 }
 </script>

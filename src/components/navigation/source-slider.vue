@@ -1,12 +1,16 @@
 <template>
   <div class="page-slider-container">
-    <Slider :allLinks="sliderLinks" sliderFlavour="sourcesSlider"></Slider>
+    <Slider
+    :allLinks="sliderLinks"
+    sliderFlavour="sourcesSlider"
+    :currentIndex="ressourceId">
+    </Slider>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, mixins } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Watch } from 'vue-property-decorator';
 
 import { Ressource, Ressources, RessourceType } from '@/store/data/data-types';
 import PageStore, { Page } from '../../store/page-module';

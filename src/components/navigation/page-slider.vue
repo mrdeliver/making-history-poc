@@ -1,6 +1,6 @@
 <template>
   <div class="page-slider-container">
-    <Slider :allLinks="pageSliderLinks"></Slider>
+    <Slider :allLinks="pageSliderLinks" :currentIndex="pageId"></Slider>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ import SliderLink from '../slider/slider';
 })
 export default class PageSlider extends Vue {
   @Prop({ type: String })
-  private pageId = '';
+  pageId = '0';
 
   @Prop({ type: String })
   private bandId= '';
