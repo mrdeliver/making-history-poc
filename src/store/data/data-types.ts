@@ -51,6 +51,7 @@ export interface Annotation {
 export interface Ressource {
   id: string
   typ: RessourceType,
+  heading: string,
   author: string,
   caption: string,
   content: TextContentBlock[]

@@ -51,7 +51,7 @@ export default class SourceSlider extends mixins(SourceSelector) {
     return ressources.map((res):SliderLink => ({
       primaryLink: {
         link: `/band/${this.bandId}/page/${this.pageId}/source/${this.type}/${res.id}`,
-        content: res.caption,
+        content: res.heading,
       },
     }));
   }

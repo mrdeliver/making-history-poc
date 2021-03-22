@@ -7,6 +7,7 @@ export default {
     {
       id: '1',
       typ: RessourceType.IMAGE_SOURCE,
+      heading: 'M1',
       author: 'James Gillray  (1756–1815)',
       url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/James_Gillray_Pinnacle_of_Liberty.jpeg',
       caption: 'Schönes Bild von James Gillray (1756-1815), als er damals abgemalt wurde.',
@@ -23,6 +24,7 @@ export default {
     },
     {
       id: '2',
+      heading: 'M2',
       typ: RessourceType.IMAGE_SOURCE,
       author: 'Jean-Jacques Le Barbier',
       url: 'https://de.wikipedia.org/wiki/Franz%C3%B6sische_Revolution#/media/Datei:Declaration_of_the_Rights_of_Man_and_of_the_Citizen_in_1789.jpg',

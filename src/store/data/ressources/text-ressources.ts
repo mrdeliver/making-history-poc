@@ -4,6 +4,7 @@ export default {
   result: [
     {
       id: '1',
+      heading: 'T1',
       typ: RessourceType.TEXT_SOURCE,
       author: 'Emmanuel Sieyès',
       caption: 'Auszüge zitiert nach: W. Grab (Hg.), Die Französische Revolution. Eine Dokumentation, München 1973, S. 24 ff.',
