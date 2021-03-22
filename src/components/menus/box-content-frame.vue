@@ -1,8 +1,6 @@
 <template>
     <div class="frame" :class="frameFlavour">
-      <div class="scrollable">
         <slot></slot>
-      </div>
     </div>
 </template>
 
@@ -46,10 +44,6 @@ export default class BoxContentFrame extends Vue {
     margin-bottom: 10px;
     margin-top: 10px;
   }
-}
-
-.scrollable {
-
 }
 
 .defaultFrameFlavour {

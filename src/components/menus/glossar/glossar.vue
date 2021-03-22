@@ -61,12 +61,13 @@ export default class Glossar extends Vue {
     background-color: $color_orange_1;
     border: 3px transparent;
     border-radius: 15px;
-    height: 20px;
+    height: 25px;
     padding-left: 10px;
     box-sizing: content-box;
     //background-image: url('');
     background-repeat: no-repeat;
     background-position: left center;
+    box-sizing: border-box;
 
     &:focus {
       border: 2px solid $color_orange_3;
