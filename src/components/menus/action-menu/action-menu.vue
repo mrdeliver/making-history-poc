@@ -9,7 +9,7 @@
             <div class="previewContentPreview">{{ir.caption}} </div>
           </div>
         </box-content-frame>
-        <button class="sources-button"
+        <button class="sources-button" :class="{'source-button-active': expandImageRessources}"
         v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
           <fa :icon="pictureIcon" class="icon sources-icon"></fa>
           Bildquellen
@@ -22,7 +22,7 @@
           {{tr.heading}}  |
           </router-link>
         </box-content-frame>
-        <button class="sources-button"
+        <button class="sources-button" :class="{'source-button-active': expandTextRessources}"
         v-on:click="expandTextRessources=!expandTextRessources; expandImageRessources = false">
           <fa :icon="textIcon" class="icon sources-icon"></fa>
           Textquellen
@@ -123,13 +123,6 @@ export default class ActionMenu extends Vue {
 @import "src/colors";
 @import "src/text";
 
-.icon {
-  width: 20px;
-  height: 100%;
-  margin-right: 5px;
-  margin-left: 5px;
-}
-
 .menu {
   display: flex;
   flex-wrap: wrap;
@@ -144,12 +137,19 @@ export default class ActionMenu extends Vue {
       width: 100%;
       display: flex;
       outline: none;
+      align-items: center;
       justify-content: left;
-      border-color: transparent;
       border-radius: 20px;
       box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
       height: 35px;
-      @include regular-text()
+      @include regular-text();
+
+      .icon {
+        width: 20px;
+        height: 80%;
+        margin-right: 5px;
+        margin-left: 5px;
+      }
     }
 
     .ressourcePreview {
@@ -183,7 +183,12 @@ export default class ActionMenu extends Vue {
 
 .sources-button{
   background-color: $color_yellow_2;
-  color: $color_yellow_9
+  color: $color_yellow_9;
+  border: 2px solid transparent;
+
+  &.source-button-active{
+    border: 2px solid $color_yellow;
+  }
 }
 
 .sources-icon{
@@ -192,20 +197,30 @@ export default class ActionMenu extends Vue {
 
 .worksheet-button{
   background-color: $color_blue_2;
-  color: $color_blue_9
-}
+  color: $color_blue_9;
+  border: 2px solid transparent;
 
-.worksheet-icon{
+  &.worksheet-button-active{
+    border: 2px solid $color_blue;
+  }
+
+  .worksheet-icon{
    color: $color_blue_3
+}
 }
 
 .teacher-button{
   background-color: $color_red_2;
-  color: $color_red_9
-}
+  color: $color_red_9;
+  border: 2px solid transparent;
 
-.teacher-icon{
+  &teacher-button-active{
+    border: 2px solid $color_red;
+  }
+
+  .teacher-icon{
   color: $color_red_3
+}
 }
 
 </style>
