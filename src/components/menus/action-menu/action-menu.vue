@@ -37,13 +37,32 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import { TextRessource } from '../../../store/data/ressources/text-ressources';
 import { Ressources } from '../../../store/data/data-types';
 import RessourceStore from '../../../store/ressource-module';
+import PageStore, { Page } from '../../../store/page-module';
 
 @Options({
   name: 'ActionMenu',
 })
 export default class ActionMenu extends Vue {
-  @Prop()
+  @Prop({ type: String })
+  private pageId = '';
+
   private ressourceIds: Ressources = {} as Ressources;
+
+  private currentPage: Page = {} as Page;
+
+  @Watch('pageId')
+  onpageIdChange(value: string): void {
+    this.currentPage = PageStore.singlePage(value);
+    console.log('Got Page');
+    this.ressourceIds = this.currentPage.ressources;
+  }
+
+  mounted(): void {
+    console.log('mount action menü');
+    this.currentPage = PageStore.singlePage(this.pageId);
+    console.log(this.currentPage);
+    this.ressourceIds = this.currentPage.ressources;
+  }
 
   private imageRessources: ImageRessource[] = [];
 

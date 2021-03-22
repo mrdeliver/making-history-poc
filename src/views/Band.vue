@@ -11,22 +11,27 @@
     buttonOpenIcon="search">
     <glossar></glossar>
   </expandable-button>
+  <expandable-button class="positionFixed">
+    <action-menu :pageId="pageId"/>
+  </expandable-button>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Watch } from 'vue-property-decorator';
 import { Router, useRouter } from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
 import GlossarStore from '../store/glossar-module';
 import Glossar from '../components/menus/glossar/glossar.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
+import ActionMenu from '../components/menus/action-menu/action-menu.vue';
 
 @Options({
   components: {
     Glossar,
     ExpandableButton,
+    ActionMenu,
   },
 })
 export default class Band extends Vue {
@@ -35,11 +40,14 @@ export default class Band extends Vue {
   @Prop({ type: String })
   private bandId = '';
 
+  @Prop({ type: String })
+  private pageId = '1';
+
   created(): void {
     PageStore.buildPages(this.bandId);
     RessourceStore.buildRessources();
     GlossarStore.buildGlossarEntries();
-    this.router.push({ name: 'Page', params: { pageId: '1', bandId: this.bandId } });
+    this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
   }
 }
 </script>
@@ -86,5 +94,11 @@ $slider_height: 115px;
 
 .glossarButtonColor {
   background-color: $color_orange;
+}
+
+.positionFixed {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
 }
 </style>
