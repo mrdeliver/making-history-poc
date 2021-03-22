@@ -24,10 +24,10 @@ export interface TextContentBlock extends ContentBlock {
 }
 
 export enum RessourceType {
-  IMAGE_SOURCE=1,
-  TEXT_SOURCE,
-  AUDIO_SOURCE,
-  MOVIE_SOURCE
+  IMAGE_SOURCE='image-ressource',
+  TEXT_SOURCE='text-ressource',
+  AUDIO_SOURCE='audio-ressource',
+  MOVIE_SOURCE='movie-ressource'
 }
 
 export interface SourceContentBlock extends ContentBlock {
