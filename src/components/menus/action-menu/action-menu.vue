@@ -15,17 +15,21 @@
       <button class="worksheet-button">
         <fa :icon="bookIcon" class="icon worksheet-icon"></fa>Arbeitsblätter</button>
     </div>
-    <div v-if="expandImageRessources">
-      <router-link v-for="ir in imageRessources" :key="ir.id"
-      :to="route.fullPath + '/source/' + ir.id">
-      {{ir.content[0].heading}} |
-      </router-link>
+    <div v-if="expandImageRessources" class="expandDirection">
+      <box-content-frame frameFlavour="actionMenuFrame">
+        <router-link v-for="ir in imageRessources" :key="ir.id"
+        :to="route.fullPath + '/source/' + ir.id">
+        {{ir.content[0].heading}} | <br>
+        </router-link>
+      </box-content-frame>
     </div>
-    <div v-if="expandTextRessources">
-      <router-link v-for="ir in textRessources" :key="ir.id"
-      :to="route.fullPath + '/source/' + ir.id">
-      {{ir.content[0].heading}}  |
-      </router-link>
+    <div v-if="expandTextRessources" class="expandDirection">
+       <box-content-frame frameFlavour="actionMenuFrame">
+          <router-link v-for="ir in textRessources" :key="ir.id"
+          :to="route.fullPath + '/source/' + ir.id">
+          {{ir.content[0].heading}}  |
+          </router-link>
+        </box-content-frame>
     </div>
 </template>
 
@@ -38,9 +42,11 @@ import { TextRessource } from '../../../store/data/ressources/text-ressources';
 import { Ressources } from '../../../store/data/data-types';
 import RessourceStore from '../../../store/ressource-module';
 import PageStore, { Page } from '../../../store/page-module';
+import BoxContentFrame from '../box-content-frame.vue';
 
 @Options({
   name: 'ActionMenu',
+  components: { BoxContentFrame },
 })
 export default class ActionMenu extends Vue {
   @Prop({ type: String })
@@ -118,7 +124,6 @@ button{
   border-radius: 20px;
   margin: 5px;
   box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
-  width: calc(475px/3);
   height: 35px;
   @include regular-text()
 }
@@ -149,4 +154,17 @@ button{
 .teacher-icon{
   color: $color_red_3
 }
+
+.actionMenuFrame {
+  border: 2px solid $color_yellow_4;
+  background-color: $color_yellow_2;
+  width: 200px;
+  height: 200px;
+}
+
+.expandDirection {
+  position: absolute;
+  bottom: 100px;
+}
+
 </style>
