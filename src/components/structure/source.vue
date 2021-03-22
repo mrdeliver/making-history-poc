@@ -1,31 +1,30 @@
 <template>
-  <div>PageId: {{pageId}}</div>
-  <div>Sourceid: {{sourceId}} </div>
-  <router-link :to="backLink">BACK</router-link>
+  <content-frame :contentBlocks="currentRessource.content"></content-frame>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
-
-Vue.registerHooks([
-  'beforeRouteEnter',
-]);
+import { Ressource, RessourceType } from '@/store/data/data-types';
+import { Options, mixins } from 'vue-class-component';
+import { Prop, Watch } from 'vue-property-decorator';
+import SourceSelector from './source-selector.vue';
 
 @Options({})
-export default class Source extends Vue {
-  private route: RouteLocationNormalizedLoaded = useRoute();
-
+export default class Source extends mixins(SourceSelector) {
   @Prop({ type: String })
-  private sourceId = ''
+  private ressourceId = '';
 
-  @Prop({ type: String })
-  private pageId = ''
+  @Prop({ })
+  private type: RessourceType = RessourceType.TEXT_SOURCE
 
-  get backLink(): string {
-    const pageMatch = /page\/\d/;
-    return `/${this.route.fullPath.match(pageMatch)}`;
+  private currentRessource: Ressource = {} as Ressource;
+
+  @Watch('ressourceId')
+  onSourceIdChange(value: string): void {
+    this.currentRessource = this.getCurrentRessource(value, this.type);
+  }
+
+  mounted(): void {
+    this.currentRessource = this.getCurrentRessource(this.ressourceId, this.type);
   }
 }
 </script>
