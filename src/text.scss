@@ -23,7 +23,7 @@ $font_size_heading_1: 26px;
 @mixin slider-heading {
   font-family: $font_family_heading_1;
   font-weight: $font_weight_heading_1;
-  font-size: $font_size_heading1;
+  font-size: $font_size_heading_1;
 }
 
 @mixin regular-text {

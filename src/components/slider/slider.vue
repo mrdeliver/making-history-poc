@@ -55,6 +55,7 @@ export default class Slider extends Vue {
 <style lang="scss" >
 
 @import "src/colors";
+@import "src/text";
 
 .flickity-viewport{
   height: 120px !important;
@@ -94,10 +95,13 @@ export default class Slider extends Vue {
 .defaultFlavour {
   background-color: $color_grey_0;
   a {
+    @include slider-heading;
+    font-size: $font_size_text;
     color: $color_grey_6;
   }
   &.is-selected {
     a {
+      @include slider-heading;
       color:$color_grey_10;
     }
     background-color: $color_grey_0;
