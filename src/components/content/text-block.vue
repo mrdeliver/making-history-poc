@@ -13,7 +13,7 @@
 import { Tip } from '@/store/data/data-types';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import TippArea from './tipp-area.vue';
+import TippArea from '../menus/tipps/tipp-area.vue';
 import GlossarText from './glossar-text.vue';
 
 @Options({

@@ -58,8 +58,4 @@ export default class GlossarEntryContainer extends Vue {
   border: 2px solid $color-orange-3;
 }
 
-.headingExpanded {
-
-}
-
 </style>

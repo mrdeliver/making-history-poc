@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-on:click="expandContent" :class="[buttonFlavour, defaultStyle]" ref="button">
+    <div v-on:click="expandContent" :class="buttonFlavour" class="defaultStyle" ref="button">
       <fa :icon="iconToDisplay" class="icon"></fa>
     </div>
     <div v-if="expand" class="positionAbsolute" :class="expandDirectionClass">
@@ -21,8 +21,6 @@ export default class ExpandableButton extends Vue {
 
   @Prop({ type: String })
   private buttonFlavour = 'defaultFlavour';
-
-  private defaultStyle = 'defaultStyle'
 
   @Prop({ type: String })
   private buttonOpenIcon = 'circle';
@@ -75,7 +73,6 @@ export default class ExpandableButton extends Vue {
 @import "../../colors";
 
 $button_diameter: 30px;
-$button_diameter_negative: -30px;
 
 .defaultStyle {
   height: $button_diameter;
@@ -107,7 +104,7 @@ $button_diameter_negative: -30px;
 
 .expandRightTop {
   position: absolute;
-  top: $button_diameter_negative;
+  bottom: $button_diameter;
   left: $button_diameter;
 }
 
@@ -119,7 +116,7 @@ $button_diameter_negative: -30px;
 
 .expandLeftTop {
   position: absolut;
-  top: $button_diameter_negative;
+  bottom: $button_diameter;
   right: $button_diameter;
 }
 

@@ -1,5 +1,4 @@
 <template>
-HALLO CONTENT FRAME
   <component
     v-for="(contentBlock, idx) in contentBlocks"
     :is="getComponentType(contentBlock)"
@@ -11,7 +10,7 @@ HALLO CONTENT FRAME
 <script lang="ts">
 import { ContentBlock, ContentBlockType, TextContentBlock } from '@/store/data/data-types';
 import { Vue, Options } from 'vue-class-component';
-import { Prop, Watch } from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import TextBlock from './text-block.vue';
 import SourceBlock from './source-block.vue';
 

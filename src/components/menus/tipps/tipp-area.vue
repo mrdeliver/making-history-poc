@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-for="(tipp, idx) in tipps" class="tipp-container" :key="idx">{{tipp.heading}}</div>
+  <div class="tipp-container">
+    <tipp class="tipp" v-for="(tipp, idx) in tipps" :key="idx" :tipp="tipp"></tipp>
   </div>
 </template>
 
@@ -8,9 +8,13 @@
 import { Tip } from '@/store/data/data-types';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import Tipp from './tipp.vue';
 
 @Options({
   name: 'tipp-area',
+  components: {
+    Tipp,
+  },
 })
 export default class TippArea extends Vue {
   @Prop({})
@@ -21,10 +25,17 @@ export default class TippArea extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-.tipp-container {
+.tipp {
   margin: 0 auto;
-  width: 30%;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.tipp-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 </style>

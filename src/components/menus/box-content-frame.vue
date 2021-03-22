@@ -47,7 +47,7 @@ export default class BoxContentFrame extends Vue {
 }
 
 .defaultFrameFlavour {
-  border: solid $color_grey_4;
+  border: 2px solid $color_grey_4;
   background-color: $color_grey_0;
   max-width: 200px;
   max-height: 200px;
