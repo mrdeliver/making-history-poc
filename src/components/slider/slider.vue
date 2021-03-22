@@ -1,8 +1,9 @@
 <template>
   <div class="slider-container">
     <flickity ref="flickity" :options="flickityOptions">
-      <div class="carousel-cell" @click="setFlickitySlide(index, link.primaryLink.link )"
-      v-for="(link, index) in allLinks" :key="index">
+      <div :class="[sliderFlavour]" class="carousel-cell"
+      @click="setFlickitySlide(index, link.primaryLink.link )"
+      v-for="(link, index) in allLinks" :key="index" >
         <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
       </div>
     </flickity>
@@ -25,6 +26,9 @@ import SliderLink from './slider';
 export default class Slider extends Vue {
   @Prop({ })
   allLinks: SliderLink[] = [];
+
+  @Prop({ type: String })
+  private sliderFlavour = 'defaultFlavour';
 
   private router: Router = useRouter();
 
@@ -58,33 +62,46 @@ export default class Slider extends Vue {
 .carousel-cell {
   transition: 0.2s ease;
   text-align: center;
-  width: 175px;
+  width: 250px;
   height: 50px;
+  top: 20px;
   margin-right: 10px;
   margin-left:10px;
-  background-color: $color_grey_0;
   counter-increment: carousel-cell;
   border: 3px solid transparent;
   border-radius: 15px;
-  text-overflow: ellipsis;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   a {
     color: $color_grey_6;
     text-decoration: none;
+    font-weight: bold;
   }
 }
 .carousel-cell.is-selected {
   height: 100px;
-  color:$color_grey_10;
-  background-color: $color_grey_0;
-  border-color: $color_grey_10;
-
+  width: 250px;
+  top: 0px;
   a {
     word-wrap: break-word;
-    color: $color_grey_6;
     text-decoration: none;
-    font-size:22px;
+    font-size:24px;
     }
 
+}
+
+.defaultFlavour {
+  background-color: $color_grey_0;
+  a {
+    color: $color_grey_6;
+  }
+  &.is-selected {
+    a {
+      color:$color_grey_10;
+    }
+    background-color: $color_grey_0;
+    border-color: $color_grey_7;
+  }
 }
 </style>

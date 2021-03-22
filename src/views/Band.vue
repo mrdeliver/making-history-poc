@@ -49,7 +49,7 @@ export default class Band extends Vue {
 @import "../colors";
 
 #content-slider {
-  height: 70px;
+  height: 120px;
 }
 
 .glossarButton {
