@@ -41,6 +41,7 @@ export default class GlossarEntryContainer extends Vue {
 <style lang="scss">
 
 @import "../../../colors";
+@import "../../../text";
 
 .baseWrapper {
   padding: 5px;
@@ -56,6 +57,20 @@ export default class GlossarEntryContainer extends Vue {
 .openWrapper {
   background-color: $color-orange-1;
   border: 2px solid $color-orange-3;
+}
+
+.heading {
+  font-size: $font_size_text;
+  font-weight: $font_weight_heading;
+  margin-bottom: 5px;
+  color: $color_orange_8;
+}
+
+.content {
+  @include info-text;
+  color: $color_orange_8;
+  text-align: justify;
+  padding: 5px;
 }
 
 </style>
