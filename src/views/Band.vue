@@ -33,6 +33,6 @@ export default class Band extends Vue {
 
 <style lang="scss" scoped>
 #content-slider {
-  height: 70px;
+  height: 120px;
 }
 </style>
