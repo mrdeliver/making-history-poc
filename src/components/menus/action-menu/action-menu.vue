@@ -2,10 +2,12 @@
     <div class="menu">
       <div class="menu-item">
         <box-content-frame v-if="expandImageRessources" frameFlavour="ressourcePreview">
-          <router-link v-for="ir in imageRessources" :key="ir.id"
-          :to="buildPathToRource(ir)">
-          {{ir.heading}} | <br>
-          </router-link>
+          <div class="previewItem"
+          v-for="ir in imageRessources" :key="ir.id"
+          @click="router.push(buildPathToRource(ir))">
+            <div class="previewItemHeading">{{ir.heading}}</div>
+            <div class="previewContentPreview">{{ir.caption}} </div>
+          </div>
         </box-content-frame>
         <button class="sources-button"
         v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
@@ -46,7 +48,9 @@
 import { ImageRessource } from '@/store/data/ressources/image-ressources';
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
+import {
+  RouteLocationNormalizedLoaded, useRoute, useRouter, Router,
+} from 'vue-router';
 import { TextRessource } from '../../../store/data/ressources/text-ressources';
 import { Ressource, Ressources } from '../../../store/data/data-types';
 import RessourceStore from '../../../store/ressource-module';
@@ -58,6 +62,8 @@ import BoxContentFrame from '../box-content-frame.vue';
   components: { BoxContentFrame },
 })
 export default class ActionMenu extends Vue {
+  private router: Router = useRouter();
+
   @Prop({ type: String })
   private pageId = '';
 
@@ -154,6 +160,25 @@ export default class ActionMenu extends Vue {
       background-color: $color_yellow_2;
     }
   }
+}
+
+.previewItem {
+  margin-bottom: 5px;
+}
+
+.previewItemHeading {
+  @include info-heading;
+  color: $color_yellow_8;
+}
+
+.previewContentPreview {
+  @include detail-text;
+  color: $color_yellow_7;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 20px;
+  max-width: 80%;
+  overflow: hidden;
 }
 
 .sources-button{
