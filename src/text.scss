@@ -16,6 +16,16 @@ $line_height_detail: 20px;
 $font_size_heading: 40px;
 $font_weight_heading: 600;
 
+$font_family_heading_1: jaf-facitweb, sans-serif;
+$font_weight_heading_1: 700;
+$font_size_heading_1: 26px;
+
+@mixin slider-heading {
+  font-family: $font_family_heading_1;
+  font-weight: $font_weight_heading_1;
+  font-size: $font_size_heading1;
+}
+
 @mixin regular-text {
   font-weight: $font_weight_text;
   font-size: $font_size_text;
