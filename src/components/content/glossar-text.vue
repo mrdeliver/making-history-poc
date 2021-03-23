@@ -4,12 +4,17 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
+import { createApp, h, App } from 'vue';
 import { Prop, Watch } from 'vue-property-decorator';
-import { GlossarEntry } from '../../store/data/glossar';
+import glossar, { GlossarEntry } from '../../store/data/glossar';
 import GlossarStore from '../../store/glossar-module';
+import BoxContentFrame from '../menus/box-content-frame.vue';
 
-@Options({})
-
+@Options({
+  components: {
+    BoxContentFrame,
+  },
+})
 export default class GlossarText extends Vue {
   @Prop()
   private text = 'hello'
@@ -18,6 +23,8 @@ export default class GlossarText extends Vue {
   private glossarIds: string[] = []
 
   private containerId = 'rich-text-container';
+
+  private clickRegistered = false;
 
   $refs!:{
     richTextContainer: HTMLElement
@@ -32,15 +39,16 @@ export default class GlossarText extends Vue {
   private glossarEntries: GlossarEntry[] = [];
 
   replaceGlossarEntries(): void {
-    const richText = this.createElementFromText();
+    const richText = this.replaceEntriesWithHTML();
     const container = this.$refs.richTextContainer;
     container.innerHTML = richText;
   }
 
-  createElementFromText(): string {
+  replaceEntriesWithHTML(): string {
     let richText = this.text;
-    const glossarElements = this.glossarEntries.map(() => {
+    const glossarElements = this.glossarEntries.map((entry) => {
       const elem = document.createElement('span');
+      elem.setAttribute('id', entry.id);
       elem.classList.add('glossar-entry');
       return elem;
     });
@@ -74,9 +82,48 @@ export default class GlossarText extends Vue {
     return textSource;
   }
 
+  createBoxContentFrame(): HTMLElement {
+    const el = document.createElement('box-content-frame');
+    el.setAttribute('frame-flavour', 'defaultFrameFlavour');
+    return el;
+  }
+
+  registerClickHandler():void {
+    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
+    for (let i = 0; i < elements.length; i += 1) {
+      elements[i].addEventListener('click', this.displayGlossarEntry);
+    }
+  }
+
+  displayGlossarEntry(event: Event) {
+    const el: HTMLElement = event.target as HTMLElement;
+    const glossarEntry = this.glossarEntries.filter((entry) => entry.id === el.id)[0];
+    const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
+    const wrapper = document.createElement('div');
+    comp.mount(wrapper);
+    el.appendChild(wrapper);
+  }
+
+  createBoxContentComponent(heading: string, text: string): App {
+    const comp = createApp({
+      setup() {
+        return () => h(
+          BoxContentFrame,
+          { type: 'primary' },
+          [
+            h('div', heading),
+            h('div', text),
+          ],
+        );
+      },
+    });
+    return comp;
+  }
+
   mounted(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
+    this.registerClickHandler();
   }
 }
 </script>
