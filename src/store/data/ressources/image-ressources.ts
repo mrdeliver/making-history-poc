@@ -11,7 +11,23 @@ export default {
       author: 'James Gillray  (1756–1815)',
       url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/James_Gillray_Pinnacle_of_Liberty.jpeg',
       caption: 'Schönes Bild von James Gillray (1756-1815), als er damals abgemalt wurde.',
-      annotations: [],
+      annotations: [{
+        tipp: {
+          heading: '',
+          text: 'This is a burning buildling',
+        },
+        x: 10,
+        y: 10,
+      },
+      {
+        tipp: {
+          heading: '',
+          text: 'This is a man hanging',
+        },
+        x: 70,
+        y: 70,
+      },
+      ],
       content: [
         {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,

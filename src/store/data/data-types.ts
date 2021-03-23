@@ -9,7 +9,8 @@ export interface Tip {
 
 export enum ContentBlockType {
   TEXT_CONTENT_BLOCK='text',
-  SOURCE_CONTENT_BLOCK='source'
+  SOURCE_CONTENT_BLOCK='source',
+  IMAGE_BLOCK='image',
 }
 
 export interface ContentBlock {
@@ -43,7 +44,7 @@ export interface Ressources {
 }
 
 export interface Annotation {
-  tip: Tip,
+  tipp: Tip,
   x: number,
   y: number
 }
@@ -54,7 +55,7 @@ export interface Ressource {
   heading: string,
   author: string,
   caption: string,
-  content: TextContentBlock[]
+  content: ContentBlock[]
 }
 
 export type TextRessource = Ressource
