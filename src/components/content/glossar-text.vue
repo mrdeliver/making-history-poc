@@ -6,9 +6,12 @@
 import { Vue, Options } from 'vue-class-component';
 import { createApp, h, App } from 'vue';
 import { Prop, Watch } from 'vue-property-decorator';
-import glossar, { GlossarEntry } from '../../store/data/glossar';
+import { GlossarEntry } from '../../store/data/glossar';
 import GlossarStore from '../../store/glossar-module';
 import BoxContentFrame from '../menus/box-content-frame.vue';
+
+const EXPANDED = 'expanded';
+const GLOSSAR_WRAPPER = 'glossar-wrapper';
 
 @Options({
   components: {
@@ -90,18 +93,35 @@ export default class GlossarText extends Vue {
 
   registerClickHandler():void {
     const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
+    console.log('lets register this shit');
+    console.log(elements);
     for (let i = 0; i < elements.length; i += 1) {
-      elements[i].addEventListener('click', this.displayGlossarEntry);
+      elements[i].addEventListener('click', this.handleGlossarClick);
     }
   }
 
-  displayGlossarEntry(event: Event) {
-    const el: HTMLElement = event.target as HTMLElement;
-    const glossarEntry = this.glossarEntries.filter((entry) => entry.id === el.id)[0];
+  handleGlossarClick(e: Event): void {
+    console.log('click');
+    const elem: HTMLElement = e.target as HTMLElement;
+    if (elem.classList.contains(EXPANDED)) this.closeGlossarEntry(elem);
+    else this.openGlossarEntry(elem);
+  }
+
+  closeGlossarEntry(elem: HTMLElement): void {
+    console.log(elem.classList);
+    elem.classList.remove('expanded');
+    console.log(elem.classList);
+    elem.removeChild(document.getElementById(GLOSSAR_WRAPPER) as Node);
+  }
+
+  openGlossarEntry(elem: HTMLElement): void {
+    const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
     const wrapper = document.createElement('div');
+    wrapper.setAttribute('id', GLOSSAR_WRAPPER);
     comp.mount(wrapper);
-    el.appendChild(wrapper);
+    elem.appendChild(wrapper);
+    elem.classList.add(EXPANDED);
   }
 
   createBoxContentComponent(heading: string, text: string): App {
@@ -109,10 +129,10 @@ export default class GlossarText extends Vue {
       setup() {
         return () => h(
           BoxContentFrame,
-          { type: 'primary' },
+          { 'frame-flavour': 'glossarFrame' },
           [
-            h('div', heading),
-            h('div', text),
+            h('div', { class: 'glossarHeading' }, heading),
+            h('div', { class: 'glossarText' }, text),
           ],
         );
       },
@@ -130,12 +150,35 @@ export default class GlossarText extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+
+@import "../../colors";
+@import "../../text";
+
 .block {
   margin-bottom: 20px;
 }
 
 .text-block {
   text-align: justify;
+}
+
+.glossarFrame {
+  border: 2px solid $color_orange_1;
+  background-color: $color_orange_4;
+  width: 300px;
+  height: 200px;
+  position: absolute;
+}
+
+.glossarHeading {
+  @include info-heading;
+  margin-bottom: 5px;
+  color: $color_green_9;
+}
+
+.glossarText {
+  @include info-text;
+  color: $color_green_9;
 }
 
 .glossar-entry {
