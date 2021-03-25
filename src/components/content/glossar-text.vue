@@ -37,6 +37,7 @@ export default class GlossarText extends Vue {
   updateText(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
+    this.registerClickHandler();
   }
 
   private glossarEntries: GlossarEntry[] = [];
@@ -45,6 +46,7 @@ export default class GlossarText extends Vue {
     const richText = this.replaceEntriesWithHTML();
     const container = this.$refs.richTextContainer;
     container.innerHTML = richText;
+    console.log('Done with text replacing');
   }
 
   replaceEntriesWithHTML(): string {
@@ -92,8 +94,8 @@ export default class GlossarText extends Vue {
   }
 
   registerClickHandler():void {
-    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
     console.log('lets register this shit');
+    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
     console.log(elements);
     for (let i = 0; i < elements.length; i += 1) {
       elements[i].addEventListener('click', this.handleGlossarClick);
@@ -117,7 +119,7 @@ export default class GlossarText extends Vue {
   openGlossarEntry(elem: HTMLElement): void {
     const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
-    const wrapper = document.createElement('div');
+    const wrapper = document.createElement('span');
     wrapper.setAttribute('id', GLOSSAR_WRAPPER);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
@@ -143,6 +145,7 @@ export default class GlossarText extends Vue {
   mounted(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
+    console.log('here should be the next function call');
     this.registerClickHandler();
   }
 }
@@ -168,6 +171,8 @@ export default class GlossarText extends Vue {
   width: 300px;
   height: 200px;
   position: absolute;
+  left: 20px;
+  top: 25px;
 }
 
 .glossarHeading {
@@ -184,5 +189,6 @@ export default class GlossarText extends Vue {
 .glossar-entry {
   background-color: aqua;
   cursor: pointer;
+  position: relative;
 }
 </style>
