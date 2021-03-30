@@ -1,0 +1,63 @@
+$font_weight_text: 400;
+$font_size_text: 18px;
+$font_size_text_heading: 24px;
+$line_height_text: 28px;
+
+$font_size_info: 16px;
+$font_size_info_heading: 16px;
+$font_weight_info: 400;
+$line_height_info: 25px;
+
+$font_size_detail: 12px;
+$font_size_detail_heading: 12px;
+$font_weight_detail: 300;
+$line_height_detail: 20px;
+
+$font_size_heading: 40px;
+$font_weight_heading: 600;
+
+$font_family_heading_1: jaf-facitweb, sans-serif;
+$font_weight_heading_1: 700;
+$font_size_heading_1: 26px;
+
+@mixin slider-heading {
+  font-family: $font_family_heading_1;
+  font-weight: $font_weight_heading_1;
+  font-size: $font_size_heading_1;
+}
+
+@mixin regular-text {
+  font-weight: $font_weight_text;
+  font-size: $font_size_text;
+  line-height: $line_height_text;
+}
+
+@mixin regular-heading {
+  font-weight: $font_weight_heading;
+  font-size: $font_size_text_heading;
+  line-height: $line_height_text;
+}
+
+@mixin info-text {
+  font-weight: $font_weight_info;
+  font-size: $font_size_info;
+  line-height: $line_height_info;
+}
+
+@mixin info-heading {
+  font-weight: $font_weight_heading;
+  font-size: $font_size_info;
+  line-height: $line_height_info;
+}
+
+@mixin detail-text {
+  font-weight: $font_weight_detail;
+  font-size: $font_size_detail;
+  line-height: $line_height_detail;
+}
+
+@mixin detail-heading {
+  font-weight: $font_weight_detail_heading;
+  font-size: $font_size_detail;
+  line-height: $line_height_detail;
+}
