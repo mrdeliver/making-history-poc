@@ -14,6 +14,8 @@
   <expandable-button class="positionFixed">
     <action-menu :pageId="pageId" :bandId="bandId"/>
   </expandable-button>
+  <back-button class="positionFixedLeft">
+  </back-button>
 </template>
 
 <script lang="ts">
@@ -25,12 +27,14 @@ import RessourceStore from '../store/ressource-module';
 import GlossarStore from '../store/glossar-module';
 import Glossar from '../components/menus/glossar/glossar.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
+import BackButton from '../components/menus/back-button.vue';
 import ActionMenu from '../components/menus/action-menu/action-menu.vue';
 
 @Options({
   components: {
     Glossar,
     ExpandableButton,
+    BackButton,
     ActionMenu,
   },
 })
@@ -99,6 +103,12 @@ $slider_height: 115px;
 .positionFixed {
   position: fixed;
   right: 20px;
+  bottom: 20px;
+}
+
+.positionFixedLeft {
+  position: fixed;
+  left: 20px;
   bottom: 20px;
 }
 </style>

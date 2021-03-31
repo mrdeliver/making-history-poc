@@ -89,7 +89,6 @@ export default class ActionMenu extends Vue {
   @Watch('pageId')
   onpageIdChange(value: string): void {
     this.currentPage = PageStore.singlePage(value);
-    console.log('Got Page');
     this.ressourceIds = this.currentPage.ressources;
   }
 
