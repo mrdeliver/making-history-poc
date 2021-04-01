@@ -14,7 +14,7 @@ import { useRouter, Router } from 'vue-router';
 @Options({
   name: 'BackButton',
 })
-export default class ExpandableButton extends Vue {
+export default class BackButton extends Vue {
   private router: Router = useRouter();
 
   @Prop({ type: String })

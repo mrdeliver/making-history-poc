@@ -1,8 +1,8 @@
 <template>
   <div id="iPadFrame">
     <div id="app-navigation">
-      <router-link to="/band/1">Band</router-link>
-      <router-link to="/">About</router-link>
+      <router-link to="/">Home</router-link>
+      <router-link to="/">Settings</router-link>
     </div>
     <div id="app-content">
       <router-view/>
@@ -41,6 +41,17 @@ body {
 
   #app-navigation {
     max-height: 3vh;
+    a {
+      text-decoration: none;
+      color: black;
+      margin-right: 10px;
+      display: inline;
+      transition: all, 0.5s;
+      &:hover {
+        font-size: 120%;
+        transition: all, 0.5s
+      }
+    }
   }
 
   #app-content {
