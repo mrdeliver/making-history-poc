@@ -1,14 +1,34 @@
 <template>
   <div id="iPadFrame">
     <div id="app-navigation">
-      <router-link to="/">Home</router-link>
-      <router-link to="/">Settings</router-link>
+      <router-link to="/"><fa :icon="homeIconToDisplay" class="icon"></fa></router-link>
+      <router-link to="/settings">
+        <fa :icon="cogsIconToDisplay" class="icon"></fa>
+      </router-link>
     </div>
     <div id="app-content">
       <router-view/>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+
+export default class App extends Vue {
+  private homeIcon = 'home';
+
+  private cogsIcon = 'cogs';
+
+  get homeIconToDisplay(): string {
+    return this.homeIcon;
+  }
+
+  get cogsIconToDisplay(): string {
+    return this.cogsIcon;
+  }
+}
+</script>
 
 <style lang="scss">
 @import "colors";
@@ -42,14 +62,17 @@ body {
   #app-navigation {
     max-height: 3vh;
     a {
-      text-decoration: none;
+      margin-right: 20px;
       color: black;
-      margin-right: 10px;
-      display: inline;
-      transition: all, 0.5s;
-      &:hover {
-        font-size: 120%;
+      .icon {
+        margin-top: 1vh;
+        transition: all, 0.5s;
+        height: 2vh;
+        &:hover {
+        height:3vh;
+        margin-top: 0vh;
         transition: all, 0.5s
+      }
       }
     }
   }

@@ -38,6 +38,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import(/* webpackChunkName: "settings" */ '../views/Settings.vue'),
+  },
 ];
 
 const router = createRouter({
