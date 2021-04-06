@@ -88,9 +88,9 @@ export default class ActionMenu extends Vue {
   @Prop({ type: String })
   private bandId = '';
 
-  private ressourceIds: Ressources = {} as Ressources;
-
   private currentPage: Page = {} as Page;
+
+  private ressourceIds: Ressources = {} as Ressources;
 
   private imageRessources: ImageRessource[] = [];
 
@@ -100,22 +100,11 @@ export default class ActionMenu extends Vue {
 
   private textIcon = 'file';
 
-  @Watch('ressourceIds')
-  onRessourceIdsChanges(): void {
-    this.imageRessources = RessourceStore.imageRessourcesWithIds(this.ressourceIds.imageSources);
-    this.textRessources = RessourceStore.textRessourcesWithIds(this.ressourceIds.textSources);
-  }
-
   private penIcon = 'pen';
 
   private worksheetIds: string[] = [];
 
   private worksheets: Worksheet[] = [];
-
-  @Watch('worksheetIds')
-  onWorksheetIdsChanges(): void {
-    this.worksheets = WorksheetStore.worksheetsWithIds(this.worksheetIds);
-  }
 
   expanded(key: string): boolean {
     return this.expandables[key];
@@ -154,8 +143,13 @@ export default class ActionMenu extends Vue {
 
   updateMenuContents(pageId: string): void {
     this.currentPage = PageStore.singlePage(pageId);
+
     this.ressourceIds = this.currentPage.ressources;
     this.worksheetIds = this.currentPage.worksheets;
+
+    this.imageRessources = RessourceStore.imageRessourcesWithIds(this.ressourceIds.imageSources);
+    this.textRessources = RessourceStore.textRessourcesWithIds(this.ressourceIds.textSources);
+    this.worksheets = WorksheetStore.worksheetsWithIds(this.worksheetIds);
   }
 
   private volumeIcon = 'music';
