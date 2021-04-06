@@ -109,7 +109,8 @@ export default class SourceBlock extends Vue {
 
   mounted(): void {
     console.log('HI');
-    console.log(this.sourceType);
+    console.log(this.id);
+    console.log(this.ressourceBlock);
     console.log(this.style[this.sourceType].icon);
   }
 }

@@ -58,8 +58,6 @@ export interface Ressource {
   content: ContentBlock[]
 }
 
-export type TextRessource = Ressource
-
 export interface AudioRessource extends Ressource {
   url: string,
 }
