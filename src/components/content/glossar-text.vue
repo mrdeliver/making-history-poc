@@ -46,7 +46,6 @@ export default class GlossarText extends Vue {
     const richText = this.replaceEntriesWithHTML();
     const container = this.$refs.richTextContainer;
     container.innerHTML = richText;
-    console.log('Done with text replacing');
   }
 
   replaceEntriesWithHTML(): string {
@@ -94,25 +93,20 @@ export default class GlossarText extends Vue {
   }
 
   registerClickHandler():void {
-    console.log('lets register this shit');
     const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
-    console.log(elements);
     for (let i = 0; i < elements.length; i += 1) {
       elements[i].addEventListener('click', this.handleGlossarClick);
     }
   }
 
   handleGlossarClick(e: Event): void {
-    console.log('click');
     const elem: HTMLElement = e.target as HTMLElement;
     if (elem.classList.contains(EXPANDED)) this.closeGlossarEntry(elem);
     else this.openGlossarEntry(elem);
   }
 
   closeGlossarEntry(elem: HTMLElement): void {
-    console.log(elem.classList);
     elem.classList.remove('expanded');
-    console.log(elem.classList);
     elem.removeChild(document.getElementById(GLOSSAR_WRAPPER) as Node);
   }
 
@@ -145,7 +139,6 @@ export default class GlossarText extends Vue {
   mounted(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
-    console.log('here should be the next function call');
     this.registerClickHandler();
   }
 }
