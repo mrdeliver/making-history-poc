@@ -40,15 +40,16 @@ export default class ContentFrame extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.row {
-  display: flex;
-}
+@import "src/size";
+  .row {
+    display: $row_display;
+  }
 
-.side-col {
-  flex: 10%
-}
+  .side-col {
+    flex: $side_col_width
+  }
 
-.center-col {
-  flex: 80%
-}
+  .center-col {
+    flex: $center_col_width
+  }
 </style>

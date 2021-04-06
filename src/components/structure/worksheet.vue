@@ -1,5 +1,4 @@
 <template>
-  {{currentSheet.heading}}
   <question v-for="(task, idx) in currentSheet.tasks"
     :key=idx
     :text="task.question">
