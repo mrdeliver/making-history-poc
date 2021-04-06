@@ -40,14 +40,17 @@
         <fa :icon="bookIcon" class="icon teacher-icon"></fa>Lehrerband</button>
       </div>
       <div class="menu-item">
-        <box-content-frame v-if="expanded('worksheets')" frameFlavour="ressourcePreview">
+        <box-content-frame v-if="expanded('worksheets')" frameFlavour="worksheetPreview">
           <div class="previewItem"
           v-for="sheet in worksheets" :key="sheet.id"
           @click="router.push(buildPathToWorkSheet(sheet))">
             <div class="previewItemHeading">{{sheet.heading}}</div>
           </div>
         </box-content-frame>
-        <button class="worksheet-button" :class="{'source-button-active': expanded('worksheets')}"
+        <button
+          class="worksheet-button"
+          :class="{'worksheet-button-active'
+          : expanded('worksheets')}"
         v-on:click="expand('worksheets')">
           <fa :icon="penIcon" class="icon worksheet-icon"></fa>
           Arbeitsblätter
@@ -211,6 +214,14 @@ export default class ActionMenu extends Vue {
       bottom: 45px;
       border: 2px solid $color_yellow_4;
       background-color: $color_yellow_2;
+    }
+
+    .worksheetPreview {
+      position: absolute;
+      width: calc(650px/2 - 30px);
+      bottom: 45px;
+      border: 2px solid $color_blue;
+      background-color: $color_blue_2;
     }
   }
 }
