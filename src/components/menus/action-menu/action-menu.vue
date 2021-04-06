@@ -5,7 +5,7 @@
           <div class="previewItem"
           v-for="ir in imageRessources" :key="ir.id"
           @click="router.push(buildPathToSource(ir))">
-            <div class="previewItemHeading">{{ir.heading}}</div>
+            <div class="previewItemHeading headingSource">{{ir.heading}}</div>
             <div class="previewContentPreview">{{ir.caption}} </div>
           </div>
         </box-content-frame>
@@ -21,7 +21,7 @@
           <div class="previewItem"
           v-for="tr in textRessources" :key="tr.id"
           @click="router.push(buildPathToSource(tr))">
-            <div class="previewItemHeading">{{tr.heading}}</div>
+            <div class="previewItemHeading headingSource">{{tr.heading}}</div>
             <div class="previewContentPreview">{{tr.caption}} </div>
           </div>
         </box-content-frame>
@@ -44,7 +44,7 @@
           <div class="previewItem"
           v-for="sheet in worksheets" :key="sheet.id"
           @click="router.push(buildPathToWorkSheet(sheet))">
-            <div class="previewItemHeading">{{sheet.heading}}</div>
+            <div class="previewItemHeading headingWorksheets">{{sheet.heading}}</div>
           </div>
         </box-content-frame>
         <button
@@ -232,7 +232,14 @@ export default class ActionMenu extends Vue {
 
 .previewItemHeading {
   @include info-heading;
-  color: $color_yellow_8;
+
+  &.headingSource {
+    color: $color_yellow_8;
+  }
+
+  &.headingWorksheets {
+    color: $color_blue_8;
+  }
 }
 
 .previewContentPreview {
@@ -284,7 +291,7 @@ export default class ActionMenu extends Vue {
 
   .teacher-icon{
   color: $color_red_3
-}
+  }
 }
 
 </style>
