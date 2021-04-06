@@ -34,6 +34,10 @@ export default class TextBlock extends Vue {
 
   @Prop({})
   private glossarEntries: string[] = []
+
+  created() {
+    console.log(this.tipps);
+  }
 }
 </script>
 

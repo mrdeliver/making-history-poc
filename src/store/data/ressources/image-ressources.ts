@@ -43,7 +43,7 @@ export default {
       heading: 'M2',
       typ: RessourceType.IMAGE_SOURCE,
       author: 'Jean-Jacques Le Barbier',
-      url: 'https://de.wikipedia.org/wiki/Franz%C3%B6sische_Revolution#/media/Datei:Declaration_of_the_Rights_of_Man_and_of_the_Citizen_in_1789.jpg',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/Declaration_of_the_Rights_of_Man_and_of_the_Citizen_in_1789.jpg',
       caption: 'Déclaration des Droits de l’Homme et du Citoyen. Die Erklärung der Menschen- und Bürgerrechte in einer Darstellung von Jean-Jacques Le Barbier',
       annotations: [],
       content: [

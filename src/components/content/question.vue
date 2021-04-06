@@ -14,12 +14,18 @@
 
 <script lang="ts">
 
-import { Vue } from 'vue-class-component';
+import { Options, Vue } from 'vue-class-component';
 import { Tip } from '@/store/data/data-types';
 import { Prop } from 'vue-property-decorator';
+import TippArea from '../menus/tipps/tipp-area.vue';
 
+@Options({
+  components: {
+    TippArea,
+  },
+})
 export default class Question extends Vue {
-@Prop({ type: String })
+  @Prop({ type: String })
   private text = ''
 
   @Prop({})
