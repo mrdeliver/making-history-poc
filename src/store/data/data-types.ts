@@ -39,8 +39,7 @@ export interface SourceContentBlock extends ContentBlock {
 export interface Ressources {
   textSources: string[],
   imageSources: string[],
-  audioSources: string[],
-  workSheets: string[]
+  audioSources: string[]
 }
 
 export interface Annotation {

@@ -38,8 +38,8 @@ export default {
         textSources: ['0'],
         imageSources: ['0', '1'],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: ['0', '1'],
     },
     {
       id: '2',
@@ -58,8 +58,8 @@ export default {
         textSources: ['0'],
         imageSources: ['1'],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: ['2'],
     },
     {
       id: '3',
@@ -78,8 +78,8 @@ export default {
         textSources: [],
         imageSources: [],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: [],
     },
     {
       id: '4',
@@ -98,8 +98,8 @@ export default {
         textSources: [],
         imageSources: [],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: [],
     },
     {
       id: '5',
@@ -118,8 +118,8 @@ export default {
         textSources: [],
         imageSources: [],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: [],
     },
   ],
 };
@@ -129,5 +129,6 @@ export interface Subchapter {
   chapterId: string,
   name: string,
   content: ContentBlock[],
-  ressources: Ressources
+  ressources: Ressources,
+  worksheets: string[]
 }

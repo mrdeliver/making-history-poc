@@ -1,29 +1,32 @@
 <template>
     <div class="menu">
       <div class="menu-item">
-        <box-content-frame v-if="expandImageRessources" frameFlavour="ressourcePreview">
+        <box-content-frame v-if="expanded('imageRessources')" frameFlavour="ressourcePreview">
           <div class="previewItem"
           v-for="ir in imageRessources" :key="ir.id"
-          @click="router.push(buildPathToRource(ir))">
+          @click="router.push(buildPathToSource(ir))">
             <div class="previewItemHeading">{{ir.heading}}</div>
             <div class="previewContentPreview">{{ir.caption}} </div>
           </div>
         </box-content-frame>
-        <button class="sources-button" :class="{'source-button-active': expandImageRessources}"
-        v-on:click="expandImageRessources=!expandImageRessources; expandTextRessources = false">
+        <button class="sources-button"
+        :class="{'source-button-active': expanded('imageRessources')}"
+        v-on:click="expand('imageRessources')">
           <fa :icon="pictureIcon" class="icon sources-icon"></fa>
           Bildquellen
         </button>
       </div>
       <div class="menu-item">
-        <box-content-frame v-if="expandTextRessources" frameFlavour="ressourcePreview">
-          <router-link v-for="tr in textRessources" :key="tr.id"
-          :to="buildPathToRource(tr)">
-          {{tr.heading}}  |
-          </router-link>
+        <box-content-frame v-if="expanded('textRessources')" frameFlavour="ressourcePreview">
+          <div class="previewItem"
+          v-for="tr in textRessources" :key="tr.id"
+          @click="router.push(buildPathToSource(tr))">
+            <div class="previewItemHeading">{{tr.heading}}</div>
+            <div class="previewContentPreview">{{tr.caption}} </div>
+          </div>
         </box-content-frame>
-        <button class="sources-button" :class="{'source-button-active': expandTextRessources}"
-        v-on:click="expandTextRessources=!expandTextRessources; expandImageRessources = false">
+        <button class="sources-button" :class="{'source-button-active': expanded('textRessources')}"
+        v-on:click="expand('textRessources')">
           <fa :icon="textIcon" class="icon sources-icon"></fa>
           Textquellen
         </button>
@@ -34,11 +37,21 @@
       </div>
       <div class="menu-item">
         <button class="teacher-button">
-        <fa :icon="penIcon" class="icon teacher-icon"></fa>Lehrerband</button>
+        <fa :icon="bookIcon" class="icon teacher-icon"></fa>Lehrerband</button>
       </div>
       <div class="menu-item">
-        <button class="worksheet-button">
-              <fa :icon="bookIcon" class="icon worksheet-icon"></fa>Arbeitsblätter</button>
+        <box-content-frame v-if="expanded('worksheets')" frameFlavour="ressourcePreview">
+          <div class="previewItem"
+          v-for="sheet in worksheets" :key="sheet.id"
+          @click="router.push(buildPathToWorkSheet(sheet))">
+            <div class="previewItemHeading">{{sheet.heading}}</div>
+          </div>
+        </box-content-frame>
+        <button class="worksheet-button" :class="{'source-button-active': expanded('worksheets')}"
+        v-on:click="expand('worksheets')">
+          <fa :icon="penIcon" class="icon worksheet-icon"></fa>
+          Arbeitsblätter
+        </button>
       </div>
     </div>
 
@@ -51,11 +64,13 @@ import { Prop, Watch } from 'vue-property-decorator';
 import {
   RouteLocationNormalizedLoaded, useRoute, useRouter, Router,
 } from 'vue-router';
+import { Worksheet } from '@/store/data/worksheets';
 import { TextRessource } from '../../../store/data/ressources/text-ressources';
 import { Ressource, Ressources } from '../../../store/data/data-types';
 import RessourceStore from '../../../store/ressource-module';
 import PageStore, { Page } from '../../../store/page-module';
 import BoxContentFrame from '../box-content-frame.vue';
+import WorksheetStore from '../../../store/worksheet-module';
 
 @Options({
   name: 'ActionMenu',
@@ -82,23 +97,6 @@ export default class ActionMenu extends Vue {
 
   private textIcon = 'file';
 
-  private expandImageRessources = false;
-
-  private expandTextRessources = false;
-
-  @Watch('pageId')
-  onpageIdChange(value: string): void {
-    this.currentPage = PageStore.singlePage(value);
-    this.ressourceIds = this.currentPage.ressources;
-  }
-
-  mounted(): void {
-    this.currentPage = PageStore.singlePage(this.pageId);
-    this.ressourceIds = this.currentPage.ressources;
-  }
-
-  private route: RouteLocationNormalizedLoaded = useRoute();
-
   @Watch('ressourceIds')
   onRessourceIdsChanges(): void {
     this.imageRessources = RessourceStore.imageRessourcesWithIds(this.ressourceIds.imageSources);
@@ -107,12 +105,64 @@ export default class ActionMenu extends Vue {
 
   private penIcon = 'pen';
 
+  private worksheetIds: string[] = [];
+
+  private worksheets: Worksheet[] = [];
+
+  @Watch('worksheetIds')
+  onWorksheetIdsChanges(): void {
+    this.worksheets = WorksheetStore.worksheetsWithIds(this.worksheetIds);
+  }
+
+  expanded(key: string): boolean {
+    return this.expandables[key];
+  }
+
+  private expandables: {[key: string]: boolean} = {
+    textRessources: false,
+    imageRessources: false,
+    audioRessources: false,
+    worksheets: false,
+  }
+
+  expand(itemToExpand: string): void {
+    this.collapseAll();
+    this.expandables[itemToExpand] = true;
+  }
+
+  collapseAll(): void {
+    Object.keys(this.expandables).forEach((expandable) => {
+      this.expandables[expandable] = false;
+    });
+  }
+
+  @Watch('pageId')
+  onpageIdChange(value: string): void {
+    this.updateMenuContents(value);
+  }
+
+  mounted(): void {
+    this.updateMenuContents(this.pageId);
+  }
+
+  updateMenuContents(pageId: string): void {
+    this.currentPage = PageStore.singlePage(pageId);
+    this.ressourceIds = this.currentPage.ressources;
+    this.worksheetIds = this.currentPage.worksheets;
+  }
+
   private volumeIcon = 'music';
 
   private bookIcon = 'book';
 
-  buildPathToRource(res: Ressource): string {
+  private route: RouteLocationNormalizedLoaded = useRoute();
+
+  buildPathToSource(res: Ressource): string {
     return `/band/${this.bandId}/page/${this.pageId}/source/${res.typ}/${res.id}`;
+  }
+
+  buildPathToWorkSheet(sheet: Worksheet): string {
+    return `/band/${this.bandId}/page/${this.pageId}/worksheet/${sheet.id}`;
   }
 }
 </script>

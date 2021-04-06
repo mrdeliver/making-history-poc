@@ -4,6 +4,8 @@ import Page from '../components/structure/page.vue';
 import PageSlider from '../components/navigation/page-slider.vue';
 import SourceSlider from '../components/navigation/source-slider.vue';
 import Source from '../components/structure/source.vue';
+import Worksheet from '../components/structure/worksheet.vue';
+import WorksheetSlider from '../components/navigation/worksheet-slider.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +31,15 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: Source,
           slider: SourceSlider,
+        },
+      },
+      {
+        path: 'page/:pageId/worksheet/:worksheetId',
+        name: 'Source',
+        props: true,
+        components: {
+          default: Worksheet,
+          slider: WorksheetSlider,
         },
       },
     ],
