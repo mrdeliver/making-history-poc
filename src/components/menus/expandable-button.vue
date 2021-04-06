@@ -33,7 +33,7 @@ export default class ExpandableButton extends Vue {
 
   private iPadHeight = window.innerHeight;
 
-  private iPadWidth = 834;
+  private iPadWidth = window.innerWidth;
 
   private expandDirectionClass = ''
 

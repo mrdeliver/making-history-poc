@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class='row'>
+    <div class="row">
+      {{heading}}
+    </div>
+    <div class="row">
+      {{sourceText}}
+    </div>
+    <div class="row">
       <text-block v-for="(tb, idx) in content" :key="idx"
       :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
       </text-block>
@@ -36,6 +42,12 @@ export default class InlineTextRessource extends Vue {
 
   @Prop()
   content: TextContentBlock[] = [] as TextContentBlock[];
+
+  @Prop()
+  sourceText = '';
+
+  @Prop()
+  heading = ''
 }
 
 </script>

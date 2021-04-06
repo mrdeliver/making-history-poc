@@ -40,8 +40,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: ['1'],
-        imageSources: ['1', '2'],
+        textSources: ['0'],
+        imageSources: ['0', '1'],
         audioSources: [],
         workSheets: [],
       },
@@ -60,8 +60,8 @@ export default {
         },
       ],
       ressources: {
-        textSources: ['1'],
-        imageSources: ['2'],
+        textSources: ['0'],
+        imageSources: ['1'],
         audioSources: [],
         workSheets: [],
       },

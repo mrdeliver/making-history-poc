@@ -4,12 +4,20 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
+import { createApp, h, App } from 'vue';
 import { Prop, Watch } from 'vue-property-decorator';
 import { GlossarEntry } from '../../store/data/glossar';
 import GlossarStore from '../../store/glossar-module';
+import BoxContentFrame from '../menus/box-content-frame.vue';
 
-@Options({})
+const EXPANDED = 'expanded';
+const GLOSSAR_WRAPPER = 'glossar-wrapper';
 
+@Options({
+  components: {
+    BoxContentFrame,
+  },
+})
 export default class GlossarText extends Vue {
   @Prop()
   private text = 'hello'
@@ -19,6 +27,8 @@ export default class GlossarText extends Vue {
 
   private containerId = 'rich-text-container';
 
+  private clickRegistered = false;
+
   $refs!:{
     richTextContainer: HTMLElement
   }
@@ -27,20 +37,23 @@ export default class GlossarText extends Vue {
   updateText(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
+    this.registerClickHandler();
   }
 
   private glossarEntries: GlossarEntry[] = [];
 
   replaceGlossarEntries(): void {
-    const richText = this.createElementFromText();
+    const richText = this.replaceEntriesWithHTML();
     const container = this.$refs.richTextContainer;
     container.innerHTML = richText;
+    console.log('Done with text replacing');
   }
 
-  createElementFromText(): string {
+  replaceEntriesWithHTML(): string {
     let richText = this.text;
-    const glossarElements = this.glossarEntries.map(() => {
+    const glossarElements = this.glossarEntries.map((entry) => {
       const elem = document.createElement('span');
+      elem.setAttribute('id', entry.id);
       elem.classList.add('glossar-entry');
       return elem;
     });
@@ -74,15 +87,76 @@ export default class GlossarText extends Vue {
     return textSource;
   }
 
+  createBoxContentFrame(): HTMLElement {
+    const el = document.createElement('box-content-frame');
+    el.setAttribute('frame-flavour', 'defaultFrameFlavour');
+    return el;
+  }
+
+  registerClickHandler():void {
+    console.log('lets register this shit');
+    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
+    console.log(elements);
+    for (let i = 0; i < elements.length; i += 1) {
+      elements[i].addEventListener('click', this.handleGlossarClick);
+    }
+  }
+
+  handleGlossarClick(e: Event): void {
+    console.log('click');
+    const elem: HTMLElement = e.target as HTMLElement;
+    if (elem.classList.contains(EXPANDED)) this.closeGlossarEntry(elem);
+    else this.openGlossarEntry(elem);
+  }
+
+  closeGlossarEntry(elem: HTMLElement): void {
+    console.log(elem.classList);
+    elem.classList.remove('expanded');
+    console.log(elem.classList);
+    elem.removeChild(document.getElementById(GLOSSAR_WRAPPER) as Node);
+  }
+
+  openGlossarEntry(elem: HTMLElement): void {
+    const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
+    const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
+    const wrapper = document.createElement('span');
+    wrapper.setAttribute('id', GLOSSAR_WRAPPER);
+    comp.mount(wrapper);
+    elem.appendChild(wrapper);
+    elem.classList.add(EXPANDED);
+  }
+
+  createBoxContentComponent(heading: string, text: string): App {
+    const comp = createApp({
+      setup() {
+        return () => h(
+          BoxContentFrame,
+          { 'frame-flavour': 'glossarFrame' },
+          [
+            h('div', { class: 'glossarHeading' }, heading),
+            h('div', { class: 'glossarText' }, text),
+          ],
+        );
+      },
+    });
+    return comp;
+  }
+
   mounted(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
+    console.log('here should be the next function call');
+    this.registerClickHandler();
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+
+@import "../../colors";
+@import "../../text";
+
 .block {
   margin-bottom: 20px;
 }
@@ -91,8 +165,30 @@ export default class GlossarText extends Vue {
   text-align: justify;
 }
 
+.glossarFrame {
+  border: 2px solid $color_orange_1;
+  background-color: $color_orange_4;
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  left: 20px;
+  top: 25px;
+}
+
+.glossarHeading {
+  @include info-heading;
+  margin-bottom: 5px;
+  color: $color_green_9;
+}
+
+.glossarText {
+  @include info-text;
+  color: $color_green_9;
+}
+
 .glossar-entry {
   background-color: aqua;
   cursor: pointer;
+  position: relative;
 }
 </style>

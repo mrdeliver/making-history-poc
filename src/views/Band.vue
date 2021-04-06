@@ -5,15 +5,17 @@
   <div id="content">
     <router-view id="content-view"></router-view>
   </div>
-  <expandable-button
+  <expandable-button style="z-index: 10"
     class="glossarButton"
     buttonFlavour="glossarButtonColor"
     buttonOpenIcon="search">
     <glossar></glossar>
   </expandable-button>
   <expandable-button class="positionFixed">
-    <action-menu :pageId="pageId"/>
+    <action-menu :pageId="pageId" :bandId="bandId"/>
   </expandable-button>
+  <back-button class="positionFixedLeft">
+  </back-button>
 </template>
 
 <script lang="ts">
@@ -25,12 +27,14 @@ import RessourceStore from '../store/ressource-module';
 import GlossarStore from '../store/glossar-module';
 import Glossar from '../components/menus/glossar/glossar.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
+import BackButton from '../components/menus/back-button.vue';
 import ActionMenu from '../components/menus/action-menu/action-menu.vue';
 
 @Options({
   components: {
     Glossar,
     ExpandableButton,
+    BackButton,
     ActionMenu,
   },
 })
@@ -88,7 +92,7 @@ $slider_height: 115px;
 
 .glossarButton {
   position: fixed;
-  top: 100px;
+  top: 150px;
   left: 30px;
 }
 
@@ -99,6 +103,12 @@ $slider_height: 115px;
 .positionFixed {
   position: fixed;
   right: 20px;
+  bottom: 20px;
+}
+
+.positionFixedLeft {
+  position: fixed;
+  left: 20px;
   bottom: 20px;
 }
 </style>
