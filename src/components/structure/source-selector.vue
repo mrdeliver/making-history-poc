@@ -1,7 +1,6 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Ressource, Ressources, RessourceType } from '@/store/data/data-types';
-import { Page } from '@/store/page-module';
 import RessourceStore from '../../store/ressource-module';
 
 @Options({
