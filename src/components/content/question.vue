@@ -2,9 +2,9 @@
   <div class="row block">
     <tipp-area class="side-col"></tipp-area>
     <div class="center-col">
-        <div class="heading">{{ heading }}</div>
-        <div class="text">{{ text }}</div>
-        <div class="input">
+        <div class="taskHeading">{{ heading }}</div>
+        <div class="taskText">{{ text }}</div>
+        <div class="taskInput">
           <QuillEditor :options="textEditorOptions" class="editor"/>
         </div>
     </div>
@@ -47,7 +47,7 @@ export default class Question extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import "src/size";
 @import "src/colors";
 @import "src/text";
@@ -72,7 +72,7 @@ textarea{
     width:100%;
 }
 
-.heading {
+.taskHeading {
   @include info-heading;
   background-color: $color_blue_1;
   color: $color_blue;
@@ -85,7 +85,7 @@ textarea{
   display: inline-block;
 }
 
-.text {
+.taskText {
   @include regular-text;
   margin-top: 10px;
   margin-bottom: 10px;
