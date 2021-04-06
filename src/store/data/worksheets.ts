@@ -8,6 +8,7 @@ export default {
       tasks: [
         {
           id: '11',
+          heading: 'Aufgabe 1',
           question: 'Wann fand die Französische Revolution statt?',
           tipps: [{
             heading: 'Frankreich Supchapter',
@@ -16,6 +17,7 @@ export default {
         },
         {
           id: '12',
+          heading: 'Aufgabe 2',
           question: 'Wann war die Französische Revolution vorbei?',
           tipps: [],
         },
@@ -27,11 +29,13 @@ export default {
       tasks: [
         {
           id: '21',
+          heading: 'Aufgabe 1',
           question: 'Vergleiche die französische mit der russischen Revolution',
           tipps: [],
         },
         {
           id: '22',
+          heading: 'Aufgabe 2',
           question: 'Wie hieß der letzte französische König?',
           tipps: [],
         },
@@ -43,11 +47,13 @@ export default {
       tasks: [
         {
           id: '31',
+          heading: 'Aufgabe 1',
           question: 'Wann fand die Französische Revolution statt?',
           tipps: [],
         },
         {
           id: '32',
+          heading: 'Aufgabe 2',
           question: 'Wann war die Französische Revolution vorbei?',
           tipps: [],
         },
@@ -58,6 +64,7 @@ export default {
 
 export interface Task {
   id: string,
+  heading: string,
   question: string,
   tipps: Tip[]
 }
