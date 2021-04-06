@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'page/:pageId/worksheet/:worksheetId',
-        name: 'Source',
+        name: 'Worksheet',
         props: true,
         components: {
           default: Worksheet,
