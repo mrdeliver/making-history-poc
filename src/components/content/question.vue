@@ -2,7 +2,9 @@
   <div class="row block">
     <tipp-area class="side-col"></tipp-area>
     <div class="center-col">
+        <div class="question-wrapper">
         {{ text }}
+        </div>
         <br>
         <textarea rows="4"></textarea>
     </div>
@@ -42,5 +44,9 @@ export default class Question extends Vue {
 
     textarea{
         width:100%;
+    }
+
+    .question-wrapper {
+        margin-top: 5%
     }
 </style>

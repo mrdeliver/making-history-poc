@@ -126,8 +126,12 @@ export default class ActionMenu extends Vue {
   }
 
   expand(itemToExpand: string): void {
-    this.collapseAll();
-    this.expandables[itemToExpand] = true;
+    if (this.expandables[itemToExpand] === true) {
+      this.collapseAll();
+    } else {
+      this.collapseAll();
+      this.expandables[itemToExpand] = true;
+    }
   }
 
   collapseAll(): void {
