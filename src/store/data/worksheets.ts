@@ -20,11 +20,11 @@ export default {
       tasks: [
         {
           id: '21',
-          question: 'Wann fand die Französische Revolution statt?',
+          question: 'Vergleiche die französische mit der russischen Revolution',
         },
         {
           id: '22',
-          question: 'Wann war die Französische Revolution vorbei?',
+          question: 'Wie hieß der letzte französische König?',
         },
       ],
     },

@@ -1,6 +1,9 @@
 <template>
   {{currentSheet.heading}}
-
+  <question v-for="(task, idx) in currentSheet.tasks"
+    :key=idx
+    :text="task.question">
+  </question>
 </template>
 
 <script lang="ts">
@@ -8,8 +11,11 @@ import { Worksheet } from '@/store/data/worksheets';
 import { Options, Vue } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import WorksheetStore from '@/store/worksheet-module';
+import Question from '../content/question.vue';
 
 @Options({
+  name: 'worksheet',
+  components: { Question },
 })
 export default class Source extends Vue {
   @Prop({ type: String })
