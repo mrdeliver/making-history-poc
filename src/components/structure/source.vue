@@ -8,10 +8,12 @@ import { Options, mixins } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import SourceSelector from './source-selector.vue';
 import ImageRessource from '../content/ressources/ImageRessource.vue';
+import TextRessource from '../content/ressources/TextRessource.vue';
 
 @Options({
   components: {
     ImageRessource,
+    TextRessource,
   },
 })
 export default class Source extends mixins(SourceSelector) {
@@ -36,6 +38,8 @@ export default class Source extends mixins(SourceSelector) {
     switch (this.type) {
       case RessourceType.IMAGE_SOURCE:
         return 'ImageRessource';
+      case RessourceType.TEXT_SOURCE:
+        return 'TextRessource';
       default:
         return '';
     }
