@@ -27,6 +27,11 @@ export default {
           id: '1',
         },
         {
+          type: ContentBlockType.SOURCE_CONTENT_BLOCK,
+          sourceType: RessourceType.TEXT_SOURCE,
+          id: '1',
+        },
+        {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
           heading: 'Todesstrafe',
           text: 'Mit dem Gesetz vom 22. Prairial vom 10. Juni 1794 begann die Grande Terreur: Die Todesstrafe wurde gegen alle „Feinde des Volkes“ verbindlich festgeschrieben. Die vage Definition öffnete der Denunziation Tür und Tor.',
