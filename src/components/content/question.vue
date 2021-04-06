@@ -35,11 +35,11 @@ export default class Question extends Vue {
     }
 
     .side-col {
-        flex: $side_col_width
+        flex: $side_col_width;
     }
 
     .center-col {
-        flex: $center_col_width
+        flex: $center_col_width;
     }
 
     textarea{

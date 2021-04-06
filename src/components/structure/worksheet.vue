@@ -1,7 +1,8 @@
 <template>
   <question v-for="(task, idx) in currentSheet.tasks"
     :key=idx
-    :text="task.question">
+    :text="task.question"
+    :tipps="task.tipps">
   </question>
 </template>
 
