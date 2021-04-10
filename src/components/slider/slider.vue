@@ -79,14 +79,15 @@ export default class Slider extends Vue {
   resizeFont():void {
     const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
     const activeWidth = activeElement.clientWidth;
-    const activeHeight = activeElement.clientHeight;
+    const activeHeight = 100;
     const child = activeElement.children[0] as HTMLElement;
-    let fontsize = 1;
+    let fontsize = 26;
     child.style.fontSize = `${fontsize}px`;
     let childWidth = child.clientWidth;
     let childHeight = child.clientHeight;
-    while (childWidth <= activeWidth - 10 && childHeight <= activeHeight - 10 && fontsize < 26) {
-      fontsize += 1;
+    while (childWidth > activeWidth || childHeight > activeHeight) {
+      console.log('true', childHeight, activeHeight);
+      fontsize -= 1;
       child.style.fontSize = `${fontsize}px`;
       childWidth = child.clientWidth;
       childHeight = child.clientHeight;
