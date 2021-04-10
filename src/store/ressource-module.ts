@@ -44,7 +44,6 @@ class RessourceModule extends VuexModule {
   }
 
   get textRessourcesWithIds(): CallableFunction {
-    console.log(this.textRessources);
     return (ids: string[]): TextRessource[] => ids.map((id) => this.textRessource(id));
   }
 
