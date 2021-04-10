@@ -56,12 +56,13 @@ export default class GlossarText extends Vue {
         const textElem = document.createElement('span');
         textElem.textContent = replaceText;
         textElem.classList.add('glossar-text');
-        elem.appendChild(textElem);
-        richText = this.replaceWithObject(
-          richText,
-          replaceText,
-          elem,
-        );
+
+        // Replace glossar entries with html elements
+        const strings = richText.split(replaceText);
+        if (strings.length >= 2) {
+          elem.appendChild(textElem);
+          richText = strings[0] + elem.outerHTML + strings[1];
+        }
       }
     }
 
@@ -73,18 +74,6 @@ export default class GlossarText extends Vue {
     wrapper.setAttribute('id', entry.id);
     wrapper.classList.add('glossar-entry');
     return wrapper;
-  }
-
-  replaceWithObject(
-    textSource: string,
-    textToReplace: string,
-    objectToReplace: HTMLElement,
-  ): string {
-    const strings = textSource.split(textToReplace);
-    if (strings.length >= 2) {
-      return strings[0] + objectToReplace.outerHTML + strings[1];
-    }
-    return textSource;
   }
 
   createBoxContentFrame(): HTMLElement {
