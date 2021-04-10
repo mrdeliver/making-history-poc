@@ -6,6 +6,7 @@ import SourceSlider from '../components/navigation/source-slider.vue';
 import Source from '../components/structure/source.vue';
 import Worksheet from '../components/structure/worksheet.vue';
 import WorksheetSlider from '../components/navigation/worksheet-slider.vue';
+import Subject from '../views/Subject.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
     ],
+  },
+  {
+    path: '/subjects/:subjectId/',
+    name: 'Subjects',
+    props: true,
+    component: Subject,
   },
   {
     path: '/',
