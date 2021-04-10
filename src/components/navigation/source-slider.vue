@@ -36,7 +36,7 @@ export default class SourceSlider extends mixins(SourceSelector) {
   private currentPage: Page = {} as Page;
 
   @Prop({ type: String })
-  private ressourceId = '';
+  ressourceId = '';
 
   private allSources: Ressources[] = []
 

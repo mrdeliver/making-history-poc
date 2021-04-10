@@ -27,6 +27,11 @@ export default {
           id: '1',
         },
         {
+          type: ContentBlockType.SOURCE_CONTENT_BLOCK,
+          sourceType: RessourceType.TEXT_SOURCE,
+          id: '1',
+        },
+        {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
           heading: 'Todesstrafe',
           text: 'Mit dem Gesetz vom 22. Prairial vom 10. Juni 1794 begann die Grande Terreur: Die Todesstrafe wurde gegen alle „Feinde des Volkes“ verbindlich festgeschrieben. Die vage Definition öffnete der Denunziation Tür und Tor.',
@@ -38,8 +43,8 @@ export default {
         textSources: ['0'],
         imageSources: ['0', '1'],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: ['0', '1'],
     },
     {
       id: '2',
@@ -58,8 +63,8 @@ export default {
         textSources: ['0'],
         imageSources: ['1'],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: ['2'],
     },
     {
       id: '3',
@@ -78,8 +83,8 @@ export default {
         textSources: [],
         imageSources: [],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: [],
     },
     {
       id: '4',
@@ -98,8 +103,8 @@ export default {
         textSources: [],
         imageSources: [],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: [],
     },
     {
       id: '5',
@@ -118,8 +123,8 @@ export default {
         textSources: [],
         imageSources: [],
         audioSources: [],
-        workSheets: [],
       },
+      worksheets: [],
     },
   ],
 };
@@ -129,5 +134,6 @@ export interface Subchapter {
   chapterId: string,
   name: string,
   content: ContentBlock[],
-  ressources: Ressources
+  ressources: Ressources,
+  worksheets: string[]
 }

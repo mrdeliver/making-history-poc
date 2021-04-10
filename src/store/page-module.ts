@@ -12,7 +12,8 @@ export interface Page {
   heading: string,
   subheading: string,
   content: ContentBlock[],
-  ressources: Ressources
+  ressources: Ressources,
+  worksheets: string[]
 }
 
 @Module({ generateMutationSetters: true })
@@ -41,6 +42,7 @@ class PageModule extends VuexModule {
     const subchapters: Subchapter[] = Subchapters.result.filter(
       (subchapter) => chapterIds.includes(subchapter.chapterId),
     );
+
     const unindexedPages: Page[] = this.extractPages(
       chapters,
       subchapters,
@@ -67,12 +69,14 @@ class PageModule extends VuexModule {
   }
 
   mapChapterToPage(chapter: Chapter): Page {
+    const chapterResources = this.emptyRessources();
     return {
       type: PageType.CHAPTER,
       heading: chapter.name,
       subheading: '',
       content: chapter.content,
-      ressources: chapter.ressources,
+      ressources: chapterResources,
+      worksheets: [],
     };
   }
 
@@ -83,6 +87,7 @@ class PageModule extends VuexModule {
       subheading: chapter.name,
       content: subchapter.content,
       ressources: subchapter.ressources,
+      worksheets: subchapter.worksheets,
     };
   }
 
@@ -92,6 +97,14 @@ class PageModule extends VuexModule {
       indexedPage.id = idx.toString();
       return indexedPage;
     });
+  }
+
+  emptyRessources(): Ressources {
+    return {
+      textSources: [],
+      imageSources: [],
+      audioSources: [],
+    };
   }
 }
 

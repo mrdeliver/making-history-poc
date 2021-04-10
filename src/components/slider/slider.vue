@@ -3,8 +3,8 @@
     <div class="overlay-R"></div>
     <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
-      <div :class="[sliderFlavour]" class="carousel-cell"
-      @click="setRoute(link.primaryLink.link )"
+      <div ref="myWrapper" :class="[sliderFlavour]" class="carousel-cell"
+      @click="setRoute(link.primaryLink.link)"
       v-for="(link, index) in allLinks" :key="index" >
         <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
       </div>
@@ -32,6 +32,8 @@ export default class Slider extends Vue {
   @Prop({})
   currentIndex = '0';
 
+  private observer = {} as MutationObserver
+
   @Watch('currentIndex')
   onCurrentIndexChange(): void {
     this.scrollSliderToCurrentIndex();
@@ -39,6 +41,57 @@ export default class Slider extends Vue {
 
   mounted(): void {
     this.scrollSliderToCurrentIndex();
+    this.resizeFont();
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        const newValue = m.target as HTMLElement;
+        const newValueString: string = newValue.getAttribute(m.attributeName as string) as string;
+        this.$nextTick(() => {
+          this.onClassChange(newValueString, m.oldValue as string);
+        });
+      });
+    });
+
+    const collection = document.getElementsByClassName('carousel-cell');
+    for (let i = 0; i < collection.length; i += 1) {
+      const collectionElementAsNode = collection[i] as Node;
+      this.observer.observe(collectionElementAsNode, {
+        attributes: true,
+        attributeOldValue: true,
+        attributeFilter: ['class'],
+      });
+    }
+  }
+
+  onClassChange(classAttrValue: string, oldAttrValue: string):void {
+    console.log('Old:', oldAttrValue);
+    const classList = classAttrValue.split(' ');
+    const collection = document.getElementsByClassName('carousel-cell');
+    for (let i = 0; i < collection.length; i += 1) {
+      const collectionChild = collection[i].children[0] as HTMLElement;
+      collectionChild.style.fontSize = '20px';
+    }
+    if (classList.includes('is-selected')) {
+      this.resizeFont();
+    }
+  }
+
+  resizeFont():void {
+    const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
+    const activeWidth = activeElement.clientWidth;
+    const activeHeight = 100;
+    const child = activeElement.children[0] as HTMLElement;
+    let fontsize = 26;
+    child.style.fontSize = `${fontsize}px`;
+    let childWidth = child.clientWidth;
+    let childHeight = child.clientHeight;
+    while (childWidth > activeWidth || childHeight > activeHeight) {
+      console.log('true', childHeight, activeHeight);
+      fontsize -= 1;
+      child.style.fontSize = `${fontsize}px`;
+      childWidth = child.clientWidth;
+      childHeight = child.clientHeight;
+    }
   }
 
   get getIndexInt(): number {
@@ -60,7 +113,7 @@ export default class Slider extends Vue {
   }
 
   $refs!:{
-  flickity: typeof Flickity
+  flickity: typeof Flickity,
   }
 
   setRoute(link: string):void {
@@ -121,9 +174,7 @@ export default class Slider extends Vue {
   justify-content: center;
   align-items: center;
   a {
-    color: $color_grey_6;
     text-decoration: none;
-    font-weight: bold;
   }
 }
 .carousel-cell.is-selected {
@@ -133,7 +184,6 @@ export default class Slider extends Vue {
   a {
     word-wrap: break-word;
     text-decoration: none;
-    font-size:24px;
     }
 
 }
@@ -142,8 +192,8 @@ export default class Slider extends Vue {
   background-color: $color_grey_0;
   a {
     @include slider-heading;
-    font-size: $font_size_text;
     color: $color_grey_6;
+    font-size:20px;
   }
   &.is-selected {
     a {

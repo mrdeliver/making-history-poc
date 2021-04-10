@@ -25,10 +25,6 @@ export default class GlossarText extends Vue {
   @Prop()
   private glossarIds: string[] = []
 
-  private containerId = 'rich-text-container';
-
-  private clickRegistered = false;
-
   $refs!:{
     richTextContainer: HTMLElement
   }
@@ -46,45 +42,38 @@ export default class GlossarText extends Vue {
     const richText = this.replaceEntriesWithHTML();
     const container = this.$refs.richTextContainer;
     container.innerHTML = richText;
-    console.log('Done with text replacing');
   }
 
   replaceEntriesWithHTML(): string {
     let richText = this.text;
-    const glossarElements = this.glossarEntries.map((entry) => {
-      const elem = document.createElement('span');
-      elem.setAttribute('id', entry.id);
-      elem.classList.add('glossar-entry');
-      return elem;
-    });
+    const glossarElements = this.glossarEntries.map((entry) => this.buildTextElementFor(entry));
 
     for (let i = 0; i < glossarElements.length; i += 1) {
       const entry = this.glossarEntries[i];
       const elem = glossarElements[i];
       for (let j = 0; j < entry.replaceTexts.length; j += 1) {
         const replaceText = entry.replaceTexts[j];
-        elem.textContent = replaceText;
-        richText = this.replaceWithObject(
-          richText,
-          replaceText,
-          elem,
-        );
+        const textElem = document.createElement('span');
+        textElem.textContent = replaceText;
+        textElem.classList.add('glossar-text');
+
+        // Replace glossar entries with html elements
+        const strings = richText.split(replaceText);
+        if (strings.length >= 2) {
+          elem.appendChild(textElem);
+          richText = strings[0] + elem.outerHTML + strings[1];
+        }
       }
     }
 
     return richText;
   }
 
-  replaceWithObject(
-    textSource: string,
-    textToReplace: string,
-    objectToReplace: HTMLElement,
-  ): string {
-    const strings = textSource.split(textToReplace);
-    if (strings.length >= 2) {
-      return strings[0] + objectToReplace.outerHTML + strings[1];
-    }
-    return textSource;
+  buildTextElementFor(entry: GlossarEntry): HTMLElement {
+    const wrapper = document.createElement('span');
+    wrapper.setAttribute('id', entry.id);
+    wrapper.classList.add('glossar-entry');
+    return wrapper;
   }
 
   createBoxContentFrame(): HTMLElement {
@@ -94,36 +83,44 @@ export default class GlossarText extends Vue {
   }
 
   registerClickHandler():void {
-    console.log('lets register this shit');
-    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
-    console.log(elements);
+    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-text');
     for (let i = 0; i < elements.length; i += 1) {
       elements[i].addEventListener('click', this.handleGlossarClick);
     }
   }
 
   handleGlossarClick(e: Event): void {
-    console.log('click');
     const elem: HTMLElement = e.target as HTMLElement;
-    if (elem.classList.contains(EXPANDED)) this.closeGlossarEntry(elem);
-    else this.openGlossarEntry(elem);
+    const parent = elem.parentNode as HTMLElement;
+    if (parent.classList.contains(EXPANDED)) this.closeGlossarEntry(parent);
+    else this.openGlossarEntry(parent);
   }
 
   closeGlossarEntry(elem: HTMLElement): void {
-    console.log(elem.classList);
     elem.classList.remove('expanded');
-    console.log(elem.classList);
-    elem.removeChild(document.getElementById(GLOSSAR_WRAPPER) as Node);
+    elem.classList.remove('active-glossar-entry');
+    const glossarBox = elem.getElementsByClassName(GLOSSAR_WRAPPER)[0] as HTMLElement;
+    elem.removeChild(glossarBox);
   }
 
   openGlossarEntry(elem: HTMLElement): void {
+    elem.classList.add('active-glossar-entry');
+
     const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
     const wrapper = document.createElement('span');
-    wrapper.setAttribute('id', GLOSSAR_WRAPPER);
+    wrapper.classList.add(GLOSSAR_WRAPPER);
+    this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
     elem.classList.add(EXPANDED);
+  }
+
+  setPositionOfWrapper(wrapper: HTMLElement, parent: HTMLElement): void {
+    const { left } = parent.getBoundingClientRect();
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (left < vw / 2) wrapper.classList.add('glossar-right');
+    else wrapper.classList.add('glossar-left');
   }
 
   createBoxContentComponent(heading: string, text: string): App {
@@ -145,7 +142,6 @@ export default class GlossarText extends Vue {
   mounted(): void {
     this.glossarEntries = this.glossarIds.map((id) => GlossarStore.glossarEntryWithId(id));
     this.replaceGlossarEntries();
-    console.log('here should be the next function call');
     this.registerClickHandler();
   }
 }
@@ -157,6 +153,9 @@ export default class GlossarText extends Vue {
 @import "../../colors";
 @import "../../text";
 
+$horizontal: 20px;
+$vertical: 25px;
+
 .block {
   margin-bottom: 20px;
 }
@@ -166,13 +165,25 @@ export default class GlossarText extends Vue {
 }
 
 .glossarFrame {
-  border: 2px solid $color_orange_1;
-  background-color: $color_orange_4;
+  border: 2px solid $color_orange;
+  background-color: $color_orange_2;
   width: 300px;
   height: 200px;
+}
+
+.glossar-wrapper {
   position: absolute;
-  left: 20px;
-  top: 25px;
+  z-index: 100;
+}
+
+.glossar-right {
+  left: $horizontal;
+  top: $vertical;
+}
+
+.glossar-left {
+  right: $horizontal;
+  top: $vertical;
 }
 
 .glossarHeading {
@@ -183,12 +194,21 @@ export default class GlossarText extends Vue {
 
 .glossarText {
   @include info-text;
-  color: $color_green_9;
+  color: $color_orange_8;
 }
 
 .glossar-entry {
-  background-color: aqua;
   cursor: pointer;
   position: relative;
+  color: $color_orange;
 }
+
+.active-glossar-entry {
+  text-decoration: underline;
+}
+
+.glossar-link {
+  background-color: red;
+}
+
 </style>

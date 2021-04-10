@@ -43,12 +43,6 @@ export default {
           ],
         },
       ],
-      ressources: {
-        textSources: ['0'],
-        imageSources: ['0'],
-        audioSources: [],
-        workSheets: [],
-      },
     },
   ],
 };
@@ -58,5 +52,4 @@ export interface Chapter {
   name: string,
   bandId: string,
   content: ContentBlock[]
-  ressources: Ressources
 }

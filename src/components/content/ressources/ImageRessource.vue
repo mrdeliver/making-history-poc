@@ -139,18 +139,7 @@ export default class ImageRessource extends Vue {
       border-radius: 15px;
       width: 100%;
     }
-
-    .author {
-      @include info-heading;
-      @include info-color-ressource;
-    }
-
-    .caption {
-      @include info-text;
-      @include info-color-ressource;
-    }
   }
-
 }
 
 </style>

@@ -25,6 +25,7 @@ import { Router, useRouter } from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
 import GlossarStore from '../store/glossar-module';
+import WorksheetStore from '../store/worksheet-module';
 import Glossar from '../components/menus/glossar/glossar.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
 import BackButton from '../components/menus/back-button.vue';
@@ -51,6 +52,7 @@ export default class Band extends Vue {
     PageStore.buildPages(this.bandId);
     RessourceStore.buildRessources();
     GlossarStore.buildGlossarEntries();
+    WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
   }
 }
