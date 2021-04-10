@@ -11,6 +11,7 @@ import GlossarStore from '../../store/glossar-module';
 import BoxContentFrame from '../menus/box-content-frame.vue';
 
 const EXPANDED = 'expanded';
+const GLOSSAR_WRAPPER = 'glossar-wrapper';
 
 @Options({
   components: {
@@ -45,19 +46,17 @@ export default class GlossarText extends Vue {
 
   replaceEntriesWithHTML(): string {
     let richText = this.text;
-    const glossarElements = this.glossarEntries.map((entry) => {
-      const elem = document.createElement('span');
-      elem.setAttribute('id', entry.id);
-      elem.classList.add('glossar-entry');
-      return elem;
-    });
+    const glossarElements = this.glossarEntries.map((entry) => this.buildTextElementFor(entry));
 
     for (let i = 0; i < glossarElements.length; i += 1) {
       const entry = this.glossarEntries[i];
       const elem = glossarElements[i];
       for (let j = 0; j < entry.replaceTexts.length; j += 1) {
         const replaceText = entry.replaceTexts[j];
-        elem.textContent = replaceText;
+        const textElem = document.createElement('span');
+        textElem.textContent = replaceText;
+        textElem.classList.add('glossar-text');
+        elem.appendChild(textElem);
         richText = this.replaceWithObject(
           richText,
           replaceText,
@@ -67,6 +66,13 @@ export default class GlossarText extends Vue {
     }
 
     return richText;
+  }
+
+  buildTextElementFor(entry: GlossarEntry): HTMLElement {
+    const wrapper = document.createElement('span');
+    wrapper.setAttribute('id', entry.id);
+    wrapper.classList.add('glossar-entry');
+    return wrapper;
   }
 
   replaceWithObject(
@@ -88,7 +94,7 @@ export default class GlossarText extends Vue {
   }
 
   registerClickHandler():void {
-    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-entry');
+    const elements = this.$refs.richTextContainer.getElementsByClassName('glossar-text');
     for (let i = 0; i < elements.length; i += 1) {
       elements[i].addEventListener('click', this.handleGlossarClick);
     }
@@ -96,14 +102,16 @@ export default class GlossarText extends Vue {
 
   handleGlossarClick(e: Event): void {
     const elem: HTMLElement = e.target as HTMLElement;
-    if (elem.classList.contains(EXPANDED)) this.closeGlossarEntry(elem);
-    else this.openGlossarEntry(elem);
+    const parent = elem.parentNode as HTMLElement;
+    if (parent.classList.contains(EXPANDED)) this.closeGlossarEntry(parent);
+    else this.openGlossarEntry(parent);
   }
 
   closeGlossarEntry(elem: HTMLElement): void {
     elem.classList.remove('expanded');
     elem.classList.remove('active-glossar-entry');
-    elem.removeChild(elem.lastChild as Node);
+    const glossarBox = elem.getElementsByClassName(GLOSSAR_WRAPPER)[0] as HTMLElement;
+    elem.removeChild(glossarBox);
   }
 
   openGlossarEntry(elem: HTMLElement): void {
@@ -111,10 +119,16 @@ export default class GlossarText extends Vue {
 
     const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
-    const wrapper = document.createElement('span');
+    const wrapper = this.buildWrapper();
+    wrapper.classList.add(GLOSSAR_WRAPPER);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
     elem.classList.add(EXPANDED);
+  }
+
+  buildWrapper(): HTMLElement {
+    const wrapper = document.createElement('span');
+    return wrapper;
   }
 
   createBoxContentComponent(heading: string, text: string): App {
