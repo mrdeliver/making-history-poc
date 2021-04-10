@@ -47,7 +47,11 @@ export default class InlineTextRessource extends Vue {
   sourceText = '';
 
   @Prop()
-  heading = ''
+  heading = '';
+
+  mounted(): void {
+    console.log('at least Im mounted');
+  }
 }
 
 </script>

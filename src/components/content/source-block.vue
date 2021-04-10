@@ -106,6 +106,10 @@ export default class SourceBlock extends Vue {
         return 'DefaultBlock';
     }
   }
+
+  mounted(): void {
+    console.log(this.ressourceBlock);
+  }
 }
 </script>
 
