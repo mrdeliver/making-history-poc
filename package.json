@@ -41,9 +41,9 @@
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0",
+    "execa": "latest",
     "node-sass": "^4.14.0",
     "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5",
-    "execa": "latest"
+    "typescript": "~4.1.5"
   }
 }
