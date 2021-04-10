@@ -3,7 +3,8 @@
     :key=idx
     :heading="task.heading"
     :text="task.question"
-    :tipps="task.tipps">
+    :tipps="task.tipps"
+    :canvasId="idx">
   </question>
 </template>
 
