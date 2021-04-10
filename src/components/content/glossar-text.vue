@@ -11,7 +11,6 @@ import GlossarStore from '../../store/glossar-module';
 import BoxContentFrame from '../menus/box-content-frame.vue';
 
 const EXPANDED = 'expanded';
-const GLOSSAR_WRAPPER = 'glossar-wrapper';
 
 @Options({
   components: {
@@ -24,10 +23,6 @@ export default class GlossarText extends Vue {
 
   @Prop()
   private glossarIds: string[] = []
-
-  private containerId = 'rich-text-container';
-
-  private clickRegistered = false;
 
   $refs!:{
     richTextContainer: HTMLElement
@@ -107,14 +102,13 @@ export default class GlossarText extends Vue {
 
   closeGlossarEntry(elem: HTMLElement): void {
     elem.classList.remove('expanded');
-    elem.removeChild(document.getElementById(GLOSSAR_WRAPPER) as Node);
+    elem.removeChild(elem.lastChild as Node);
   }
 
   openGlossarEntry(elem: HTMLElement): void {
     const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
     const wrapper = document.createElement('span');
-    wrapper.setAttribute('id', GLOSSAR_WRAPPER);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
     elem.classList.add(EXPANDED);
