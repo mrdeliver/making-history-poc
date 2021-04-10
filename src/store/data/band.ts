@@ -16,6 +16,7 @@ export default {
 };
 
 export interface LatestRead {
+  bandId: string,
   pageId: string,
   teaserText: string
 }

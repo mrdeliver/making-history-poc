@@ -15,7 +15,7 @@
         <div class="bandInfo">
           <div class="bandHeading">{{band.heading}}</div>
           <div v-if="band.latestRead" class="bandLastRead"
-            @click="goToPage(band.id, band.latestRead.pageId)">
+            @click.stop="goToPage(band.id, band.latestRead.pageId)">
             <div class="latestText">zuletz </div>
             <div class="latestTeaser">{{band.latestRead.teaserText}}</div>
             <div class="latestIcon"></div>
@@ -60,10 +60,7 @@ export default class BandComponent extends Vue {
   }
 
   goToPage(bandId: string, pageId: string): void {
-    console.log('correct mouse event');
-    const route = `/band/${bandId}/page/${pageId}/`;
-    console.log(route);
-    this.router.push(route);
+    this.router.push(`/band/${bandId}/page/${pageId}/`);
   }
 }
 </script>

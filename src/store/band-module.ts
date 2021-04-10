@@ -23,6 +23,7 @@ class BandModule extends VuexModule {
       if (band.id === mutationObject.bandId) {
         // eslint-disable-next-line no-param-reassign
         band.latestRead = {
+          bandId: mutationObject.bandId,
           pageId: mutationObject.page.id || '',
           teaserText: mutationObject.page.heading,
         };

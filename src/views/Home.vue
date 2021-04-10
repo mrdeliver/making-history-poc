@@ -13,6 +13,12 @@
           <!-- <div class="subjectLastReadIndicator">{{sb.lastRead}}</div> -->
           <div class="subjectTileHeading">
             {{sb.heading}}
+            <div v-if="sb.latestRead" class="subjectLastRead"
+              @click.stop="goToPage(sb.latestRead.bandId, sb.latestRead.pageId)">
+              <div class="latestText">zuletz </div>
+              <div class="latestTeaser">{{sb.latestRead.teaserText}}</div>
+              <div class="latestIcon"></div>
+            </div>
           </div>
       </div>
     </div>
@@ -39,6 +45,10 @@ export default class Band extends Vue {
 
   goToSubjectOverview(subjectId: string): void {
     this.router.push(`/subjects/${subjectId}`);
+  }
+
+  goToPage(bandId: string, pageId: string): void {
+    this.router.push(`/band/${bandId}/page/${pageId}/`);
   }
 }
 </script>
@@ -83,18 +93,44 @@ export default class Band extends Vue {
         top: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.2);
+        background: rgba(0,0,0,0.5);
       }
 
-      &
-
-       .subjectTileHeading {
+      .subjectTileHeading {
         position: absolute;
         bottom: $tile-padding;
         left: $tile-padding;
 
         @include slider-heading;
         color: $color_grey_0;
+
+        .subjectLastRead {
+          border-radius: 15px;
+          background-color: $color_grey_1;
+          display: flex;
+          align-content: center;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-top: 5px;
+          width: 70%;
+          white-space: nowrap;
+
+          .latestText {
+            @include info-text;
+            color: $color_grey_3;
+            padding-right: 5px;
+          }
+
+          .latestTeaser {
+            @include info-heading;
+            color: $color_grey_8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+        }
 
       }
 

@@ -6,6 +6,7 @@
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import BandStore from '@/store/band-module';
+import SubjectStore from '@/store/subject-module';
 import PageStore, { Page } from '../../store/page-module';
 import ContentFrame from '../content/content-frame.vue';
 
@@ -38,6 +39,7 @@ export default class PageComponent extends Vue {
   setLatestRead(): void {
     console.log(`Latest Read Band: ${this.bandId}, page: ${this.pageId}`);
     BandStore.setLatestReadOnBand({ bandId: this.bandId, page: this.currentPage });
+    SubjectStore.setLatestReadOnSubject({ bandId: this.bandId, page: this.currentPage });
   }
 }
 </script>

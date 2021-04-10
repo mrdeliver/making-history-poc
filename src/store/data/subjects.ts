@@ -1,3 +1,5 @@
+import { LatestRead } from './band';
+
 export default {
   result: [
     {
@@ -25,4 +27,5 @@ export interface Subject {
   heading: string,
   bandIds: string[],
   backgroundClass: string
+  latestRead?: LatestRead
 }
