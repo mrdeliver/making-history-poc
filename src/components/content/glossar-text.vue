@@ -119,17 +119,11 @@ export default class GlossarText extends Vue {
 
     const glossarEntry = this.glossarEntries.filter((entry) => entry.id === elem.id)[0];
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
-    const wrapper = this.buildWrapper();
+    const wrapper = document.createElement('span');
     wrapper.classList.add(GLOSSAR_WRAPPER);
     this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
-    elem.appendChild(wrapper);
     elem.classList.add(EXPANDED);
-  }
-
-  buildWrapper(): HTMLElement {
-    const wrapper = document.createElement('span');
-    return wrapper;
   }
 
   setPositionOfWrapper(wrapper: HTMLElement, parent: HTMLElement): void {
@@ -222,4 +216,9 @@ $vertical: 25px;
 .active-glossar-entry {
   text-decoration: underline;
 }
+
+.glossar-link {
+  background-color: red;
+}
+
 </style>
