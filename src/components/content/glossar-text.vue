@@ -123,6 +123,7 @@ export default class GlossarText extends Vue {
     wrapper.classList.add(GLOSSAR_WRAPPER);
     this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
+    elem.appendChild(wrapper);
     elem.classList.add(EXPANDED);
   }
 
