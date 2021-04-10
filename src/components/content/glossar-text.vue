@@ -121,6 +121,7 @@ export default class GlossarText extends Vue {
     const comp = this.createBoxContentComponent(glossarEntry.heading, glossarEntry.text);
     const wrapper = this.buildWrapper();
     wrapper.classList.add(GLOSSAR_WRAPPER);
+    this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
     elem.classList.add(EXPANDED);
@@ -129,6 +130,13 @@ export default class GlossarText extends Vue {
   buildWrapper(): HTMLElement {
     const wrapper = document.createElement('span');
     return wrapper;
+  }
+
+  setPositionOfWrapper(wrapper: HTMLElement, parent: HTMLElement): void {
+    const { left } = parent.getBoundingClientRect();
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (left < vw / 2) wrapper.classList.add('glossar-right');
+    else wrapper.classList.add('glossar-left');
   }
 
   createBoxContentComponent(heading: string, text: string): App {
@@ -161,6 +169,9 @@ export default class GlossarText extends Vue {
 @import "../../colors";
 @import "../../text";
 
+$horizontal: 20px;
+$vertical: 25px;
+
 .block {
   margin-bottom: 20px;
 }
@@ -174,9 +185,21 @@ export default class GlossarText extends Vue {
   background-color: $color_orange_2;
   width: 300px;
   height: 200px;
+}
+
+.glossar-wrapper {
   position: absolute;
-  left: 20px;
-  top: 25px;
+  z-index: 100;
+}
+
+.glossar-right {
+  left: $horizontal;
+  top: $vertical;
+}
+
+.glossar-left {
+  right: $horizontal;
+  top: $vertical;
 }
 
 .glossarHeading {
