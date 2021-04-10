@@ -109,6 +109,9 @@ export default class Question extends Vue {
     this.canvas.addEventListener('mousedown', this.evMouseDownCanvas, false);
     this.canvas.addEventListener('mousemove', this.evMouseMoveCanvas, false);
     this.canvas.addEventListener('mouseup', this.evMouseUpCanvas, false);
+    this.canvas.addEventListener('touchstart', this.evTouchDownCanvas, false);
+    this.canvas.addEventListener('touchmove', this.evTouchMoveCanvas, false);
+    this.canvas.addEventListener('touchend', this.evTouchEndCanvas, false);
   }
 
   evMouseDownCanvas(ev:MouseEvent):void {
@@ -133,12 +136,42 @@ export default class Question extends Vue {
     }
   }
 
+  evTouchDownCanvas(ev:TouchEvent):void {
+    const pos = this.getTouchPos(this.canvas, ev);
+    this.context.beginPath();
+    this.context.moveTo(pos.x, pos.y);
+    this.started = true;
+  }
+
+  evTouchMoveCanvas(ev:TouchEvent):void {
+    const pos = this.getTouchPos(this.canvas, ev);
+    if (this.started) {
+      this.context.lineTo(pos.x, pos.y);
+      this.context.stroke();
+    }
+  }
+
+  evTouchEndCanvas(ev:TouchEvent):void {
+    if (this.started) {
+      this.evTouchMoveCanvas(ev);
+      this.started = false;
+    }
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getMousePos(canvas: HTMLCanvasElement, evt: MouseEvent): any {
     const rect = canvas.getBoundingClientRect();
     return {
       x: evt.clientX - rect.left,
       y: evt.clientY - rect.top,
+    };
+  }
+
+  getTouchPos(canvas: HTMLCanvasElement, evt: TouchEvent): any {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.touches[0].clientX - rect.left,
+      y: evt.touches[0].clientY - rect.top,
     };
   }
 }
