@@ -3,20 +3,20 @@ export default {
     {
       id: '1',
       heading: 'Geschichte',
-      bandIds: ['1'],
-      titleImagePath: '',
+      bandIds: ['1', '2'],
+      backgroundClass: 'history',
     },
     {
       id: '2',
       heading: 'Mathematik',
       bandIds: [],
-      titleImagePath: '',
+      backgroundClass: 'math',
     },
     {
       id: '3',
       heading: 'Deutsch',
       bandIds: [],
-      titleImagePath: '',
+      backgroundClass: 'german',
     }],
 };
 
@@ -24,5 +24,5 @@ export interface Subject {
   id: string,
   heading: string,
   bandIds: string[],
-  titleImagePath: string
+  backgroundClass: string
 }

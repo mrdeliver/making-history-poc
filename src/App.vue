@@ -1,9 +1,11 @@
 <template>
   <div id="iPadFrame">
     <div id="app-navigation">
-      <router-link to="/"><fa :icon="homeIconToDisplay" class="icon"></fa></router-link>
-      <router-link to="/settings">
-        <fa :icon="cogsIconToDisplay" class="icon"></fa>
+      <router-link to="/" class="home">
+        <fa :icon="homeIconToDisplay" class="icon homeIcon"></fa>
+      </router-link>
+      <router-link to="/settings" class="settings">
+        <fa :icon="cogsIconToDisplay" class="icon settingsIcon"></fa>
       </router-link>
     </div>
     <div id="app-content">
@@ -61,18 +63,18 @@ body {
 
   #app-navigation {
     max-height: 3vh;
+
     a {
-      margin-right: 20px;
-      color: black;
+      color: $color_grey_2;
+      margin-right: 10px;
+
       .icon {
-        margin-top: 1vh;
-        transition: all, 0.5s;
-        height: 2vh;
+        transition: all, 0.2s;
+        height: 15px;
+
         &:hover {
-        height:3vh;
-        margin-top: 0vh;
-        transition: all, 0.5s
-      }
+          color: $color_grey_3;
+        }
       }
     }
   }
