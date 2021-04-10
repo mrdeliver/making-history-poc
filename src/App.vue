@@ -16,6 +16,8 @@
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
+import BandStore from '@/store/band-module';
+import SubjectStore from '@/store/subject-module';
 
 export default class App extends Vue {
   private homeIcon = 'home';
@@ -28,6 +30,11 @@ export default class App extends Vue {
 
   get cogsIconToDisplay(): string {
     return this.cogsIcon;
+  }
+
+  mounted(): void {
+    SubjectStore.fetchAllSubjects();
+    BandStore.fetchAllBands();
   }
 }
 </script>

@@ -32,7 +32,6 @@ export default class Band extends Vue {
   private subjects = [] as Subject[]
 
   mounted(): void {
-    SubjectStore.fetchAllSubjects();
     this.subjects = SubjectStore.subjects;
   }
 
@@ -40,12 +39,6 @@ export default class Band extends Vue {
 
   goToSubjectOverview(subjectId: string): void {
     this.router.push(`/subjects/${subjectId}`);
-  }
-
-  backgroundClass(sb: Subject): {[key: string]: string} {
-    return {
-      'background-image': `url('${sb.titleImagePath}')`,
-    };
   }
 }
 </script>

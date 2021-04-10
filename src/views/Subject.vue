@@ -14,6 +14,12 @@
         </div>
         <div class="bandInfo">
           <div class="bandHeading">{{band.heading}}</div>
+          <div v-if="band.latestRead" class="bandLastRead"
+            @click="goToPage(band.id, band.latestRead.pageId)">
+            <div class="latestText">zuletz </div>
+            <div class="latestTeaser">{{band.latestRead.teaserText}}</div>
+            <div class="latestIcon"></div>
+          </div>
           <div class="bandTeaser"> {{band.teaserText}} </div>
         </div>
       </div>
@@ -24,7 +30,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Subject } from '@/store/data/subjects';
-import { Band } from '@/store/data/band';
+import { Band, LatestRead } from '@/store/data/band';
 import SubjectStore from '@/store/subject-module';
 import BandStore from '@/store/band-module';
 import { Router, useRouter } from 'vue-router';
@@ -42,15 +48,22 @@ export default class BandComponent extends Vue {
   private currentBands = [] as Band[];
 
   mounted(): void {
-    BandStore.fetchAllBands();
     this.currentSubject = SubjectStore.subjectWithId(this.subjectId);
     this.currentBands = BandStore.bandsWithIds(this.currentSubject.bandIds);
+    console.log(this.currentBands);
   }
 
   private router: Router = useRouter();
 
   goToBand(bandId: string): void {
     this.router.push(`/band/${bandId}`);
+  }
+
+  goToPage(bandId: string, pageId: string): void {
+    console.log('correct mouse event');
+    const route = `/band/${bandId}/page/${pageId}/`;
+    console.log(route);
+    this.router.push(route);
   }
 }
 </script>
@@ -109,12 +122,40 @@ export default class BandComponent extends Vue {
       }
 
       .bandTeaser {
-        @include detail-text;
+        @include info-text;
         margin-bottom: 10px;
         padding-bottom: 10px;
         height: 50px;
         text-overflow: ellipsis;
         overflow: hidden;
+      }
+
+      .bandLastRead {
+        border-radius: 15px;
+        background-color: $color_grey_8;
+        display: flex;
+        align-content: center;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 5px;
+        width: 50%;
+        white-space: nowrap;
+
+        .latestText {
+          @include info-text;
+          color: $color_grey_3;
+          padding-right: 5px;
+        }
+
+        .latestTeaser {
+          @include info-heading;
+          color: $color_grey_1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
       }
     }
   }

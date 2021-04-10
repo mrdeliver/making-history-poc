@@ -3,6 +3,7 @@ import {
 } from 'vuex-class-modules';
 import store from './index';
 import Bands, { Band } from './data/band';
+import { Page } from './page-module';
 
 @Module({ generateMutationSetters: true })
 class BandModule extends VuexModule {
@@ -14,6 +15,19 @@ class BandModule extends VuexModule {
       return this.allBands.filter((sb) => searchIds.includes(sb.id));
     }
     );
+  }
+
+  @Mutation
+  setLatestReadOnBand(mutationObject: {bandId: string, page: Page}): void {
+    this.allBands.forEach((band) => {
+      if (band.id === mutationObject.bandId) {
+        // eslint-disable-next-line no-param-reassign
+        band.latestRead = {
+          pageId: mutationObject.page.id || '',
+          teaserText: mutationObject.page.heading,
+        };
+      }
+    });
   }
 
   @Action

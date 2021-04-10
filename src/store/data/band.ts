@@ -15,9 +15,15 @@ export default {
   ],
 };
 
+export interface LatestRead {
+  pageId: string,
+  teaserText: string
+}
+
 export interface Band {
   id: string;
   heading: string,
   teaserText: string,
-  backgroundClass: string
+  backgroundClass: string,
+  latestRead?: LatestRead
 }
