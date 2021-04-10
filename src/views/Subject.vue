@@ -122,9 +122,6 @@ export default class BandComponent extends Vue {
         @include info-text;
         margin-bottom: 10px;
         padding-bottom: 10px;
-        height: 50px;
-        text-overflow: ellipsis;
-        overflow: hidden;
       }
 
       .bandLastRead {
