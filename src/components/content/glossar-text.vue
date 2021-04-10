@@ -153,8 +153,8 @@ export default class GlossarText extends Vue {
 }
 
 .glossarFrame {
-  border: 2px solid $color_orange_1;
-  background-color: $color_orange_4;
+  border: 2px solid $color_orange;
+  background-color: $color_orange_2;
   width: 300px;
   height: 200px;
   position: absolute;
@@ -170,12 +170,13 @@ export default class GlossarText extends Vue {
 
 .glossarText {
   @include info-text;
-  color: $color_green_9;
+  color: $color_orange_8;
 }
 
 .glossar-entry {
-  background-color: aqua;
   cursor: pointer;
   position: relative;
+  color: $color_orange;
+  text-decoration: underline;
 }
 </style>
