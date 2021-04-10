@@ -4,10 +4,13 @@
     <div class="center-col">
         <div class="taskHeading">{{ heading }}</div>
         <div class="taskText">{{ text }}</div>
-        <div class="taskInput">
+        <button class="switchButton" @click="showCanvas = !showCanvas">
+          <fa :icon="penIcon" class="icon worksheet-icon"></fa>
+        </button>
+        <div class="taskInput" v-show="!showCanvas">
           <QuillEditor :options="textEditorOptions" class="editor"/>
         </div>
-        <div id="canvas-container">
+        <div id="canvas-container" v-show="showCanvas">
           <canvas
             v-bind:id="getCanvasId()"
             class="canvasView"
@@ -57,6 +60,10 @@ export default class Question extends Vue {
   getCanvasId(): string {
     return this.canvasId;
   }
+
+  private penIcon = 'pen';
+
+  private showCanvas = false;
 
   private textEditorOptions = {
     debug: 'info',
@@ -189,5 +196,24 @@ textarea{
   border-color: black;
   display: block;
 }
+
+.icon {
+        width: 20px;
+        height: 100%;
+        margin-right: 5px;
+        margin-left: 5px;
+      }
+
+.switchButton{
+  background-color: $color_blue_2;
+  color: $color_blue_9;
+  border: 2px solid transparent;
+  &.worksheet-button-active{
+    border: 2px solid $color_blue;
+  }
+
+  .worksheet-icon{
+   color: $color_blue_3
+}}
 
 </style>
