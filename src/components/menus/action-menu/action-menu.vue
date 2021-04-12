@@ -36,8 +36,11 @@
         <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
       </div>
       <div class="menu-item">
-        <button class="teacher-button" @click="toggleTeacherBand()">
-        <fa :icon="bookIcon" class="icon teacher-icon"></fa>Lehrerband</button>
+        <button class="teacher-button" @click="toggleTeacherBand()"
+         :class="{studentBandButton: teacherBandState}">
+        <fa :icon="bookIcon" class="icon teacherIcon"
+          :class="{studentIcon: teacherBandState}"
+        ></fa>{{bandToggleButtonText}}</button>
       </div>
       <div class="menu-item">
         <box-content-frame v-if="expanded('worksheets')" frameFlavour="worksheetPreview">
@@ -156,9 +159,20 @@ export default class ActionMenu extends Vue {
 
   private bookIcon = 'book';
 
+  private bandToggleButtonText = 'Lehrerband';
+
   toggleTeacherBand(): void {
     console.log('toggle');
     PageStore.toggleTeacherBand();
+    this.toggleButtonText();
+  }
+
+  toggleButtonText(): void {
+    this.bandToggleButtonText = this.teacherBandState ? 'Schülerband' : 'Lehrerband';
+  }
+
+  get teacherBandState(): boolean {
+    return PageStore.getTeacherBandState;
   }
 
   private route: RouteLocationNormalizedLoaded = useRoute();
@@ -288,7 +302,16 @@ export default class ActionMenu extends Vue {
     border: 2px solid $color_red;
   }
 
-  .teacher-icon{
+  &.studentBandButton {
+    background-color: $color_grey_0;
+    color: $color_grey_9;
+  }
+
+  .studentIcon {
+    color: $color_grey_3 !important;
+  }
+
+  .teacherIcon {
   color: $color_red_3
   }
 }
