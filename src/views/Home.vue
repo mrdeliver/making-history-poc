@@ -106,7 +106,7 @@ export default class Band extends Vue {
 
         .subjectLastRead {
           border-radius: 15px;
-          background-color: $color_grey_1;
+          background-color: $color_grey_0;
           display: flex;
           align-content: center;
           padding-top: 1px;

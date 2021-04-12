@@ -40,7 +40,7 @@ export default {
         },
       ],
       ressources: {
-        textSources: ['0'],
+        textSources: ['1'],
         imageSources: ['0', '1'],
         audioSources: [],
       },
@@ -60,7 +60,7 @@ export default {
         },
       ],
       ressources: {
-        textSources: ['0'],
+        textSources: ['1'],
         imageSources: ['1'],
         audioSources: [],
       },
