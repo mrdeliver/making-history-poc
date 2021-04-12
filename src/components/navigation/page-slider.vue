@@ -34,7 +34,6 @@ export default class PageSlider extends Vue {
   }
 
   mapPageToSliderLink(pages: Page[]): SliderLink[] {
-    // primary --> link = page/pageId | content = name
     return pages.map((page):SliderLink => ({
       primaryLink: {
         link: `/band/${this.bandId}/page/${page.id}`,

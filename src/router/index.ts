@@ -10,7 +10,6 @@ import Subject from '../views/Subject.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-
     path: '/band/:bandId/',
     name: 'Band',
     props: true,

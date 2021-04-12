@@ -2,7 +2,9 @@ import {
   VuexModule, Module, Action, Mutation,
 } from 'vuex-class-modules';
 import Chapters, { Chapter } from './data/chapters';
-import { ContentBlock, Ressources, PageType } from './data/data-types';
+import {
+  Ressources, PageType, Content,
+} from './data/data-types';
 import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
 
@@ -11,7 +13,7 @@ export interface Page {
   id?: string,
   heading: string,
   subheading: string,
-  content: ContentBlock[],
+  content: Content,
   ressources: Ressources,
   worksheets: string[]
 }

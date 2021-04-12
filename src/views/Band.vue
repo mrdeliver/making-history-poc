@@ -50,6 +50,7 @@ export default class Band extends Vue {
 
   created(): void {
     PageStore.buildPages(this.bandId);
+    console.log(PageStore.allPages);
     RessourceStore.buildRessources();
     GlossarStore.buildGlossarEntries();
     WorksheetStore.buildWorksheets();

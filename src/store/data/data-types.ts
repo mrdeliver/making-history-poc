@@ -65,3 +65,8 @@ export enum PageType {
   CHAPTER='chapter',
   SUB_CHAPTER='subchapter'
 }
+
+export interface Content {
+  teacherContent: ContentBlock[],
+  studentContent: ContentBlock[]
+}
