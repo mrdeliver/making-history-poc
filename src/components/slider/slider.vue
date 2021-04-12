@@ -130,6 +130,7 @@ export default class Slider extends Vue {
 
 @import "src/colors";
 @import "src/text";
+@import "src/size";
 
 .slider-container{
   position: relative;
@@ -179,7 +180,7 @@ export default class Slider extends Vue {
 }
 .carousel-cell.is-selected {
   height: 100px;
-  width: 250px;
+  width: $slider-cell-active-with;
   top: 0px;
   a {
     word-wrap: break-word;

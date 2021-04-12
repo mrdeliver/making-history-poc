@@ -36,7 +36,7 @@
         <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
       </div>
       <div class="menu-item">
-        <button class="teacher-button">
+        <button class="teacher-button" @click="toggleTeacherBand()">
         <fa :icon="bookIcon" class="icon teacher-icon"></fa>Lehrerband</button>
       </div>
       <div class="menu-item">
@@ -155,6 +155,11 @@ export default class ActionMenu extends Vue {
   private volumeIcon = 'music';
 
   private bookIcon = 'book';
+
+  toggleTeacherBand(): void {
+    console.log('toggle');
+    PageStore.toggleTeacherBand();
+  }
 
   private route: RouteLocationNormalizedLoaded = useRoute();
 

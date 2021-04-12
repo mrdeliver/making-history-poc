@@ -23,6 +23,8 @@ class PageModule extends VuexModule {
   // state
   private pages: Page[] = [];
 
+  private teacherBandState = false;
+
   // getters
   get allPages(): Page[] {
     return this.pages;
@@ -30,6 +32,15 @@ class PageModule extends VuexModule {
 
   get singlePage(): CallableFunction {
     return (pageId: string): Page => this.pages[parseInt(pageId, 10)];
+  }
+
+  get getTeacherBandState(): boolean {
+    return this.teacherBandState;
+  }
+
+  @Mutation
+  toggleTeacherBand() {
+    this.teacherBandState = !this.teacherBandState;
   }
 
   @Mutation

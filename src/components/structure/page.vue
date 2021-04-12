@@ -1,5 +1,13 @@
 <template>
-  <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
+  <div v-if="teacherBandState">
+    <div class="infoContainer">
+      <div class="teacherInfo">Lehrerband</div>
+    </div>
+    <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
+  </div>
+  <div v-else>
+    <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
+  </div>
 </template>
 
 <script lang="ts">
@@ -7,7 +15,6 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import BandStore from '@/store/band-module';
 import SubjectStore from '@/store/subject-module';
-import { Content } from '@/store/data/data-types';
 import PageStore, { Page } from '../../store/page-module';
 import ContentFrame from '../content/content-frame.vue';
 
@@ -23,6 +30,10 @@ export default class PageComponent extends Vue {
 
   @Prop({ type: String })
   private pageId = '';
+
+  get teacherBandState(): boolean {
+    return PageStore.getTeacherBandState;
+  }
 
   private currentPage: Page = {} as Page;
 
@@ -49,5 +60,28 @@ export default class PageComponent extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+@import "src/colors";
+@import "src/text";
+@import "src/size";
+
+.infoContainer {
+  display: flex;
+  justify-content: center;
+
+  .teacherInfo {
+    width: $slider-cell-active-with;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    background-color: $color_red_1;
+    color: $color_red;
+    border: 3px solid $color_red;
+    border-radius: 50px;
+    @include regular-text;
+    font-weight: $font_weight_heading;
+    z-index: 1000;
+  }
+}
 
 </style>
