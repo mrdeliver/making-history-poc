@@ -9,7 +9,7 @@
     class="glossarButton"
     buttonFlavour="glossarButtonColor"
     buttonOpenIcon="search">
-    <glossar></glossar>
+    <entry-search></entry-search>
   </expandable-button>
   <expandable-button class="positionFixed">
     <action-menu :pageId="pageId" :bandId="bandId"/>
@@ -24,16 +24,16 @@ import { Prop } from 'vue-property-decorator';
 import { Router, useRouter } from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
-import GlossarStore from '../store/glossar-module';
+import EntryStore from '../store/search-entry-module';
 import WorksheetStore from '../store/worksheet-module';
-import Glossar from '../components/menus/glossar/glossar.vue';
+import EntrySearch from '../components/menus/glossar/entry-search.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
 import BackButton from '../components/menus/back-button.vue';
 import ActionMenu from '../components/menus/action-menu/action-menu.vue';
 
 @Options({
   components: {
-    Glossar,
+    EntrySearch,
     ExpandableButton,
     BackButton,
     ActionMenu,
@@ -50,9 +50,8 @@ export default class Band extends Vue {
 
   created(): void {
     PageStore.buildPages(this.bandId);
-    console.log(PageStore.allPages);
     RessourceStore.buildRessources();
-    GlossarStore.buildGlossarEntries();
+    EntryStore.buildEntries();
     WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
   }

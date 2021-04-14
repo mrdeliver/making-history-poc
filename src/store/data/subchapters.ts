@@ -10,7 +10,22 @@ export default {
       chapterId: '1',
       name: 'Ursachen und Bedingungen',
       content: {
-        teacherContent: [],
+        teacherContent: [
+          {
+            type: ContentBlockType.TEXT_CONTENT_BLOCK,
+            heading: '',
+            text: 'Geschichtsbewusstsein ist eine mentale Disposition die jeder hat, also ein individuelles Konstrukt, das mehr oder weniger stark ausgeprägt und mehr oder weniger reflektiert und (selbst-)reflexiv sein kann.',
+            glossarEntries: [],
+            tipps: [],
+          },
+          {
+            type: ContentBlockType.TEXT_CONTENT_BLOCK,
+            heading: 'Sichere Lernumgebung',
+            text: 'Eine sichere Lernumgebung zeichnet sich dadurch aus, dass Schülerinnen und Schüler während der kooperativen Unterrichtssituation ein Gefühl der Sicherheit verspüren. Dazu muss ihnen klar sein, was von ihnen erwartet wird. Dies bezieht sich sowohl auf die zu erledigende Aufgabenstellung als auch ihr Arbeitsverhalten und die Arbeitshaltung ihrer Mitschüler. Des Weiteren muss ein Gefühl der Zugehörigkeit sowie des "Man-selbst-Sein" geschaffen werden. Vereinfacht gesagt müssen sich die Schülerinnen und Schüler wohl in ihrer Haut fühlen.',
+            glossarEntries: [],
+            tipps: [],
+          },
+        ],
         studentContent: [
           {
             type: ContentBlockType.TEXT_CONTENT_BLOCK,
@@ -55,7 +70,22 @@ export default {
       chapterId: '1',
       name: 'Opferzahlen',
       content: {
-        teacherContent: [],
+        teacherContent: [
+          {
+            type: ContentBlockType.TEXT_CONTENT_BLOCK,
+            heading: 'Sichere Lernumgebung',
+            text: 'Obschon von 5 Basismerkmalen die Rede ist, geht vor allem von der positiven Abhängigkeit als auch von der individuelle Verantwortung eine besondere Bedeutung aus. Der Arbeitsauftrag muss so beschaffen sein, dass jedes Mitglied der Lerngruppe seinen Teil zur Gesamtlösung beitragen kann. Gerade in heterogenen Lerngruppen kann auf diesem Wege eine hohe Zufriedenheit geschaffen werden. Wenn den Schülerinnen und Schülern klar ist, dass sie nur miteinander zur Gesamtlösung kommen können, steigt so die Verantwortung für das eigene Handeln in den einzelnen kooperativen Arbeitsphasen. Keiner möchte sich eine Blöße geben oder die Anderen enttäuschen.',
+            glossarEntries: [],
+            tipps: [],
+          },
+          {
+            type: ContentBlockType.TEXT_CONTENT_BLOCK,
+            heading: 'Vorteile des Kooperativen Lernens',
+            text: 'Gerade in der Anfangsphase versuchen die Schüler gern, die Einzelarbeit zu vermeiden. Hier gilt es als Lehrkraft von Anfang an darauf zu achten, dass alle drei Phasen korrekt erfolgen. Auch ist der zeitliche Aufwand immer wieder zu berücksichtigen. In 90 Minuten lassen sich kooperative Lernsituationen sehr gut inszenieren, wohin gegen im 45-Minutentakt die Aufgabenstellung entsprechend zu konfektionieren ist. Dies gilt auch für die Auswahl der kooperativen Lernmethode.vKomplexe kooperative Methoden wie das Gruppenpuzzle lassen sich sicherlich auf mehrere Einzelstunden aufteilen, was für das Lerntempoduett nicht geht.',
+            glossarEntries: [],
+            tipps: [],
+          },
+        ],
         studentContent: [
           {
             type: ContentBlockType.TEXT_CONTENT_BLOCK,

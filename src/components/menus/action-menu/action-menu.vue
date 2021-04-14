@@ -312,7 +312,7 @@ export default class ActionMenu extends Vue {
   }
 
   .teacherIcon {
-  color: $color_red_3
+  color: $color_red_3;
   }
 }
 

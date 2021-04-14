@@ -18,7 +18,7 @@ export interface ContentBlock {
 }
 
 export interface TextContentBlock extends ContentBlock {
-  glossarEntries: string[],
+  highlightEntries: string[],
   heading: string,
   text: string,
   tipps: Tip[]
