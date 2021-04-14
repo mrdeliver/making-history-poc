@@ -28,7 +28,7 @@ export default class EntryText extends Vue {
   @Prop()
   private entryIds: string[] = []
 
-  private entries: GlossarEntry[] = [];
+  private entries: Entry[] = [];
 
   $refs!:{
     richTextContainer: HTMLElement
@@ -85,7 +85,7 @@ export default class EntryText extends Vue {
     return richText;
   }
 
-  buildTextElementFor(entry: GlossarEntry): HTMLElement {
+  buildTextElementFor(entry: Entry): HTMLElement {
     const wrapper = document.createElement('span');
     wrapper.setAttribute('id', entry.id);
     wrapper.classList.add('glossar-entry');
