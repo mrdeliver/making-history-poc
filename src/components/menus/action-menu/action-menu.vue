@@ -162,7 +162,6 @@ export default class ActionMenu extends Vue {
   private bandToggleButtonText = 'Lehrerband';
 
   toggleTeacherBand(): void {
-    console.log('toggle');
     PageStore.toggleTeacherBand();
     this.toggleButtonText();
   }

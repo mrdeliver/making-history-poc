@@ -3,7 +3,7 @@
     <tipp-area class="side-col"></tipp-area>
     <div class="center-col">
       <h1>{{heading}}</h1>
-      <entry-text class="center-col" :text="text" :entryIds="entries"></entry-text>
+      <entry-text class="center-col" :text="text" :entryIds="highlightEntries"></entry-text>
     </div>
     <tipp-area class="side-col" :tipps="tipps"></tipp-area>
   </div>
@@ -33,7 +33,7 @@ export default class TextBlock extends Vue {
   private tipps: Tip[] = []
 
   @Prop({})
-  private entries: string[] = []
+  private highlightEntries: string[] = []
 }
 </script>
 
