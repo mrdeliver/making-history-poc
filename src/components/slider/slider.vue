@@ -64,7 +64,6 @@ export default class Slider extends Vue {
   }
 
   onClassChange(classAttrValue: string, oldAttrValue: string):void {
-    console.log('Old:', oldAttrValue);
     const classList = classAttrValue.split(' ');
     const collection = document.getElementsByClassName('carousel-cell');
     for (let i = 0; i < collection.length; i += 1) {
@@ -86,7 +85,6 @@ export default class Slider extends Vue {
     let childWidth = child.clientWidth;
     let childHeight = child.clientHeight;
     while (childWidth > activeWidth || childHeight > activeHeight) {
-      console.log('true', childHeight, activeHeight);
       fontsize -= 1;
       child.style.fontSize = `${fontsize}px`;
       childWidth = child.clientWidth;

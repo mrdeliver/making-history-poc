@@ -51,7 +51,6 @@ export default class EntrySearch extends Vue {
   }
 
   get teacherBandActivated(): boolean {
-    console.log(PageStore.getTeacherBandState);
     return PageStore.getTeacherBandState;
   }
 

@@ -10,10 +10,7 @@ class BandModule extends VuexModule {
   private allBands = [] as Band[]
 
   get bandsWithIds(): CallableFunction {
-    return ((searchIds: string[]): Band[] => {
-      console.log(this.allBands);
-      return this.allBands.filter((sb) => searchIds.includes(sb.id));
-    }
+    return ((searchIds: string[]): Band[] => this.allBands.filter((sb) => searchIds.includes(sb.id))
     );
   }
 
