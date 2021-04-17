@@ -4,7 +4,10 @@
       <div class="image-col">
         <img :src="url">
       </div>
-      <div class="caption-col">
+
+    </div>
+    <div class="row">
+       <div class="caption-col">
         {{caption}}
       </div>
     </div>
@@ -56,6 +59,7 @@ export default class InlineImageRessource extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "src/colors";
 .block {
   margin-bottom: 20px;
 }
@@ -66,14 +70,19 @@ export default class InlineImageRessource extends Vue {
 
 .image-col {
   flex: 80%;
+  padding: 20px;
 }
 
 .caption-col {
-  flex: 20%;
+  width: 80%;
+  color: $color_yellow_7;
+  text-align: center;
+  margin: auto;
 }
 
 img {
   max-width:100%;
   max-height:100%;
+  border-radius: 15px;
 }
 </style>
