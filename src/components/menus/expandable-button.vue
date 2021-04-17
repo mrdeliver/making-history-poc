@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <div v-on:click="expandContent" :class="buttonFlavour" class="defaultStyle" ref="button">
+  <div class="expandableButtonContainer" @focusout="collapseContent()" tabindex="0">
+    <div @click="toggleContent()"
+    :class="buttonFlavour" class="defaultStyle" ref="button" >
       <fa :icon="iconToDisplay" class="icon"></fa>
     </div>
-    <div v-if="expand" class="positionAbsolute" :class="expandDirectionClass">
+    <div @mousedown="childClicked()"
+    v-if="expand" class="positionAbsolute" :class="expandDirectionClass">
       <slot></slot>
     </div>
   </div>
@@ -45,9 +47,24 @@ export default class ExpandableButton extends Vue {
     return this.expand ? this.closeIcon : this.buttonOpenIcon;
   }
 
-  expandContent(): void {
+  toggleContent(): void {
     this.expandDirectionClass = this.getExpandDirectionClass();
     this.expand = !this.expand;
+  }
+
+  collapseContent(): void {
+    console.log('defocus toggled');
+    if (!this.childInFocus) this.expand = false;
+    this.childInFocus = false;
+  }
+
+  childInFocus = false;
+
+  // mousedown fires before focusout, so this way we can register wether
+  // a child element was clicked and omit the following collapseContent.
+  childClicked(): void {
+    this.childInFocus = true;
+    console.log('child clicked');
   }
 
   getExpandDirectionClass(): string {
@@ -73,6 +90,10 @@ export default class ExpandableButton extends Vue {
 @import "../../colors";
 
 $button_diameter: 30px;
+
+.expandableButtonContainer:focus {
+  outline: none;
+}
 
 .defaultStyle {
   height: $button_diameter;
