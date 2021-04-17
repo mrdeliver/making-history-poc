@@ -5,7 +5,7 @@
       <fa :icon="iconToDisplay" class="icon"></fa>
     </div>
     <div @mousedown="childClicked()"
-    v-if="expand" class="positionAbsolute" :class="expandDirectionClass">
+    v-show="expand" class="positionAbsolute" :class="expandDirectionClass">
       <slot></slot>
     </div>
   </div>
