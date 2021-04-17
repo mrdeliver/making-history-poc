@@ -11,8 +11,8 @@
     buttonOpenIcon="search">
     <entry-search></entry-search>
   </expandable-button>
-  <expandable-button class="positionFixed">
-    <action-menu :pageId="pageId" :bandId="bandId"/>
+  <expandable-button class="positionFixed" @buttonToggeled="handleActionsMenuToggle($event)">
+    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
   </expandable-button>
   <back-button class="positionFixedLeft">
   </back-button>
@@ -54,6 +54,16 @@ export default class Band extends Vue {
     EntryStore.buildEntries();
     WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
+  }
+
+  $refs!: {
+    actionMenu: ActionMenu,
+  }
+
+  handleActionsMenuToggle(buttonExpanded: Event):void {
+    if (!buttonExpanded) {
+      this.$refs.actionMenu.collapseItems();
+    }
   }
 }
 </script>
