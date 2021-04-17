@@ -153,7 +153,7 @@ export default class EntryText extends Vue {
       setup() {
         return () => h(
           BoxContentFrame,
-          { 'frame-flavour': 'glossarFrame' },
+          { 'frame-flavour': 'inlineGlossarFrame' },
           [
             h('div', { class: 'glossarHeading' }, heading),
             h('div', { class: 'glossarText' }, text),
@@ -190,7 +190,7 @@ $vertical: 25px;
   text-align: justify;
 }
 
-.glossarFrame {
+.inlineGlossarFrame {
   border: 2px solid $color_orange;
   background-color: $color_orange_2;
   width: 300px;

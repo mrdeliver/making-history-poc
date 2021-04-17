@@ -3,7 +3,9 @@
     <div class="overlay-R"></div>
     <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
-      <div ref="myWrapper" :class="[sliderFlavour]" class="carousel-cell"
+      <div ref="myWrapper"
+      :class="[sliderFlavour]"
+      class="carousel-cell"
       @click="setRoute(link.primaryLink.link)"
       v-for="(link, index) in allLinks" :key="index" >
         <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
@@ -16,7 +18,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import Flickity from 'vue-flickity/src/flickity.vue';
-import { Router, useRouter } from 'vue-router';
+import { Router, useRouter, useRoute } from 'vue-router';
 import SliderLink from './slider';
 
 @Options({
@@ -26,6 +28,8 @@ import SliderLink from './slider';
 })
 
 export default class Slider extends Vue {
+  private currentRoute = useRoute();
+
   @Prop({ })
   allLinks: SliderLink[] = [];
 
@@ -37,6 +41,10 @@ export default class Slider extends Vue {
   @Watch('currentIndex')
   onCurrentIndexChange(): void {
     this.scrollSliderToCurrentIndex();
+  }
+
+  routeIsActive(currentPath: string): string {
+    return this.currentRoute.path.includes(currentPath) ? 'router-link-active' : '';
   }
 
   mounted(): void {
@@ -133,6 +141,7 @@ export default class Slider extends Vue {
 .slider-container{
   position: relative;
 }
+
 .overlay-L {
     height: 100%;
     width: 20%;
@@ -158,6 +167,7 @@ export default class Slider extends Vue {
 .flickity-viewport{
   height: 120px !important;
 }
+
 .carousel-cell {
   transition: 0.2s ease;
   text-align: center;

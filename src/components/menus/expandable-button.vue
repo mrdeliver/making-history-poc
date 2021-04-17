@@ -53,8 +53,9 @@ export default class ExpandableButton extends Vue {
   }
 
   collapseContent(): void {
-    if (!this.childInFocus) this.expand = false;
-    this.childInFocus = false;
+    if (!this.childInFocus) {
+      this.expand = false;
+    }
   }
 
   childInFocus = false;
@@ -63,6 +64,7 @@ export default class ExpandableButton extends Vue {
   // a child element was clicked and omit the following collapseContent.
   childClicked(): void {
     this.childInFocus = true;
+    setTimeout(() => { this.childInFocus = false; }, 200);
   }
 
   getExpandDirectionClass(): string {
