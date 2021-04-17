@@ -69,8 +69,8 @@ export default class ExpandableButton extends Vue {
   // mousedown fires BEFORE focusout, so this way we can register wether
   // a child element was clicked and omit the following collapseContent.
   childClicked(): void {
-    // this.childInFocus = true;
-    // setTimeout(() => { this.childInFocus = false; }, 200);
+    this.childInFocus = true;
+    setTimeout(() => { this.childInFocus = false; }, 200);
   }
 
   getExpandDirectionClass(): string {
