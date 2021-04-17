@@ -4,7 +4,6 @@
       <div class="image-col">
         <img :src="url">
       </div>
-
     </div>
     <div class="row">
        <div class="caption-col">
