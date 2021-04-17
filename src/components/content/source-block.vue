@@ -1,8 +1,12 @@
 <template>
   <div class="row block">
     <tipp-area class="side-col"></tipp-area>
-    <div class="center-col">
-      <div id="source-container" :class="style[sourceType].wrapperCss">
+    <div class="center-col ">
+      <div
+        id="source-container"
+        class="container-style"
+        :class="style[sourceType].wrapperCss"
+      >
         <div class="row pointer" v-on:click="expand=!expand">
           <div class="icon-col">
             <fa :icon="style[sourceType].icon" :class="style[sourceType].iconCss"></fa>
@@ -110,7 +114,10 @@ export default class SourceBlock extends Vue {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+@import "src/text";
+@import "src/colors";
+
 %icon {
   display: block;
   width: 20px;
@@ -127,13 +134,19 @@ export default class SourceBlock extends Vue {
   color: rgb(103, 255, 97);
 }
 
+.container-style {
+  border-radius: 15px;
+}
+
 .icon-col {
   flex: 5%;
-  padding-left: 5px;
+  padding-left: 20px;
 }
 
 .heading-col {
   flex: 95%;
+  font-size: $font_size_text_heading;
+  font-weight: bold ;
 }
 
 .border {
@@ -142,10 +155,12 @@ export default class SourceBlock extends Vue {
 
 .image-ressource {
   background: rgba(255, 255, 126, 0.37);
+  border: 2px solid $color_yellow;
 }
 
 .text-ressource {
   background: rgba(150, 255, 146, 0.37);
+  border: 2px solid $color_green;
 }
 
 .pointer {

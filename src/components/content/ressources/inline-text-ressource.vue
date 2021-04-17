@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row heading-row">
       {{heading}}
     </div>
-    <div class="row">
+    <div class="row source-row">
       {{sourceText}}
     </div>
-    <div class="row">
+    <div class="row content-row">
       <text-block v-for="(tb, idx) in content" :key="idx"
       :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
       </text-block>
@@ -58,6 +58,8 @@ export default class InlineTextRessource extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "src/text";
+
 .block {
   margin-bottom: 20px;
 }
@@ -66,16 +68,14 @@ export default class InlineTextRessource extends Vue {
   text-align: justify;
 }
 
-.image-col {
-  flex: 80%;
+.heading-row{
+   padding-left: 20px;
+   @include info-heading;
 }
 
-.caption-col {
-  flex: 20%;
+.source-row {
+  padding: 20px;
+  font-style: italic;
 }
 
-img {
-  max-width:100%;
-  max-height:100%;
-}
 </style>
