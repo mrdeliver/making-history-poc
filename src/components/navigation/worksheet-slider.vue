@@ -65,6 +65,7 @@ export default class WorksheetSlider extends Vue {
 @import 'src/text';
 
 .worksheetSlider {
+   border-color: $color_blue;
   background-color: $color_blue_1;
   a {
     @include slider-heading;

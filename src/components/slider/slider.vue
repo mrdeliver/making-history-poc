@@ -8,7 +8,9 @@
       class="carousel-cell"
       @click="setRoute(link.primaryLink.link)"
       v-for="(link, index) in allLinks" :key="index" >
-        <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
+        <div :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
+          <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
+        </div>
       </div>
     </flickity>
   </div>
@@ -47,6 +49,11 @@ export default class Slider extends Vue {
     return this.currentRoute.path.includes(currentPath) ? 'router-link-active' : '';
   }
 
+  subIsActive(input: string): boolean {
+    const paths = Array.isArray(input) ? input : [input];
+    return paths.some((path) => this.$route.path.indexOf(path) === 0);
+  }
+
   mounted(): void {
     this.scrollSliderToCurrentIndex();
     this.resizeFont();
@@ -75,7 +82,7 @@ export default class Slider extends Vue {
     const classList = classAttrValue.split(' ');
     const collection = document.getElementsByClassName('carousel-cell');
     for (let i = 0; i < collection.length; i += 1) {
-      const collectionChild = collection[i].children[0] as HTMLElement;
+      const collectionChild = collection[i].children[0].children[0] as HTMLElement;
       collectionChild.style.fontSize = '20px';
     }
     if (classList.includes('is-selected')) {
@@ -177,7 +184,7 @@ export default class Slider extends Vue {
   margin-right: 10px;
   margin-left:10px;
   counter-increment: carousel-cell;
-  border: 3px solid transparent;
+  border: 0px solid transparent;
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -197,8 +204,21 @@ export default class Slider extends Vue {
 
 }
 
+.wrapper-is-active {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  height: calc(100% - 6px);
+  border: inherit;
+  border-radius: inherit;
+  border-width: 3px;
+}
+
 .defaultFlavour {
   background-color: $color_grey_0;
+  border-color: $color_grey_7;
   a {
     @include slider-heading;
     color: $color_grey_6;

@@ -69,6 +69,7 @@ export default class SourceSlider extends mixins(SourceSelector) {
 @import 'src/text';
 
 .sourcesSlider {
+  border-color: $color_yellow;
   background-color: $color_yellow_1;
   a {
     @include slider-heading;
