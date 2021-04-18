@@ -59,7 +59,7 @@ export default {
         ],
       },
       ressources: {
-        textSources: ['1'],
+        textSources: ['0'],
         imageSources: ['0', '1'],
         audioSources: [],
       },
@@ -97,7 +97,7 @@ export default {
         ],
       },
       ressources: {
-        textSources: ['1'],
+        textSources: ['0'],
         imageSources: ['1'],
         audioSources: [],
       },

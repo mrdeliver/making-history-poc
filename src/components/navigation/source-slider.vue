@@ -42,6 +42,15 @@ export default class SourceSlider extends mixins(SourceSelector) {
 
   private sliderLinks: SliderLink [] = []
 
+  @Watch('type')
+  onTypeChange(): void {
+    this.currentPage = PageStore.singlePage(this.pageId);
+    const allSourceIds = this.getRessourceIdsOfTypeForPage(this.currentPage.ressources, this.type);
+    this.sliderLinks = this.mapRessourceToSliderLink(
+      this.getRessourcesForIds(allSourceIds, this.type),
+    );
+  }
+
   created(): void {
     this.currentPage = PageStore.singlePage(this.pageId);
     const allSourceIds = this.getRessourceIdsOfTypeForPage(this.currentPage.ressources, this.type);
