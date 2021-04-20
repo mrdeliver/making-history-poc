@@ -99,7 +99,7 @@ $slider_height: 115px;
     margin-top: 10px;
   }
   box-sizing: content-box;
-  max-height: calc(100% - 125px);
+  height: calc(100% - 125px);
 }
 
 .glossarButton {
