@@ -18,7 +18,7 @@ import TextRessource from '../content/ressources/TextRessource.vue';
 })
 export default class Source extends mixins(SourceSelector) {
   @Prop({ type: String })
-  private ressourceId = '0';
+  private ressourceId = '';
 
   @Prop({ })
   private type: RessourceType = RessourceType.IMAGE_SOURCE;
@@ -28,6 +28,12 @@ export default class Source extends mixins(SourceSelector) {
   @Watch('ressourceId')
   onSourceIdChange(value: string): void {
     this.currentRessource = this.getCurrentRessource(value, this.type);
+  }
+
+  @Watch('type')
+  onTypeChange(value: string): void {
+    // TODO: implement get ID out of URL instead of hardcoded 0
+    this.currentRessource = this.getCurrentRessource('0', value);
   }
 
   created(): void {
