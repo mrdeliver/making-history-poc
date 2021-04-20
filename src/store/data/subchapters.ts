@@ -47,7 +47,7 @@ export default {
           {
             type: ContentBlockType.SOURCE_CONTENT_BLOCK,
             sourceType: RessourceType.TEXT_SOURCE,
-            id: '1',
+            id: '0',
           },
           {
             type: ContentBlockType.TEXT_CONTENT_BLOCK,
