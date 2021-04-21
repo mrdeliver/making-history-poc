@@ -150,7 +150,7 @@ export default class Slider extends Vue {
 }
 
 .overlay-L {
-    height: 100%;
+    height: 90%;
     width: 20%;
     position: absolute;
     z-index: 1;
@@ -161,7 +161,7 @@ export default class Slider extends Vue {
     transition: 0.5s;
 }
 .overlay-R {
-    height: 100%;
+    height: 90%;
     width: 20%;
     position: absolute;
     z-index: 1;
