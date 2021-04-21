@@ -156,7 +156,7 @@ export default class Slider extends Vue {
     z-index: 1;
     top: 0;
     left: 0;
-    background-image:linear-gradient(to right,white , rgba(0,0,0,0));
+    background-image:linear-gradient(to right,white , rgba(255,255,255,0));
     overflow-x: hidden;
     transition: 0.5s;
 }
@@ -167,7 +167,7 @@ export default class Slider extends Vue {
     z-index: 1;
     top: 0;
     right: 0;
-    background-image:linear-gradient(to left,white , rgba(0,0,0,0) );
+    background-image:linear-gradient(to left,white , rgba(255,255,255,0) );
     overflow-x: hidden;
 }
 
