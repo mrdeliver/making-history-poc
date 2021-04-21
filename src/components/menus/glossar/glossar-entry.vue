@@ -1,9 +1,11 @@
 <template>
   <div @click="toggleState" class="baseWrapper" :class="wrapperState">
     <div class="heading">{{heading}}</div>
-    <div class="content" v-if="expand">
-      {{text}}
-    </div>
+    <transition name="content">
+      <div class="content" v-if="expand">
+        {{text}}
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -35,5 +37,32 @@ export default class GlossarEntryContainer extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+
+@mixin glossarTransition {
+  transition: all 90ms ease;
+}
+
+.content-enter-from {
+  opacity: 0 !important;
+  transform: translateY(-20px) !important;
+}
+
+.content-enter-active {
+  @include glossarTransition;
+}
+
+.content {
+  opacity: 1;
+  transform: none;
+}
+
+.content-leave-active {
+  @include glossarTransition;
+}
+
+.content-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
 
 </style>

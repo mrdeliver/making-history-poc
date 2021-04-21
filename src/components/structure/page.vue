@@ -1,7 +1,8 @@
 <template>
   <div v-if="teacherBandState">
     <div class="infoContainer">
-      <div class="teacherInfo" @click="toggleTeacherBand()">Lehrerband
+      <div class="teacherInfo" @click="toggleTeacherBand()">
+        <div class="teacherInfoText">Lehrerband</div>
         <fa :icon="crossIcon" class="icon sources-icon"></fa>
       </div>
     </div>
@@ -62,7 +63,7 @@ export default class PageComponent extends Vue {
     SubjectStore.setLatestReadOnSubject({ bandId: this.bandId, page: this.currentPage });
   }
 
-    private crossIcon = 'undo';
+    private crossIcon = 'times';
 }
 </script>
 
@@ -89,14 +90,25 @@ export default class PageComponent extends Vue {
     @include regular-text;
     font-weight: $font_weight_heading;
     z-index: 1000;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
-  .icon {
+    .teacherInfoText {
+      margin-left: calc(50%+20px);
+      transform: translateX(-50%);
+    }
+
+    .icon {
         width: 20px;
-        height: 80%;
+        height: 70%;
         margin-right: 5px;
         margin-left: 5px;
+        &:hover {
+        cursor: pointer;
       }
+    }
+  }
 }
 
 </style>

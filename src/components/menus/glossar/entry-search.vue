@@ -74,6 +74,10 @@ export default class EntrySearch extends Vue {
 @import "src/text";
 @import "src/style";
 
+@mixin glossarTransition {
+  transition: all 90ms ease;
+}
+
 #searchbar {
   width: 100%;
   margin-bottom: 20px;
@@ -111,7 +115,7 @@ export default class EntrySearch extends Vue {
   padding: 5px;
   margin-bottom: 10px;
   border-radius: 15px;
-  transition: all 200ms ease-out;
+  @include glossarTransition;
 }
 
 .closedWrapper {
@@ -129,6 +133,11 @@ export default class EntrySearch extends Vue {
   font-weight: $font_weight_heading;
   margin-bottom: 5px;
   color: $color_orange_8;
+
+  &:hover {
+    cursor: pointer;
+  }
+
 }
 
 .content {

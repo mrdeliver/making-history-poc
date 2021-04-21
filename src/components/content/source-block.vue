@@ -12,7 +12,7 @@
             <fa :icon="style[sourceType].icon" :class="style[sourceType].iconCss"></fa>
           </div>
           <div class="heading-col">
-            Quelle 1
+            {{ressourceBlock.heading}}
           </div>
         </div>
         <div v-if="expand" id="expand-container-row">
@@ -65,14 +65,14 @@ export default class SourceBlock extends Vue {
 
   private style: Style = {
     [RessourceType.IMAGE_SOURCE]: {
-      icon: 'image',
-      iconCss: 'image-icon',
-      wrapperCss: 'image-ressource',
+      icon: 'images',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
     },
     [RessourceType.TEXT_SOURCE]: {
-      icon: 'comment-alt',
-      iconCss: 'text-icon',
-      wrapperCss: 'text-ressource',
+      icon: 'file',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
     },
     [RessourceType.AUDIO_SOURCE]: {
       icon: '',
@@ -121,17 +121,12 @@ export default class SourceBlock extends Vue {
 %icon {
   display: block;
   width: 20px;
-  height: 100%;
+  height: 80%;
 }
 
-.image-icon {
+.ressource-icon {
   @extend %icon;
-  color: rgb(255, 238, 0);
-}
-
-.text-icon {
-  @extend %icon;
-  color: rgb(103, 255, 97);
+  color: $color_yellow_4;
 }
 
 .container-style {
@@ -139,28 +134,26 @@ export default class SourceBlock extends Vue {
 }
 
 .icon-col {
-  flex: 5%;
-  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  margin-right: 7px;
 }
 
 .heading-col {
-  flex: 95%;
-  font-size: $font_size_text_heading;
-  font-weight: bold ;
+  display: flex;
+  @include regular-text;
+  font-weight: $font_weight_heading;
+  color: $color_yellow_8;
 }
 
 .border {
   border: 3px solid grey;
 }
 
-.image-ressource {
-  background: rgba(255, 255, 126, 0.37);
+.ressource {
+  background-color: $color_yellow_2;
   border: 2px solid $color_yellow;
-}
-
-.text-ressource {
-  background: rgba(150, 255, 146, 0.37);
-  border: 2px solid $color_green;
 }
 
 .pointer {

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="row heading-row">
-      {{heading}}
-    </div>
     <div class="row source-row">
       {{sourceText}}
     </div>
