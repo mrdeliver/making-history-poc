@@ -109,6 +109,7 @@ export default class EntrySearch extends Vue {
   padding: 5px;
   margin-bottom: 10px;
   border-radius: 15px;
+  transition: all 200ms ease-out;
 }
 
 .closedWrapper {
