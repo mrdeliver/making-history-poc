@@ -167,6 +167,7 @@ export default class Question extends Vue {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getTouchPos(canvas: HTMLCanvasElement, evt: TouchEvent): any {
     const rect = canvas.getBoundingClientRect();
     return {
