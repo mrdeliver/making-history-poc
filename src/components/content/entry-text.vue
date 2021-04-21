@@ -178,8 +178,13 @@ export default class EntryText extends Vue {
 
   setPositionOfWrapper(wrapper: HTMLElement, parent: HTMLElement): void {
     const { left } = parent.getBoundingClientRect();
+    const { right } = parent.getBoundingClientRect();
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    if (left < vw / 2) wrapper.classList.add('glossar-right');
+    console.log('-----------');
+    console.log(left);
+    console.log(vw);
+    console.log('-----------');
+    if (right < vw / 2) wrapper.classList.add('glossar-right');
     else wrapper.classList.add('glossar-left');
   }
 }
