@@ -57,7 +57,8 @@ export default class BackButton extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-@import "../../colors";
+@import "src/colors";
+@import "src/style";
 
 $button_diameter: 30px;
 
@@ -70,6 +71,7 @@ $button_diameter: 30px;
 }
 
 .defaultFlavour {
+  @include drop-shadow-elevation-1;
   background-color: $color_grey_5;
 }
 

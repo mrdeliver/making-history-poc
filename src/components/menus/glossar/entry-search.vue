@@ -70,8 +70,9 @@ export default class EntrySearch extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
-@import "../../../colors";
-@import "../../../text";
+@import "src/colors";
+@import "src/text";
+@import "src/style";
 
 #searchbar {
   width: 100%;
@@ -99,6 +100,7 @@ export default class EntrySearch extends Vue {
 }
 
 .glossarFrame {
+  @include drop-shadow-elevation-2;
   border: 2px solid $color_orange;
   background-color: $color_orange_2;
   width: 400px;

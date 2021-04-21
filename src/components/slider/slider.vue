@@ -144,6 +144,7 @@ export default class Slider extends Vue {
 @import "src/colors";
 @import "src/text";
 @import "src/size";
+@import "src/style";
 
 .slider-container{
   position: relative;
@@ -176,7 +177,8 @@ export default class Slider extends Vue {
 }
 
 .carousel-cell {
-  transition: 0.2s ease;
+  box-shadow: none;
+  transition: all 0.2s ease;
   text-align: center;
   width: 250px;
   height: 50px;
@@ -194,6 +196,7 @@ export default class Slider extends Vue {
   }
 }
 .carousel-cell.is-selected {
+  @include drop-shadow-elevation-1;
   height: 100px;
   width: $slider-cell-active-with;
   top: 0px;
