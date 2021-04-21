@@ -105,11 +105,16 @@ export default class EntryText extends Vue {
     }
   }
 
+  handleFocusOut(e: Event): void {
+    const elem: HTMLElement = e.target as HTMLElement;
+    const parent = elem.parentNode as HTMLElement;
+    this.closeGlossarEntry(parent);
+  }
+
   handleEntryClick(e: Event): void {
     const elem: HTMLElement = e.target as HTMLElement;
     const parent = elem.parentNode as HTMLElement;
-    if (parent.classList.contains(EXPANDED)) this.closeGlossarEntry(parent);
-    else this.openEntry(parent);
+    if (!parent.classList.contains(EXPANDED)) this.openEntry(parent);
   }
 
   closeGlossarEntry(elem: HTMLElement): void {
@@ -126,10 +131,17 @@ export default class EntryText extends Vue {
     const entryText = this.getEntryTextBasedOnType(entry);
     const comp = this.createBoxContentComponent(entry.heading, entryText);
     const wrapper = document.createElement('span');
+
+    wrapper.setAttribute('tabindex', '0');
+    wrapper.addEventListener('focusout', this.handleFocusOut);
+
     wrapper.classList.add(GLOSSAR_WRAPPER);
     this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
+
+    wrapper.focus();
+
     elem.classList.add(EXPANDED);
   }
 
@@ -181,6 +193,10 @@ export default class EntryText extends Vue {
 
 $horizontal: 20px;
 $vertical: 25px;
+
+:focus{
+   outline:0;
+}
 
 .block {
   margin-bottom: 20px;
