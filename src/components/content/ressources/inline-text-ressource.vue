@@ -15,7 +15,7 @@
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import {
-  RessourceType, TextContentBlock, Annotation,
+  RessourceType, TextContentBlock,
 } from '../../../store/data/data-types';
 import TextBlock from '../text-block.vue';
 
