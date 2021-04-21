@@ -105,6 +105,10 @@ export default class EntryText extends Vue {
     }
   }
 
+  handleFocusOut(): void {
+    console.log('focus out was called');
+  }
+
   handleEntryClick(e: Event): void {
     const elem: HTMLElement = e.target as HTMLElement;
     const parent = elem.parentNode as HTMLElement;
@@ -126,6 +130,7 @@ export default class EntryText extends Vue {
     const entryText = this.getEntryTextBasedOnType(entry);
     const comp = this.createBoxContentComponent(entry.heading, entryText);
     const wrapper = document.createElement('span');
+    wrapper.addEventListener('focusout', this.handleFocusOut);
     wrapper.classList.add(GLOSSAR_WRAPPER);
     this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
