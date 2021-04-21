@@ -10,7 +10,7 @@
         <div class="taskInput" v-show="!showCanvas">
           <QuillEditor :options="textEditorOptions" class="editor"/>
         </div>
-        <div id="canvas-container" v-show="showCanvas">
+        <div class="canvas-container" v-show="showCanvas">
           <canvas
             v-bind:id="getCanvasId()"
             class="canvasView"
