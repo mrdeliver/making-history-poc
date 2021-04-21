@@ -113,7 +113,7 @@ export default class EntrySearch extends Vue {
 
 .closedWrapper {
   background-color: $color-orange-2;
-  border: transparent;
+  border: 2px solid transparent;
 }
 
 .openWrapper {
