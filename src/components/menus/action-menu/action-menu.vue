@@ -202,6 +202,7 @@ export default class ActionMenu extends Vue {
 <style scoped lang="scss">
 @import "src/colors";
 @import "src/text";
+@import "src/style";
 
 $animation-depth: 20px;
 
@@ -238,13 +239,13 @@ $animation-depth: 20px;
     position: relative;
 
     button{
+      @include drop-shadow-elevation-1;
       width: 100%;
       display: flex;
       outline: none;
       align-items: center;
       justify-content: left;
       border-radius: 20px;
-      box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
       height: 35px;
       @include regular-text();
 
@@ -257,6 +258,7 @@ $animation-depth: 20px;
     }
 
     .ressourcePreview {
+      @include drop-shadow-elevation-1;
       position: absolute;
       width: calc(650px/3 - 30px);
       bottom: 45px;
@@ -265,6 +267,10 @@ $animation-depth: 20px;
     }
 
     .worksheetPreview {
+      &:hover {
+        cursor: pointer;
+      }
+      @include drop-shadow-elevation-1;
       position: absolute;
       width: calc(650px/2 - 30px);
       bottom: 45px;
@@ -275,6 +281,10 @@ $animation-depth: 20px;
 }
 
 .previewItem {
+  &:hover {
+    cursor: pointer;
+  }
+
   margin-bottom: 5px;
 }
 
@@ -337,6 +347,10 @@ $animation-depth: 20px;
   background-color: $color_red_2;
   color: $color_red_9;
   @include border-transition;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   &teacher-button-active{
     border: 2px solid $color_red;

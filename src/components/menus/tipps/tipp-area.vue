@@ -29,6 +29,7 @@ export default class TippArea extends Vue {
   margin: 0 auto;
   margin-bottom: 20px;
   position: relative;
+  z-index: 400;
 }
 
 .tipp-container {

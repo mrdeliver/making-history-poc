@@ -30,18 +30,22 @@ export default class TippButon extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
-@import "../../../colors";
-@import "../../../text";
+@import "src/colors";
+@import "src/text";
+@import "src/style";
 
 .tippButton {
+  @include drop-shadow-elevation-0;
   background-color: $color_green;
 }
 
 .tippFrame {
+  @include drop-shadow-elevation-0;
   border: 2px solid $color_green;
   background-color: $color_green_2;
   width: 200px;
   height: 200px;
+  z-index: 200;
 }
 
 .tippHeading {
