@@ -3,7 +3,7 @@
     <tipp-area class="side-col"></tipp-area>
     <div class="center-col">
       <h1>{{heading}}</h1>
-      <glossar-text class="center-col" :text="text" :glossar-ids="glossarEntries"></glossar-text>
+      <entry-text class="center-col" :text="text" :entryIds="highlightEntries"></entry-text>
     </div>
     <tipp-area class="side-col" :tipps="tipps"></tipp-area>
   </div>
@@ -14,12 +14,12 @@ import { Tip } from '@/store/data/data-types';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import TippArea from '../menus/tipps/tipp-area.vue';
-import GlossarText from './glossar-text.vue';
+import EntryText from './entry-text.vue';
 
 @Options({
   components: {
     TippArea,
-    GlossarText,
+    EntryText,
   },
 })
 export default class TextBlock extends Vue {
@@ -33,7 +33,7 @@ export default class TextBlock extends Vue {
   private tipps: Tip[] = []
 
   @Prop({})
-  private glossarEntries: string[] = []
+  private highlightEntries: string[] = []
 }
 </script>
 

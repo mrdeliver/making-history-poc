@@ -37,7 +37,6 @@ import { Router, useRouter } from 'vue-router';
 import { Prop } from 'vue-property-decorator';
 
 @Options({
-
 })
 export default class BandComponent extends Vue {
   @Prop({ type: String })
@@ -50,7 +49,6 @@ export default class BandComponent extends Vue {
   mounted(): void {
     this.currentSubject = SubjectStore.subjectWithId(this.subjectId);
     this.currentBands = BandStore.bandsWithIds(this.currentSubject.bandIds);
-    console.log(this.currentBands);
   }
 
   private router: Router = useRouter();

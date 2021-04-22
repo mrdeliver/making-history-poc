@@ -1,5 +1,16 @@
 <template>
-  <content-frame :contentBlocks="currentPage.content"></content-frame>
+  <div v-if="teacherBandState">
+    <div class="infoContainer">
+      <div class="teacherInfo" @click="toggleTeacherBand()">
+        <div class="teacherInfoText">Lehrerband</div>
+        <fa :icon="crossIcon" class="icon sources-icon"></fa>
+      </div>
+    </div>
+    <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
+  </div>
+  <div v-else>
+    <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,28 +34,81 @@ export default class PageComponent extends Vue {
   @Prop({ type: String })
   private pageId = '';
 
+  get teacherBandState(): boolean {
+    return PageStore.getTeacherBandState;
+  }
+
+  toggleTeacherBand(): void {
+    PageStore.toggleTeacherBand();
+  }
+
   private currentPage: Page = {} as Page;
 
   @Watch('pageId')
   onpageIdChange(value: string): void {
-    this.currentPage = PageStore.singlePage(value);
-    this.setLatestRead();
+    this.updatePage(value);
   }
 
-  mounted(): void {
-    this.currentPage = PageStore.singlePage(this.pageId);
+  created(): void {
+    this.updatePage(this.pageId);
+  }
+
+  updatePage(pageId: string): void {
+    this.currentPage = PageStore.singlePage(pageId);
     this.setLatestRead();
   }
 
   setLatestRead(): void {
-    console.log(`Latest Read Band: ${this.bandId}, page: ${this.pageId}`);
     BandStore.setLatestReadOnBand({ bandId: this.bandId, page: this.currentPage });
     SubjectStore.setLatestReadOnSubject({ bandId: this.bandId, page: this.currentPage });
   }
+
+    private crossIcon = 'times';
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+@import "src/colors";
+@import "src/text";
+@import "src/size";
+
+.infoContainer {
+  display: flex;
+  justify-content: center;
+
+  .teacherInfo {
+    width: $slider-cell-active-with;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    background-color: $color_red_1;
+    color: $color_red;
+    border: 3px solid $color_red;
+    border-radius: 50px;
+    @include regular-text;
+    font-weight: $font_weight_heading;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .teacherInfoText {
+      margin-left: calc(50%+20px);
+      transform: translateX(-50%);
+    }
+
+    .icon {
+        width: 20px;
+        height: 70%;
+        margin-right: 5px;
+        margin-left: 5px;
+        &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
 
 </style>

@@ -3,7 +3,8 @@
     <Slider
     :allLinks="sliderLinks"
     sliderFlavour="sourcesSlider"
-    :currentIndex="ressourceId">
+    :currentIndex="ressourceId"
+    :key="sliderReloadKey">
     </Slider>
   </div>
 </template>
@@ -42,6 +43,17 @@ export default class SourceSlider extends mixins(SourceSelector) {
 
   private sliderLinks: SliderLink [] = []
 
+  private sliderReloadKey = 0;
+
+  @Watch('type')
+  onTypeChange(): void {
+    this.sliderReloadKey += 1;
+    const allSourceIds = this.getRessourceIdsOfTypeForPage(this.currentPage.ressources, this.type);
+    this.sliderLinks = this.mapRessourceToSliderLink(
+      this.getRessourcesForIds(allSourceIds, this.type),
+    );
+  }
+
   created(): void {
     this.currentPage = PageStore.singlePage(this.pageId);
     const allSourceIds = this.getRessourceIdsOfTypeForPage(this.currentPage.ressources, this.type);
@@ -69,6 +81,7 @@ export default class SourceSlider extends mixins(SourceSelector) {
 @import 'src/text';
 
 .sourcesSlider {
+  border-color: $color_yellow;
   background-color: $color_yellow_1;
   a {
     @include slider-heading;

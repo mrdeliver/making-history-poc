@@ -18,7 +18,7 @@ export interface ContentBlock {
 }
 
 export interface TextContentBlock extends ContentBlock {
-  glossarEntries: string[],
+  highlightEntries: string[],
   heading: string,
   text: string,
   tipps: Tip[]
@@ -64,4 +64,9 @@ export interface AudioRessource extends Ressource {
 export enum PageType {
   CHAPTER='chapter',
   SUB_CHAPTER='subchapter'
+}
+
+export interface Content {
+  teacherContent: ContentBlock[],
+  studentContent: ContentBlock[]
 }

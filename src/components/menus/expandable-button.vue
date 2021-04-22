@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <div v-on:click="expandContent" :class="buttonFlavour" class="defaultStyle" ref="button">
-      <fa :icon="iconToDisplay" class="icon"></fa>
+  <div class="expandableButtonContainer" @focusout="collapseContent()" tabindex="0">
+    <div @click="toggleContent()"
+    :class="buttonFlavour" class="defaultStyle" ref="button" >
+      <transition name="icon">
+        <fa v-if="expand" :icon="closeIcon" class="icon"></fa>
+        <fa v-else :icon="buttonOpenIcon" class="icon"></fa>
+      </transition>
     </div>
-    <div v-if="expand" class="positionAbsolute" :class="expandDirectionClass">
-      <slot></slot>
-    </div>
+    <transition :name="expandDirectionClass">
+      <div @mousedown="childClicked()"
+      v-show="expand" class="positionAbsolute" :class="expandDirectionClass">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -28,7 +35,7 @@ export default class ExpandableButton extends Vue {
   private closeIcon = 'times';
 
   $refs!:{
-    button: HTMLElement
+    button: HTMLElement;
   }
 
   private iPadHeight = window.innerHeight;
@@ -45,9 +52,25 @@ export default class ExpandableButton extends Vue {
     return this.expand ? this.closeIcon : this.buttonOpenIcon;
   }
 
-  expandContent(): void {
-    this.expandDirectionClass = this.getExpandDirectionClass();
+  toggleContent(): void {
     this.expand = !this.expand;
+    this.$emit('buttonToggeled', this.expand);
+  }
+
+  collapseContent(): void {
+    if (!this.childInFocus) {
+      this.expand = false;
+      this.$emit('buttonToggeled', this.expand);
+    }
+  }
+
+  childInFocus = false;
+
+  // mousedown fires BEFORE focusout, so this way we can register wether
+  // a child element was clicked and omit the following collapseContent.
+  childClicked(): void {
+    this.childInFocus = true;
+    setTimeout(() => { this.childInFocus = false; }, 200);
   }
 
   getExpandDirectionClass(): string {
@@ -73,6 +96,34 @@ export default class ExpandableButton extends Vue {
 @import "../../colors";
 
 $button_diameter: 30px;
+
+@mixin transition {
+  transition: all 89ms ease-out;
+}
+
+@mixin opacityStartFinish {
+  opacity: 0;
+}
+
+.icon-enter-from {
+  opacity: 0;
+}
+
+.icon-enter-active {
+  @include transition;
+}
+
+.icon-leave-to {
+  opacity: 0;
+}
+
+.icon-leave-active {
+  @include transition;
+}
+
+.expandableButtonContainer:focus {
+  outline: none;
+}
 
 .defaultStyle {
   height: $button_diameter;
@@ -106,24 +157,96 @@ $button_diameter: 30px;
   position: absolute;
   bottom: $button_diameter;
   left: $button_diameter;
+
+  &.expandRightTop-enter-from {
+    @include opacityStartFinish;
+    transform: translate(-30px, 30px);
+  }
+
+  &.expandRightTop-enter-active {
+    @include transition;
+  }
+
+  &.expandRightTop-leave-active {
+    @include transition;
+  }
+
+  &.expandRightTop-leave-to {
+    @include opacityStartFinish;
+    transform: translate(-30px, 30px);
+  }
 }
 
 .expandRightDown {
   position: absolute;
   top: $button_diameter;
   left: $button_diameter;
+
+  &.expandRightDown-enter-from {
+    @include opacityStartFinish;
+    transform: translate(-30px, -30px);
+  }
+
+  &.expandRightDown-enter-active {
+    @include transition;
+  }
+
+  &.expandRightDown-leave-active {
+    @include transition;
+  }
+
+  &.expandRightDown-leave-to {
+    @include opacityStartFinish;
+    transform: translate(-30px, -30px);
+  }
 }
 
 .expandLeftTop {
   position: absolut;
   bottom: $button_diameter;
   right: $button_diameter;
+
+  &.expandLeftTop-enter-from {
+    @include opacityStartFinish;
+    transform: translate(30px, 30px);
+  }
+
+  &.expandLeftTop-enter-active {
+    @include transition;
+  }
+
+  &.expandLeftTop-leave-active {
+    @include transition;
+  }
+
+  &.expandLeftTop-leave-to {
+    @include opacityStartFinish;
+    transform: translate(30px, 30px);
+  }
 }
 
 .expandLeftDown {
   position: absolute;
   top: $button_diameter;
   right: $button_diameter;
+
+  &.expandLeftDown-enter-from {
+    @include opacityStartFinish;
+    transform: translate(30px, -30px);
+  }
+
+  &.expandLeftDown-enter-active {
+    @include transition;
+  }
+
+  &.expandLeftDown-leave-active {
+    @include transition;
+  }
+
+  &.expandLeftDown-leave-to {
+    @include opacityStartFinish;
+    transform: translate(30px, -30px);
+  }
 }
 
 </style>

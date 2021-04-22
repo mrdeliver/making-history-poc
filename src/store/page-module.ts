@@ -2,7 +2,9 @@ import {
   VuexModule, Module, Action, Mutation,
 } from 'vuex-class-modules';
 import Chapters, { Chapter } from './data/chapters';
-import { ContentBlock, Ressources, PageType } from './data/data-types';
+import {
+  Ressources, PageType, Content,
+} from './data/data-types';
 import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
 
@@ -11,7 +13,7 @@ export interface Page {
   id?: string,
   heading: string,
   subheading: string,
-  content: ContentBlock[],
+  content: Content,
   ressources: Ressources,
   worksheets: string[]
 }
@@ -21,6 +23,8 @@ class PageModule extends VuexModule {
   // state
   private pages: Page[] = [];
 
+  private teacherBandState = false;
+
   // getters
   get allPages(): Page[] {
     return this.pages;
@@ -28,6 +32,15 @@ class PageModule extends VuexModule {
 
   get singlePage(): CallableFunction {
     return (pageId: string): Page => this.pages[parseInt(pageId, 10)];
+  }
+
+  get getTeacherBandState(): boolean {
+    return this.teacherBandState;
+  }
+
+  @Mutation
+  toggleTeacherBand() {
+    this.teacherBandState = !this.teacherBandState;
   }
 
   @Mutation

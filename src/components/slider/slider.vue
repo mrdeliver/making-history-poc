@@ -3,10 +3,14 @@
     <div class="overlay-R"></div>
     <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
-      <div ref="myWrapper" :class="[sliderFlavour]" class="carousel-cell"
+      <div ref="myWrapper"
+      :class="[sliderFlavour]"
+      class="carousel-cell"
       @click="setRoute(link.primaryLink.link)"
       v-for="(link, index) in allLinks" :key="index" >
-        <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
+        <div :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
+          <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
+        </div>
       </div>
     </flickity>
   </div>
@@ -16,7 +20,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import Flickity from 'vue-flickity/src/flickity.vue';
-import { Router, useRouter } from 'vue-router';
+import { Router, useRouter, useRoute } from 'vue-router';
 import SliderLink from './slider';
 
 @Options({
@@ -26,6 +30,8 @@ import SliderLink from './slider';
 })
 
 export default class Slider extends Vue {
+  private currentRoute = useRoute();
+
   @Prop({ })
   allLinks: SliderLink[] = [];
 
@@ -37,6 +43,15 @@ export default class Slider extends Vue {
   @Watch('currentIndex')
   onCurrentIndexChange(): void {
     this.scrollSliderToCurrentIndex();
+  }
+
+  routeIsActive(currentPath: string): string {
+    return this.currentRoute.path.includes(currentPath) ? 'router-link-active' : '';
+  }
+
+  subIsActive(input: string): boolean {
+    const paths = Array.isArray(input) ? input : [input];
+    return paths.some((path) => this.$route.path.indexOf(path) === 0);
   }
 
   mounted(): void {
@@ -64,11 +79,10 @@ export default class Slider extends Vue {
   }
 
   onClassChange(classAttrValue: string, oldAttrValue: string):void {
-    console.log('Old:', oldAttrValue);
     const classList = classAttrValue.split(' ');
     const collection = document.getElementsByClassName('carousel-cell');
     for (let i = 0; i < collection.length; i += 1) {
-      const collectionChild = collection[i].children[0] as HTMLElement;
+      const collectionChild = collection[i].children[0].children[0] as HTMLElement;
       collectionChild.style.fontSize = '20px';
     }
     if (classList.includes('is-selected')) {
@@ -86,7 +100,6 @@ export default class Slider extends Vue {
     let childWidth = child.clientWidth;
     let childHeight = child.clientHeight;
     while (childWidth > activeWidth || childHeight > activeHeight) {
-      console.log('true', childHeight, activeHeight);
       fontsize -= 1;
       child.style.fontSize = `${fontsize}px`;
       childWidth = child.clientWidth;
@@ -130,37 +143,42 @@ export default class Slider extends Vue {
 
 @import "src/colors";
 @import "src/text";
+@import "src/size";
+@import "src/style";
 
 .slider-container{
   position: relative;
 }
+
 .overlay-L {
-    height: 100%;
+    height: 90%;
     width: 20%;
     position: absolute;
     z-index: 1;
     top: 0;
     left: 0;
-    background-image:linear-gradient(to right,white , rgba(0,0,0,0));
+    background-image:linear-gradient(to right,white , rgba(255,255,255,0));
     overflow-x: hidden;
     transition: 0.5s;
 }
 .overlay-R {
-    height: 100%;
+    height: 90%;
     width: 20%;
     position: absolute;
     z-index: 1;
     top: 0;
     right: 0;
-    background-image:linear-gradient(to left,white , rgba(0,0,0,0) );
+    background-image:linear-gradient(to left,white , rgba(255,255,255,0) );
     overflow-x: hidden;
 }
 
 .flickity-viewport{
   height: 120px !important;
 }
+
 .carousel-cell {
-  transition: 0.2s ease;
+  box-shadow: none;
+  transition: all 0.2s ease;
   text-align: center;
   width: 250px;
   height: 50px;
@@ -168,7 +186,7 @@ export default class Slider extends Vue {
   margin-right: 10px;
   margin-left:10px;
   counter-increment: carousel-cell;
-  border: 3px solid transparent;
+  border: 0px solid transparent;
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -178,8 +196,9 @@ export default class Slider extends Vue {
   }
 }
 .carousel-cell.is-selected {
+  @include drop-shadow-elevation-1;
   height: 100px;
-  width: 250px;
+  width: $slider-cell-active-with;
   top: 0px;
   a {
     word-wrap: break-word;
@@ -188,8 +207,21 @@ export default class Slider extends Vue {
 
 }
 
+.wrapper-is-active {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  height: calc(100% - 6px);
+  border: inherit;
+  border-radius: inherit;
+  border-width: 3px;
+}
+
 .defaultFlavour {
   background-color: $color_grey_0;
+  border-color: $color_grey_7;
   a {
     @include slider-heading;
     color: $color_grey_6;

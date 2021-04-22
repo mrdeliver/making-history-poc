@@ -1,14 +1,16 @@
 <template>
     <div class="menu">
       <div class="menu-item">
-        <box-content-frame v-if="expanded('imageRessources')" frameFlavour="ressourcePreview">
-          <div class="previewItem"
-          v-for="ir in imageRessources" :key="ir.id"
-          @click="router.push(buildPathToSource(ir))">
-            <div class="previewItemHeading headingSource">{{ir.heading}}</div>
-            <div class="previewContentPreview">{{ir.caption}} </div>
-          </div>
-        </box-content-frame>
+        <transition name="submenu">
+          <box-content-frame v-if="expanded('imageRessources')" frameFlavour="ressourcePreview">
+            <div class="previewItem"
+            v-for="ir in imageRessources" :key="ir.id"
+            @click="router.push(buildPathToSource(ir))">
+              <div class="previewItemHeading headingSource">{{ir.heading}}</div>
+              <div class="previewContentPreview">{{ir.caption}} </div>
+            </div>
+          </box-content-frame>
+        </transition>
         <button class="sources-button"
         :class="{'source-button-active': expanded('imageRessources')}"
         v-on:click="expand('imageRessources')">
@@ -16,15 +18,17 @@
           Bildquellen
         </button>
       </div>
-      <div class="menu-item">
-        <box-content-frame v-if="expanded('textRessources')" frameFlavour="ressourcePreview">
-          <div class="previewItem"
-          v-for="tr in textRessources" :key="tr.id"
-          @click="router.push(buildPathToSource(tr))">
-            <div class="previewItemHeading headingSource">{{tr.heading}}</div>
-            <div class="previewContentPreview">{{tr.caption}} </div>
-          </div>
-        </box-content-frame>
+      <div class="menu-item" >
+        <transition name="submenu">
+          <box-content-frame v-if="expanded('textRessources')" frameFlavour="ressourcePreview">
+            <div class="previewItem"
+            v-for="tr in textRessources" :key="tr.id"
+            @click="router.push(buildPathToSource(tr))">
+              <div class="previewItemHeading headingSource">{{tr.heading}}</div>
+              <div class="previewContentPreview">{{tr.caption}} </div>
+            </div>
+          </box-content-frame>
+        </transition>
         <button class="sources-button" :class="{'source-button-active': expanded('textRessources')}"
         v-on:click="expand('textRessources')">
           <fa :icon="textIcon" class="icon sources-icon"></fa>
@@ -36,17 +40,22 @@
         <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
       </div>
       <div class="menu-item">
-        <button class="teacher-button">
-        <fa :icon="bookIcon" class="icon teacher-icon"></fa>Lehrerband</button>
+        <button class="teacher-button" @click="toggleTeacherBand()"
+         :class="{studentBandButton: teacherBandState}">
+        <fa :icon="bookIcon" class="icon teacherIcon"
+          :class="{studentIcon: teacherBandState}"
+        ></fa>{{bandToggleButtonText}}</button>
       </div>
       <div class="menu-item">
-        <box-content-frame v-if="expanded('worksheets')" frameFlavour="worksheetPreview">
-          <div class="previewItem"
-          v-for="sheet in worksheets" :key="sheet.id"
-          @click="router.push(buildPathToWorkSheet(sheet))">
-            <div class="previewItemHeading headingWorksheets">{{sheet.heading}}</div>
-          </div>
-        </box-content-frame>
+        <transition name="submenu">
+          <box-content-frame v-if="expanded('worksheets')" frameFlavour="worksheetPreview">
+            <div class="previewItem"
+            v-for="sheet in worksheets" :key="sheet.id"
+            @click="router.push(buildPathToWorkSheet(sheet))">
+              <div class="previewItemHeading headingWorksheets">{{sheet.heading}}</div>
+            </div>
+          </box-content-frame>
+        </transition>
         <button
           class="worksheet-button"
           :class="{'worksheet-button-active'
@@ -106,6 +115,10 @@ export default class ActionMenu extends Vue {
 
   private worksheets: Worksheet[] = [];
 
+  public collapseItems(): void {
+    this.collapseAll();
+  }
+
   expanded(key: string): boolean {
     return this.expandables[key];
   }
@@ -115,6 +128,7 @@ export default class ActionMenu extends Vue {
     imageRessources: false,
     audioRessources: false,
     worksheets: false,
+    teacherBand: false,
   }
 
   expand(itemToExpand: string): void {
@@ -156,6 +170,22 @@ export default class ActionMenu extends Vue {
 
   private bookIcon = 'book';
 
+  private bandToggleButtonText = 'Lehrerband';
+
+  toggleTeacherBand(): void {
+    this.expand('teacherBand');
+    PageStore.toggleTeacherBand();
+    this.toggleButtonText();
+  }
+
+  toggleButtonText(): void {
+    this.bandToggleButtonText = this.teacherBandState ? 'Schülerband' : 'Lehrerband';
+  }
+
+  get teacherBandState(): boolean {
+    return PageStore.getTeacherBandState;
+  }
+
   private route: RouteLocationNormalizedLoaded = useRoute();
 
   buildPathToSource(res: Ressource): string {
@@ -172,6 +202,31 @@ export default class ActionMenu extends Vue {
 <style scoped lang="scss">
 @import "src/colors";
 @import "src/text";
+@import "src/style";
+
+$animation-depth: 20px;
+
+@mixin transition {
+  transition: all 89ms ease-out;
+}
+
+.submenu-enter-from {
+  opacity: 0;
+  transform: translateY($animation-depth);
+}
+
+.submenu-enter-active {
+  @include transition;
+}
+
+.submenu-leave-active {
+  @include transition;
+}
+
+.submenu-leave-to {
+  opacity: 0;
+  transform: translateY($animation-depth);
+}
 
 .menu {
   display: flex;
@@ -184,13 +239,13 @@ export default class ActionMenu extends Vue {
     position: relative;
 
     button{
+      @include drop-shadow-elevation-1;
       width: 100%;
       display: flex;
       outline: none;
       align-items: center;
       justify-content: left;
       border-radius: 20px;
-      box-shadow: (1px 1px 2px rgba(0, 0, 0, 0.1));
       height: 35px;
       @include regular-text();
 
@@ -203,6 +258,7 @@ export default class ActionMenu extends Vue {
     }
 
     .ressourcePreview {
+      @include drop-shadow-elevation-1;
       position: absolute;
       width: calc(650px/3 - 30px);
       bottom: 45px;
@@ -211,6 +267,10 @@ export default class ActionMenu extends Vue {
     }
 
     .worksheetPreview {
+      &:hover {
+        cursor: pointer;
+      }
+      @include drop-shadow-elevation-1;
       position: absolute;
       width: calc(650px/2 - 30px);
       bottom: 45px;
@@ -221,6 +281,10 @@ export default class ActionMenu extends Vue {
 }
 
 .previewItem {
+  &:hover {
+    cursor: pointer;
+  }
+
   margin-bottom: 5px;
 }
 
@@ -246,10 +310,15 @@ export default class ActionMenu extends Vue {
   overflow: hidden;
 }
 
+@mixin border-transition {
+  border: 2px solid transparent;
+  transition: all 86ms ease-in;
+}
+
 .sources-button{
   background-color: $color_yellow_2;
   color: $color_yellow_9;
-  border: 2px solid transparent;
+  @include border-transition;
 
   &.source-button-active{
     border: 2px solid $color_yellow;
@@ -263,7 +332,7 @@ export default class ActionMenu extends Vue {
 .worksheet-button{
   background-color: $color_blue_2;
   color: $color_blue_9;
-  border: 2px solid transparent;
+  @include border-transition;
 
   &.worksheet-button-active{
     border: 2px solid $color_blue;
@@ -277,14 +346,27 @@ export default class ActionMenu extends Vue {
 .teacher-button{
   background-color: $color_red_2;
   color: $color_red_9;
-  border: 2px solid transparent;
+  @include border-transition;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   &teacher-button-active{
     border: 2px solid $color_red;
   }
 
-  .teacher-icon{
-  color: $color_red_3
+  &.studentBandButton {
+    background-color: $color_grey_0;
+    color: $color_grey_9;
+  }
+
+  .studentIcon {
+    color: $color_grey_3 !important;
+  }
+
+  .teacherIcon {
+    color: $color_red_3;
   }
 }
 

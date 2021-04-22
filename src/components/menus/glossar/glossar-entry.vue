@@ -1,29 +1,27 @@
 <template>
   <div @click="toggleState" class="baseWrapper" :class="wrapperState">
-    <div class="heading">{{content.heading}}</div>
-    <div class="content" v-if="expand">
-      {{content.text}}
-    </div>
+    <div class="heading">{{heading}}</div>
+    <transition name="content">
+      <div class="content" v-if="expand">
+        {{text}}
+      </div>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { GlossarEntry } from '@/store/data/glossar';
 
 @Options({
   name: 'GlossarEntryContainer',
 })
 export default class GlossarEntryContainer extends Vue {
   @Prop({ })
-  private content: GlossarEntry = {
-    id: '',
-    heading: '',
-    text: '',
-    replaceTexts: [],
-    imageUrl: '',
-  }
+  private heading = '';
+
+  @Prop({})
+  private text = '';
 
   private expand = false;
 
@@ -40,37 +38,31 @@ export default class GlossarEntryContainer extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
-@import "../../../colors";
-@import "../../../text";
-
-.baseWrapper {
-  padding: 5px;
-  margin-bottom: 10px;
-  border-radius: 15px;
+@mixin glossarTransition {
+  transition: all 90ms ease;
 }
 
-.closedWrapper {
-  background-color: $color-orange-2;
-  border: transparent;
+.content-enter-from {
+  opacity: 0 !important;
+  transform: translateY(-20px) !important;
 }
 
-.openWrapper {
-  background-color: $color-orange-1;
-  border: 2px solid $color-orange-3;
-}
-
-.heading {
-  font-size: $font_size_text;
-  font-weight: $font_weight_heading;
-  margin-bottom: 5px;
-  color: $color_orange_8;
+.content-enter-active {
+  @include glossarTransition;
 }
 
 .content {
-  @include info-text;
-  color: $color_orange_8;
-  text-align: justify;
-  padding: 5px;
+  opacity: 1;
+  transform: none;
+}
+
+.content-leave-active {
+  @include glossarTransition;
+}
+
+.content-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
 </style>

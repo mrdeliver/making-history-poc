@@ -1,12 +1,9 @@
 <template>
   <div>
-    <div class="row">
-      {{heading}}
-    </div>
-    <div class="row">
+    <div class="row source-row">
       {{sourceText}}
     </div>
-    <div class="row">
+    <div class="row content-row">
       <text-block v-for="(tb, idx) in content" :key="idx"
       :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
       </text-block>
@@ -18,7 +15,7 @@
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import {
-  RessourceType, TextContentBlock, Annotation,
+  RessourceType, TextContentBlock,
 } from '../../../store/data/data-types';
 import TextBlock from '../text-block.vue';
 
@@ -48,16 +45,14 @@ export default class InlineTextRessource extends Vue {
 
   @Prop()
   heading = '';
-
-  mounted(): void {
-    console.log('at least Im mounted');
-  }
 }
 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "src/text";
+
 .block {
   margin-bottom: 20px;
 }
@@ -66,16 +61,14 @@ export default class InlineTextRessource extends Vue {
   text-align: justify;
 }
 
-.image-col {
-  flex: 80%;
+.heading-row{
+   padding-left: 20px;
+   @include info-heading;
 }
 
-.caption-col {
-  flex: 20%;
+.source-row {
+  padding: 20px;
+  font-style: italic;
 }
 
-img {
-  max-width:100%;
-  max-height:100%;
-}
 </style>

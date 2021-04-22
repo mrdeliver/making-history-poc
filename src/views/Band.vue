@@ -5,16 +5,17 @@
   <div id="content">
     <router-view id="content-view"></router-view>
   </div>
-  <expandable-button style="z-index: 10"
-    class="glossarButton"
-    buttonFlavour="glossarButtonColor"
+  <expandable-button style="z-index: 300"
+    class="glossarButtonContainer"
+    buttonFlavour="glossarButton"
     buttonOpenIcon="search">
-    <glossar></glossar>
+    <entry-search></entry-search>
   </expandable-button>
-  <expandable-button class="positionFixed">
-    <action-menu :pageId="pageId" :bandId="bandId"/>
+  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
+  @buttonToggeled="handleActionsMenuToggle($event)">
+    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
   </expandable-button>
-  <back-button class="positionFixedLeft">
+  <back-button class="backButton">
   </back-button>
 </template>
 
@@ -24,16 +25,16 @@ import { Prop } from 'vue-property-decorator';
 import { Router, useRouter } from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
-import GlossarStore from '../store/glossar-module';
+import EntryStore from '../store/search-entry-module';
 import WorksheetStore from '../store/worksheet-module';
-import Glossar from '../components/menus/glossar/glossar.vue';
+import EntrySearch from '../components/menus/glossar/entry-search.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
 import BackButton from '../components/menus/back-button.vue';
 import ActionMenu from '../components/menus/action-menu/action-menu.vue';
 
 @Options({
   components: {
-    Glossar,
+    EntrySearch,
     ExpandableButton,
     BackButton,
     ActionMenu,
@@ -51,9 +52,19 @@ export default class Band extends Vue {
   created(): void {
     PageStore.buildPages(this.bandId);
     RessourceStore.buildRessources();
-    GlossarStore.buildGlossarEntries();
+    EntryStore.buildEntries();
     WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
+  }
+
+  $refs!: {
+    actionMenu: ActionMenu,
+  }
+
+  handleActionsMenuToggle(buttonExpanded: Event):void {
+    if (!buttonExpanded) {
+      this.$refs.actionMenu.collapseItems();
+    }
   }
 }
 </script>
@@ -61,6 +72,7 @@ export default class Band extends Vue {
 <style lang="scss" >
 
 @import "../colors";
+@import "../style";
 
 $slider_height: 115px;
 
@@ -89,16 +101,17 @@ $slider_height: 115px;
     margin-top: 10px;
   }
   box-sizing: content-box;
-  max-height: calc(100% - 125px);
+  height: calc(100% - 125px);
 }
 
-.glossarButton {
+.glossarButtonContainer {
   position: fixed;
   top: 150px;
   left: 30px;
 }
 
-.glossarButtonColor {
+.glossarButton {
+  @include drop-shadow-elevation-2;
   background-color: $color_orange;
 }
 
@@ -108,7 +121,12 @@ $slider_height: 115px;
   bottom: 20px;
 }
 
-.positionFixedLeft {
+.actionMenuButton {
+  @include drop-shadow-elevation-1;
+  background-color: $color_grey_5;
+}
+
+.backButton {
   position: fixed;
   left: 20px;
   bottom: 20px;
