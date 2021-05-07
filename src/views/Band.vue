@@ -47,7 +47,7 @@ export default class Band extends Vue {
   private bandId = '';
 
   @Prop({ type: String })
-  private pageId = '1';
+  private pageId = '0';
 
   created(): void {
     PageStore.buildPages(this.bandId);
