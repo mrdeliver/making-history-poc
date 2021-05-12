@@ -211,10 +211,10 @@ export default class BandComponent extends Vue {
 
 .teacherStore {
   position: absolute;
-  margin: 10%;
-  width: calc(100%-2*10%);
-  left: 0px;
-  top: 0px;
+  width: 80%;
+  left: 50%;
+  top: 10%;
+  -webkit-transform: translate(-50%, 0);
 
   .teacherStorClose{
     display: flex;
