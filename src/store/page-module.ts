@@ -15,7 +15,8 @@ export interface Page {
   subheading: string,
   content: Content,
   ressources: Ressources,
-  worksheets: string[]
+  worksheets: string[],
+  backwardNavigation?: string,
 }
 
 @Module({ generateMutationSetters: true })
@@ -105,9 +106,14 @@ class PageModule extends VuexModule {
   }
 
   indexPages(unindexedPages: Page[]): Page[] {
+    let chapterIdForBackwardNavigation = '';
     return unindexedPages.map((page, idx) => {
       const indexedPage: Page = page;
       indexedPage.id = idx.toString();
+      if (page.type === PageType.CHAPTER) {
+        chapterIdForBackwardNavigation = idx.toString();
+      }
+      indexedPage.backwardNavigation = chapterIdForBackwardNavigation;
       return indexedPage;
     });
   }

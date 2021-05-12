@@ -8,8 +8,13 @@
       class="carousel-cell"
       @click="setRoute(link.primaryLink.link)"
       v-for="(link, index) in allLinks" :key="index" >
-        <div :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
+        <div class="wrapper" :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
           <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
+          <router-link class="secondaryLink"
+            @click.stop
+            :to="link.secondaryLink.link">
+              {{link.secondaryLink.content}}
+           </router-link>
         </div>
       </div>
     </flickity>
@@ -83,7 +88,7 @@ export default class Slider extends Vue {
     const collection = document.getElementsByClassName('carousel-cell');
     for (let i = 0; i < collection.length; i += 1) {
       const collectionChild = collection[i].children[0].children[0] as HTMLElement;
-      collectionChild.style.fontSize = '20px';
+      collectionChild.style.fontSize = '16px';
     }
     if (classList.includes('is-selected')) {
       this.resizeFont();
@@ -94,7 +99,7 @@ export default class Slider extends Vue {
     const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
     const activeWidth = activeElement.clientWidth;
     const activeHeight = 100;
-    const child = activeElement.children[0] as HTMLElement;
+    const child = activeElement.children[0].children[0] as HTMLElement;
     let fontsize = 26;
     child.style.fontSize = `${fontsize}px`;
     let childWidth = child.clientWidth;
@@ -207,13 +212,18 @@ export default class Slider extends Vue {
 
 }
 
-.wrapper-is-active {
+.wrapper {
   text-align: center;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   width: inherit;
   height: calc(100% - 6px);
+}
+
+.wrapper-is-active {
+
   border: inherit;
   border-radius: inherit;
   border-width: 3px;
@@ -235,5 +245,9 @@ export default class Slider extends Vue {
     background-color: $color_grey_0;
     border-color: $color_grey_7;
   }
+}
+
+.secondaryLink {
+  font-size: 12px !important;
 }
 </style>
