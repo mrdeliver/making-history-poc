@@ -17,6 +17,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
-    'no-param-assign': 'off'
+    'no-param-assign': 'off',
+    'new-cap': 'off'
   }
 }
