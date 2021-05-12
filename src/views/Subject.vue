@@ -35,6 +35,9 @@
           <box-content-frame
             class="teacherStore"
             v-show="showTeacherStore" frameFlavour="teacherStoreFrameFlavour">
+            <div class="teacherStorClose">
+              <fa @click="showTeacherStore = !showTeacherStore" :icon="closeIcon" class="icon"></fa>
+            </div>
             <TeacherStore></TeacherStore>
           </box-content-frame>
         </transition>
@@ -83,6 +86,8 @@ export default class BandComponent extends Vue {
   private showTeacherStore = false;
 
   private plusIcon = 'plus';
+
+  private closeIcon = 'times';
 }
 </script>
 
@@ -187,7 +192,6 @@ export default class BandComponent extends Vue {
   justify-content: flex-end;
   .addBandButton {
     @include text-icon-button;
-    width: 30% !important;
     background-color: $color_green_1;
     color: $color_green_9;
     border: transparent;
@@ -208,9 +212,23 @@ export default class BandComponent extends Vue {
 .teacherStore {
   position: absolute;
   margin: 10%;
-  width: 80%;
+  width: calc(100%-2*10%);
   left: 0px;
   top: 0px;
+
+  .teacherStorClose{
+    display: flex;
+    justify-content: flex-end;
+
+    .icon {
+      color: $color_grey_3;
+      width: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 $animation-depth: 40px;
