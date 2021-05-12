@@ -69,6 +69,10 @@ export default class SourceSlider extends mixins(SourceSelector) {
         link: `/band/${this.bandId}/page/${this.pageId}/source/${this.type}/${res.id}`,
         content: res.heading,
       },
+      secondaryLink: {
+        link: `/band/${this.bandId}/page/${this.pageId}`,
+        content: 'Back to page',
+      },
     }));
   }
 }
