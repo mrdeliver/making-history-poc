@@ -6,7 +6,7 @@ export default class PDFGenerator {
 
   private lineOffset = 20;
 
-  private fixedOffset = 7;
+  private fixedOffset = 40;
 
   doc: jsPDF;
 
@@ -20,6 +20,7 @@ export default class PDFGenerator {
   }
 
   createPDF(): void {
+    this.addMainHeading(this.worksheet.heading);
     for (let i = 0; i < this.worksheet.tasks.length; i += 1) {
       this.addTask(this.worksheet.tasks[i], i);
     }
@@ -27,9 +28,17 @@ export default class PDFGenerator {
 
   addTask(task: Task, line: number): void {
     const y = line * this.lineOffset + this.fixedOffset;
+    this.doc.setFontSize(8);
+    this.doc.setTextColor('#767676');
     this.doc.text(task.heading, 10, y);
+    this.doc.setFontSize(13);
+    this.doc.setTextColor('#000000');
     this.doc.text(task.question, 10, y + 5);
-    this.doc.line(5, y + 6, 200, y + 6);
+  }
+
+  addMainHeading(h: string) {
+    this.doc.setFontSize(40);
+    this.doc.text(h, 10, 20);
   }
 
   getPDF(): void {
