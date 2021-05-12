@@ -1,5 +1,12 @@
 <template>
-    <div class="pdf-button" @click="createPDF">Download PDF</div>
+    <div class="downloadInfoContainer">
+      <div class="downloadInfo" @click="createPDF()">
+        <div class="downloadInfoTextWrapper">
+          <div class="downloadInfoText">Download PDF</div>
+        </div>
+        <fa :icon="crossIcon" class="icon sources-icon"></fa>
+      </div>
+    </div>
     <question v-for="(task, idx) in currentSheet.tasks"
       :key="renderQuestionKey + idx"
       :heading="task.heading"
@@ -29,6 +36,8 @@ export default class Source extends Vue {
 
   public currentSheet: Worksheet = {} as Worksheet;
 
+  private crossIcon = 'cloud-download-alt';
+
   @Watch('worksheetId')
   onWorksheetIdChange(value: string): void {
     this.currentSheet = WorksheetStore.worksheetWithId(value);
@@ -39,7 +48,7 @@ export default class Source extends Vue {
     this.currentSheet = WorksheetStore.worksheetWithId(this.worksheetId);
   }
 
-  createPDF() {
+  createPDF(): void {
     const pdf = new PDFGenerator(this.currentSheet);
     pdf.getPDF();
   }
@@ -51,19 +60,29 @@ export default class Source extends Vue {
 @import "src/text";
 @import "src/size";
 @import "src/colors";
+@import "src/style";
 
-.pdf-button {
-  @include info-heading;
-  background-color: $color_green_1;
-  color: $color_blue;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 15px;
-  text-align: center;
-  display: inline-block;
-  margin: 10px;
+.downloadInfoTextWrapper {
+  @include infoTextWrapper();
+}
+
+.downloadInfoContainer {
+  @include infoContainer();
+
+  .downloadInfo {
+    @include infoBox();
+    background-color: $color_blue_1;
+    color: $color_blue;
+    border-color: $color_blue;
+
+    .downloadInfoText {
+      @include infoText();
+    }
+
+    .icon {
+        @include infoIcon();
+      }
+    }
 }
 
 </style>
