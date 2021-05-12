@@ -34,6 +34,7 @@ import { Prop } from 'vue-property-decorator';
 import RessourceStore from '../../store/ressource-module';
 import InlineImageRessource from './ressources/inline-image-ressource.vue';
 import InlineTextRessource from './ressources/inline-text-ressource.vue';
+import InlineVideoRessource from './ressources/inline-video-ressource.vue';
 
 interface RessourceStyle {
   icon: string,
@@ -45,13 +46,14 @@ interface Style {
   [RessourceType.IMAGE_SOURCE]: RessourceStyle,
   [RessourceType.TEXT_SOURCE]: RessourceStyle,
   [RessourceType.AUDIO_SOURCE]: RessourceStyle,
-  [RessourceType.MOVIE_SOURCE]: RessourceStyle
+  [RessourceType.VIDEO_SOURCE]: RessourceStyle
 }
 
 @Options({
   components: {
     InlineImageRessource,
     InlineTextRessource,
+    InlineVideoRessource,
   },
 })
 export default class SourceBlock extends Vue {
@@ -79,10 +81,10 @@ export default class SourceBlock extends Vue {
       iconCss: 'text',
       wrapperCss: 'yellow-bg',
     },
-    [RessourceType.MOVIE_SOURCE]: {
-      icon: '',
-      iconCss: 'text',
-      wrapperCss: 'yellow-bg',
+    [RessourceType.VIDEO_SOURCE]: {
+      icon: 'images',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
     },
   }
 
@@ -103,9 +105,9 @@ export default class SourceBlock extends Vue {
       case RessourceType.TEXT_SOURCE:
         return 'InlineTextRessource';
       case RessourceType.AUDIO_SOURCE:
-        return 'AudioSource';
-      case RessourceType.MOVIE_SOURCE:
-        return 'MovieSource';
+        return 'InlineAudioRessource';
+      case RessourceType.VIDEO_SOURCE:
+        return 'InlineVideoRessource';
       default:
         return 'DefaultBlock';
     }

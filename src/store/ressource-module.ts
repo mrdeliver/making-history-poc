@@ -4,6 +4,7 @@ import {
 import store from './index';
 import ImageRessources, { ImageRessource } from './data/ressources/image-ressources';
 import TextRessources, { TextRessource } from './data/ressources/text-ressources';
+import VideoRessources, { VideoRessource } from './data/ressources/video-ressources';
 import { RessourceType } from './data/data-types';
 
 @Module({ generateMutationSetters: true })
@@ -12,6 +13,8 @@ class RessourceModule extends VuexModule {
   private imageRessources: ImageRessource[] = [];
 
   private textRessources: TextRessource[] = [];
+
+  private videoRessources: VideoRessource[] = [];
 
   // getters
   get ressource(): CallableFunction {
@@ -23,8 +26,8 @@ class RessourceModule extends VuexModule {
           return this.textRessource(id);
         case RessourceType.AUDIO_SOURCE:
           throw Error('Not implemented');
-        case RessourceType.MOVIE_SOURCE:
-          throw Error('Not implemented');
+        case RessourceType.VIDEO_SOURCE:
+          return this.videoRessource(id);
         default:
           throw Error('Not implemented');
       }
@@ -39,12 +42,20 @@ class RessourceModule extends VuexModule {
     return (id: string) => this.textRessources.filter((re) => re.id === id)[0];
   }
 
+  get videoRessource(): CallableFunction {
+    return (id: string) => this.videoRessources.filter((re) => re.id === id)[0];
+  }
+
   get imageRessourcesWithIds(): CallableFunction {
     return (ids: string[]): ImageRessource[] => ids.map((id) => this.imageRessource(id));
   }
 
   get textRessourcesWithIds(): CallableFunction {
     return (ids: string[]): TextRessource[] => ids.map((id) => this.textRessource(id));
+  }
+
+  get videoRessourcesWithIds(): CallableFunction {
+    return (ids: string[]): VideoRessource[] => ids.map((id) => this.videoRessource(id));
   }
 
   @Mutation
@@ -57,10 +68,16 @@ class RessourceModule extends VuexModule {
     this.imageRessources = ressources;
   }
 
+  @Mutation
+  setVideoRessources(ressources: VideoRessource[]) {
+    this.videoRessources = ressources;
+  }
+
   @Action
   buildRessources(): void {
     this.imageRessources = ImageRessources.result;
     this.textRessources = TextRessources.result;
+    this.videoRessources = VideoRessources.result;
   }
 }
 
