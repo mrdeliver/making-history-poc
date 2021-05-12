@@ -17,3 +17,25 @@
 @mixin drop-shadow-elevation-4 {
   box-shadow: 0 20px 40px rgba(0,0,0,0.2)
 }
+
+@mixin text-icon-button {
+  width: 100%;
+  display: flex;
+  outline: none;
+  align-items: center;
+  justify-content: left;
+  border-radius: 20px;
+  height: 35px;
+  @include regular-text();
+
+  .icon {
+    width: 20px;
+    height: 60%;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -23,6 +23,22 @@
           <div class="bandTeaser"> {{band.teaserText}} </div>
         </div>
       </div>
+      <div class="teacherStoreButton">
+        <button class="addBandButton"
+        v-on:click="showTeacherStore = !showTeacherStore">
+          <fa :icon="plusIcon" class="icon plus-icon"></fa>
+          Band hinzufügen
+        </button>
+      </div>
+      <div>
+        <transition name="teacherStore">
+          <box-content-frame
+            class="teacherStore"
+            v-show="showTeacherStore" frameFlavour="teacherStoreFrameFlavour">
+            <TeacherStore></TeacherStore>
+          </box-content-frame>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -30,13 +46,16 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Subject } from '@/store/data/subjects';
-import { Band, LatestRead } from '@/store/data/band';
+import { Band } from '@/store/data/band';
 import SubjectStore from '@/store/subject-module';
 import BandStore from '@/store/band-module';
 import { Router, useRouter } from 'vue-router';
 import { Prop } from 'vue-property-decorator';
+import BoxContentFrame from '../components/menus/box-content-frame.vue';
+import TeacherStore from '../components/ecosystem/teacher-store.vue';
 
 @Options({
+  components: { BoxContentFrame, TeacherStore },
 })
 export default class BandComponent extends Vue {
   @Prop({ type: String })
@@ -60,13 +79,18 @@ export default class BandComponent extends Vue {
   goToPage(bandId: string, pageId: string): void {
     this.router.push(`/band/${bandId}/page/${pageId}/`);
   }
+
+  private showTeacherStore = false;
+
+  private plusIcon = 'plus';
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 
 @import "../colors";
 @import "../text";
+@import "../style";
 
 .subjectContainer {
   margin-left: 10%;
@@ -89,69 +113,128 @@ export default class BandComponent extends Vue {
     }
   }
 
-  .bandContainer {
-    display: flex;
-    border-radius: 15px;
-    background-color: $color_grey_0;
-    margin-bottom: 20px;
+  .bandsContainer {
 
-    &:hover {
-        cursor: pointer;
+    .bandContainer {
+      @include drop-shadow-elevation-1;
+      display: flex;
+      border-radius: 15px;
+      background-color: $color_grey_0;
+      margin-bottom: 20px;
+
+      &:hover {
+          cursor: pointer;
+        }
+
+      .bandTitleImage {
+        background-size: cover;
+        border-radius: 15px 0px 0px 15px;
+        width: 20%;
       }
 
-    .bandTitleImage {
-      background-size: cover;
-      border-radius: 15px 0px 0px 15px;
-      width: 20%;
-    }
-
-    .bandInfo {
-      padding-left: 10px;
-      width: 80%;
-      padding-right: 10px;
-
-      .bandHeading {
-        @include slider-heading;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-
-      .bandTeaser {
-        @include info-text;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-      }
-
-      .bandLastRead {
-        border-radius: 15px;
-        background-color: $color_grey_8;
-        display: flex;
-        align-content: center;
-        padding-top: 1px;
-        padding-bottom: 1px;
+      .bandInfo {
         padding-left: 10px;
+        width: 80%;
         padding-right: 10px;
-        margin-bottom: 5px;
-        width: 50%;
-        white-space: nowrap;
 
-        .latestText {
+        .bandHeading {
+          @include slider-heading;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        .bandTeaser {
           @include info-text;
-          color: $color_grey_3;
-          padding-right: 5px;
+          margin-bottom: 10px;
+          padding-bottom: 10px;
         }
 
-        .latestTeaser {
-          @include info-heading;
-          color: $color_grey_1;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
+        .bandLastRead {
+          border-radius: 15px;
+          background-color: $color_grey_8;
+          display: flex;
+          align-content: center;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-bottom: 5px;
+          width: 50%;
+          white-space: nowrap;
 
+          .latestText {
+            @include info-text;
+            color: $color_grey_3;
+            padding-right: 5px;
+          }
+
+          .latestTeaser {
+            @include info-heading;
+            color: $color_grey_1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+        }
       }
     }
   }
 
+}
+
+.teacherStoreButton {
+  display: flex;
+  justify-content: flex-end;
+  .addBandButton {
+    @include text-icon-button;
+    width: 30% !important;
+    background-color: $color_green_1;
+    color: $color_green_9;
+    border: transparent;
+
+    .plus-icon {
+      color: $color_green_6;
+    }
+  }
+}
+
+.teacherStoreFrameFlavour {
+  @include drop-shadow-elevation-3;
+  border: 2px solid $color_grey_3;
+  background-color: $color_grey_0;
+  padding: 16px !important;
+}
+
+.teacherStore {
+  position: absolute;
+  margin: 10%;
+  width: 80%;
+  left: 0px;
+  top: 0px;
+}
+
+$animation-depth: 40px;
+
+@mixin transition {
+  transition: all 89ms ease-out;
+}
+
+.teacherStore-enter-from {
+  opacity: 0;
+  transform: translateY(-$animation-depth);
+}
+
+.teacherStore-enter-active {
+  @include transition;
+}
+
+.teacherStore-leave-active {
+  @include transition;
+}
+
+.teacherStore-leave-to {
+  opacity: 0;
+  transform: translateY(-$animation-depth);
 }
 
 .frenchRev {
