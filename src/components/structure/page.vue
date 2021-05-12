@@ -2,7 +2,9 @@
   <div v-if="teacherBandState">
     <div class="infoContainer">
       <div class="teacherInfo" @click="toggleTeacherBand()">
+      <div class="teacherInfoTextWrapper">
         <div class="teacherInfoText">Lehrerband</div>
+      </div>
         <fa :icon="crossIcon" class="icon sources-icon"></fa>
       </div>
     </div>
@@ -73,42 +75,29 @@ export default class PageComponent extends Vue {
 @import "src/colors";
 @import "src/text";
 @import "src/size";
+@import "src/style";
+
+.teacherInfoTextWrapper {
+  @include infoTextWrapper();
+}
 
 .infoContainer {
-  display: flex;
-  justify-content: center;
+  @include infoContainer();
 
   .teacherInfo {
-    width: $slider-cell-active-with;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    text-align: center;
+    @include infoBox();
     background-color: $color_red_1;
     color: $color_red;
-    border: 3px solid $color_red;
-    border-radius: 50px;
-    @include regular-text;
-    font-weight: $font_weight_heading;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    border-color: $color_red;
 
     .teacherInfoText {
-      margin-left: calc(50%+20px);
-      transform: translateX(-50%);
+      @include infoText();
     }
 
     .icon {
-        width: 20px;
-        height: 70%;
-        margin-right: 5px;
-        margin-left: 5px;
-        &:hover {
-        cursor: pointer;
+        @include infoIcon();
       }
     }
-  }
 }
 
 </style>

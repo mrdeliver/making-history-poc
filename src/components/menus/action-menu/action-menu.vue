@@ -240,21 +240,7 @@ $animation-depth: 20px;
 
     button{
       @include drop-shadow-elevation-1;
-      width: 100%;
-      display: flex;
-      outline: none;
-      align-items: center;
-      justify-content: left;
-      border-radius: 20px;
-      height: 35px;
-      @include regular-text();
-
-      .icon {
-        width: 20px;
-        height: 80%;
-        margin-right: 5px;
-        margin-left: 5px;
-      }
+      @include text-icon-button;
     }
 
     .ressourcePreview {
