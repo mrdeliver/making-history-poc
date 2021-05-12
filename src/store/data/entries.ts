@@ -96,5 +96,4 @@ export interface MethodEntry extends Entry {
 export interface GlossarEntry extends Entry {
   text: string,
   imageUrl: string,
-  replaceTexts: string[],
 }

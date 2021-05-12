@@ -39,6 +39,10 @@ export default class PageSlider extends Vue {
         link: `/band/${this.bandId}/page/${page.id}`,
         content: page.heading,
       },
+      secondaryLink: {
+        link: `/band/${this.bandId}/page/${page.backwardNavigation}`,
+        content: page.subheading,
+      },
     }));
   }
 }
