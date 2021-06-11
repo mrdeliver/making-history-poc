@@ -70,8 +70,8 @@ export default class SourceSlider extends mixins(SourceSelector) {
         content: res.heading,
       },
       secondaryLink: {
-        link: `/band/${this.bandId}/page/${this.pageId}`,
-        content: 'Back to page',
+        link: '',
+        content: '',
       },
     }));
   }
@@ -95,7 +95,7 @@ export default class SourceSlider extends mixins(SourceSelector) {
   &.is-selected {
     a {
       @include slider-heading;
-      color:$color_yellow_9;
+      color:$color_yellow_8;
     }
     background-color: $color_yellow_1;
     border-color: $color_yellow;
