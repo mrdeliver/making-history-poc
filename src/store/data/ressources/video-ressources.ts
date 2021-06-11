@@ -27,7 +27,7 @@ export default {
       typ: RessourceType.VIDEO_SOURCE,
       author: 'Mr Wissen2go Geschichte',
       url: 'https://www.youtube.com/watch?v=TzwQVtzxGto',
-      caption: 'Französische Revolution I Gründe I musstewissen Geschichte',
+      caption: 'Französische Revolution II Gründe I musstewissen Geschichte',
       content: [
         {
           type: ContentBlockType.TEXT_CONTENT_BLOCK,
