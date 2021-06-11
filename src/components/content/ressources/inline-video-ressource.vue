@@ -2,7 +2,7 @@
   <div>
     <div class='row'>
       <div class="image-col">
-        <iframe  :src="url"></iframe>
+        <iframe :src="url"></iframe>
       </div>
     </div>
     <div class="row">

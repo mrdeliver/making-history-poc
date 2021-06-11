@@ -9,11 +9,13 @@ import { Prop, Watch } from 'vue-property-decorator';
 import SourceSelector from './source-selector.vue';
 import ImageRessource from '../content/ressources/ImageRessource.vue';
 import TextRessource from '../content/ressources/TextRessource.vue';
+import VideoRessource from '../content/ressources/VideoRessource.vue';
 
 @Options({
   components: {
     ImageRessource,
     TextRessource,
+    VideoRessource,
   },
 })
 export default class Source extends mixins(SourceSelector) {
@@ -46,6 +48,8 @@ export default class Source extends mixins(SourceSelector) {
         return 'ImageRessource';
       case RessourceType.TEXT_SOURCE:
         return 'TextRessource';
+      case RessourceType.VIDEO_SOURCE:
+        return 'VideoRessource';
       default:
         return '';
     }
