@@ -3,7 +3,9 @@
     <div class="side-col"></div>
     <div class="center-col">
       <div class="video-container">
-        <iframe width="100%" :src="url"></iframe>
+        <audio controls>
+          <source :src="url" type="audio/ogg">
+        </audio>
         <div class="author">{{author}}</div>
         <div class="caption">{{caption}}</div>
       </div>
@@ -26,7 +28,7 @@ import Tipp from '../../menus/tipps/tipp.vue';
     Tipp,
   },
 })
-export default class VideoRessource extends Vue {
+export default class AudioRessource extends Vue {
   @Prop({})
   private heading = '';
 
@@ -41,6 +43,10 @@ export default class VideoRessource extends Vue {
 
   @Prop({ })
   private content: ContentBlock[] = []
+
+  mounted() {
+    console.log(this.heading);
+  }
 }
 
 </script>

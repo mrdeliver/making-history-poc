@@ -53,9 +53,23 @@
           Videoquellen
         </button>
       </div>
-      <div class="menu-item">
-        <button class="sources-button">
-        <fa :icon="volumeIcon" class="icon sources-icon"></fa>Audioquellen</button>
+      <div class="menu-item" >
+        <transition name="submenu">
+          <box-content-frame v-if="expanded('audioRessources')" frameFlavour="ressourcePreview">
+            <div class="previewItem"
+            v-for="tr in audioRessources" :key="tr.id"
+            @click="router.push(buildPathToSource(tr))">
+              <div class="previewItemHeading headingSource">{{tr.heading}}</div>
+              <div class="previewContentPreview">{{tr.caption}} </div>
+            </div>
+          </box-content-frame>
+        </transition>
+        <button class="sources-button"
+        :class="{'source-button-active': expanded('audioRessources')}"
+        v-on:click="expand('audioRessources')">
+          <fa :icon="volumeIcon" class="icon sources-icon"></fa>
+          Audioquellen
+        </button>
       </div>
       <div class="menu-item">
         <button class="teacher-button" @click="toggleTeacherBand()"
@@ -90,6 +104,7 @@
 <script lang="ts">
 import { ImageRessource } from '@/store/data/ressources/image-ressources';
 import { VideoRessource } from '@/store/data/ressources/video-ressources';
+import { AudioRessource } from '@/store/data/ressources/audio-ressources';
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import {
@@ -131,6 +146,8 @@ export default class ActionMenu extends Vue {
   private penIcon = 'pen';
 
   private videoRessources: VideoRessource[] = [];
+
+  private audioRessources: AudioRessource[] = [];
 
   private worksheetIds: string[] = [];
 
@@ -186,6 +203,7 @@ export default class ActionMenu extends Vue {
     this.imageRessources = RessourceStore.imageRessourcesWithIds(this.ressourceIds.imageSources);
     this.textRessources = RessourceStore.textRessourcesWithIds(this.ressourceIds.textSources);
     this.videoRessources = RessourceStore.videoRessourcesWithIds(this.ressourceIds.videoSources);
+    this.audioRessources = RessourceStore.audioRessourcesWithIds(this.ressourceIds.audioSources);
     this.worksheets = WorksheetStore.worksheetsWithIds(this.worksheetIds);
   }
 
