@@ -1,10 +1,10 @@
 <template>
-  <div class="image-block">
+  <div class="video-block">
     <div class="side-col"></div>
     <div class="center-col">
       <div ></div>
-      <div class="image-container">
-        <iframe :src="url"></iframe>
+      <div class="video-container">
+        <iframe width="100%" :src="url"></iframe>
         <div class="author">{{author}}</div>
         <div class="caption">{{caption}}</div>
       </div>
@@ -56,31 +56,20 @@ export default class VideoRessource extends Vue {
   color: $color_yellow_8;
 }
 
-.image-block {
+iframe {
+  width:100%;
+  height:400px;
+  border-radius: 15px;
+}
+.video-block {
   width: 100%;
   display: flex;
 
-  .image-container {
+  .video-container {
     position: relative;
     width: 100%;
     height: 100%;
 
-    .annotation-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-
-      .annotation {
-        position: inherit;
-      }
-    }
-
-    img {
-      border-radius: 15px;
-      width: 100%;
-    }
   }
 }
 

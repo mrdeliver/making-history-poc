@@ -97,18 +97,22 @@ export default class Slider extends Vue {
 
   resizeFont():void {
     const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
-    const activeWidth = activeElement.clientWidth;
-    const activeHeight = 100;
-    const child = activeElement.children[0].children[0] as HTMLElement;
-    let fontsize = 26;
-    child.style.fontSize = `${fontsize}px`;
-    let childWidth = child.clientWidth;
-    let childHeight = child.clientHeight;
-    while (childWidth > activeWidth || childHeight > activeHeight) {
-      fontsize -= 1;
+    if (activeElement) {
+      const activeWidth = activeElement.clientWidth;
+      const activeHeight = 100;
+      const child = activeElement.children[0].children[0] as HTMLElement;
+      let fontsize = 26;
       child.style.fontSize = `${fontsize}px`;
-      childWidth = child.clientWidth;
-      childHeight = child.clientHeight;
+      let childWidth = child.clientWidth;
+      let childHeight = child.clientHeight;
+      while (childWidth > activeWidth || childHeight > activeHeight) {
+        fontsize -= 1;
+        child.style.fontSize = `${fontsize}px`;
+        childWidth = child.clientWidth;
+        childHeight = child.clientHeight;
+      }
+    } else {
+      console.log('No active Element');
     }
   }
 
