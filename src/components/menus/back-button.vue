@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div :class="buttonFlavour" class="defaultStyle" v-on:click="router.go(-1)">
+  <div v-show="userIsOnSubPage()">
+    <div :class="buttonFlavour" class="defaultStyle" v-on:click="goToPage()">
       <fa :icon="iconToDisplay" class="icon"></fa>
     </div>
   </div>
@@ -9,12 +9,16 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { useRouter, Router } from 'vue-router';
+import {
+  useRouter, Router, useRoute, RouteLocationNormalized,
+} from 'vue-router';
 
 @Options({
   name: 'BackButton',
 })
 export default class BackButton extends Vue {
+  private currentRoute: RouteLocationNormalized = useRoute();
+
   private router: Router = useRouter();
 
   @Prop({ type: String })
@@ -26,13 +30,35 @@ export default class BackButton extends Vue {
   get iconToDisplay(): string {
     return this.buttonIcon;
   }
+
+  userIsOnSubPage(): boolean {
+    let userIsOnSubPage = false;
+    const currentPath = this.currentRoute.path;
+    if (currentPath.includes('worksheet')
+    || currentPath.includes('ressource')) {
+      userIsOnSubPage = true;
+    }
+
+    return userIsOnSubPage;
+  }
+
+  goToPage():void {
+    const backMatch = this.currentRoute.path.match(/\/band\/\d\/page\/\d\//);
+    if (backMatch !== null) {
+      const backPath = backMatch[0];
+      this.router.push(backPath);
+    } else {
+      this.router.go(-1);
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-@import "../../colors";
+@import "src/colors";
+@import "src/style";
 
 $button_diameter: 30px;
 
@@ -45,6 +71,7 @@ $button_diameter: 30px;
 }
 
 .defaultFlavour {
+  @include drop-shadow-elevation-1;
   background-color: $color_grey_5;
 }
 

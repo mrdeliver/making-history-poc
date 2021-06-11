@@ -40,10 +40,6 @@ export default class MethodEntryContainer extends Vue {
   toggleState(): void {
     this.expand = !this.expand;
   }
-
-  mounted():void {
-    console.log(this.goal);
-  }
 }
 </script>
 

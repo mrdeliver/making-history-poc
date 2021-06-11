@@ -5,16 +5,17 @@
   <div id="content">
     <router-view id="content-view"></router-view>
   </div>
-  <expandable-button style="z-index: 10"
-    class="glossarButton"
-    buttonFlavour="glossarButtonColor"
+  <expandable-button style="z-index: 300"
+    class="glossarButtonContainer"
+    buttonFlavour="glossarButton"
     buttonOpenIcon="search">
     <entry-search></entry-search>
   </expandable-button>
-  <expandable-button class="positionFixed">
-    <action-menu :pageId="pageId" :bandId="bandId"/>
+  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
+  @buttonToggeled="handleActionsMenuToggle($event)">
+    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
   </expandable-button>
-  <back-button class="positionFixedLeft">
+  <back-button class="backButton">
   </back-button>
 </template>
 
@@ -55,12 +56,23 @@ export default class Band extends Vue {
     WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
   }
+
+  $refs!: {
+    actionMenu: ActionMenu,
+  }
+
+  handleActionsMenuToggle(buttonExpanded: Event):void {
+    if (!buttonExpanded) {
+      this.$refs.actionMenu.collapseItems();
+    }
+  }
 }
 </script>
 
 <style lang="scss" >
 
 @import "../colors";
+@import "../style";
 
 $slider_height: 115px;
 
@@ -89,16 +101,17 @@ $slider_height: 115px;
     margin-top: 10px;
   }
   box-sizing: content-box;
-  max-height: calc(100% - 125px);
+  height: calc(100% - 125px);
 }
 
-.glossarButton {
+.glossarButtonContainer {
   position: fixed;
   top: 150px;
   left: 30px;
 }
 
-.glossarButtonColor {
+.glossarButton {
+  @include drop-shadow-elevation-2;
   background-color: $color_orange;
 }
 
@@ -108,7 +121,12 @@ $slider_height: 115px;
   bottom: 20px;
 }
 
-.positionFixedLeft {
+.actionMenuButton {
+  @include drop-shadow-elevation-1;
+  background-color: $color_grey_5;
+}
+
+.backButton {
   position: fixed;
   left: 20px;
   bottom: 20px;

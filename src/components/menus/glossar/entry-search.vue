@@ -70,8 +70,13 @@ export default class EntrySearch extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
-@import "../../../colors";
-@import "../../../text";
+@import "src/colors";
+@import "src/text";
+@import "src/style";
+
+@mixin glossarTransition {
+  transition: all 90ms ease;
+}
 
 #searchbar {
   width: 100%;
@@ -99,6 +104,7 @@ export default class EntrySearch extends Vue {
 }
 
 .glossarFrame {
+  @include drop-shadow-elevation-2;
   border: 2px solid $color_orange;
   background-color: $color_orange_2;
   width: 400px;
@@ -109,11 +115,12 @@ export default class EntrySearch extends Vue {
   padding: 5px;
   margin-bottom: 10px;
   border-radius: 15px;
+  @include glossarTransition;
 }
 
 .closedWrapper {
   background-color: $color-orange-2;
-  border: transparent;
+  border: 2px solid transparent;
 }
 
 .openWrapper {
@@ -126,6 +133,11 @@ export default class EntrySearch extends Vue {
   font-weight: $font_weight_heading;
   margin-bottom: 5px;
   color: $color_orange_8;
+
+  &:hover {
+    cursor: pointer;
+  }
+
 }
 
 .content {

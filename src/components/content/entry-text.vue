@@ -105,11 +105,16 @@ export default class EntryText extends Vue {
     }
   }
 
+  handleFocusOut(e: Event): void {
+    const elem: HTMLElement = e.target as HTMLElement;
+    const parent = elem.parentNode as HTMLElement;
+    this.closeGlossarEntry(parent);
+  }
+
   handleEntryClick(e: Event): void {
     const elem: HTMLElement = e.target as HTMLElement;
     const parent = elem.parentNode as HTMLElement;
-    if (parent.classList.contains(EXPANDED)) this.closeGlossarEntry(parent);
-    else this.openEntry(parent);
+    if (!parent.classList.contains(EXPANDED)) this.openEntry(parent);
   }
 
   closeGlossarEntry(elem: HTMLElement): void {
@@ -126,10 +131,17 @@ export default class EntryText extends Vue {
     const entryText = this.getEntryTextBasedOnType(entry);
     const comp = this.createBoxContentComponent(entry.heading, entryText);
     const wrapper = document.createElement('span');
+
+    wrapper.setAttribute('tabindex', '0');
+    wrapper.addEventListener('focusout', this.handleFocusOut);
+
     wrapper.classList.add(GLOSSAR_WRAPPER);
     this.setPositionOfWrapper(wrapper, elem);
     comp.mount(wrapper);
     elem.appendChild(wrapper);
+
+    wrapper.focus();
+
     elem.classList.add(EXPANDED);
   }
 
@@ -153,7 +165,7 @@ export default class EntryText extends Vue {
       setup() {
         return () => h(
           BoxContentFrame,
-          { 'frame-flavour': 'glossarFrame' },
+          { 'frame-flavour': 'inlineGlossarFrame' },
           [
             h('div', { class: 'glossarHeading' }, heading),
             h('div', { class: 'glossarText' }, text),
@@ -166,8 +178,13 @@ export default class EntryText extends Vue {
 
   setPositionOfWrapper(wrapper: HTMLElement, parent: HTMLElement): void {
     const { left } = parent.getBoundingClientRect();
+    const { right } = parent.getBoundingClientRect();
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    if (left < vw / 2) wrapper.classList.add('glossar-right');
+    console.log('-----------');
+    console.log(left);
+    console.log(vw);
+    console.log('-----------');
+    if (right < vw / 2) wrapper.classList.add('glossar-right');
     else wrapper.classList.add('glossar-left');
   }
 }
@@ -182,6 +199,10 @@ export default class EntryText extends Vue {
 $horizontal: 20px;
 $vertical: 25px;
 
+:focus{
+   outline:0;
+}
+
 .block {
   margin-bottom: 20px;
 }
@@ -190,7 +211,7 @@ $vertical: 25px;
   text-align: justify;
 }
 
-.glossarFrame {
+.inlineGlossarFrame {
   border: 2px solid $color_orange;
   background-color: $color_orange_2;
   width: 300px;

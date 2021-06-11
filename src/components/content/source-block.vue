@@ -1,14 +1,18 @@
 <template>
   <div class="row block">
     <tipp-area class="side-col"></tipp-area>
-    <div class="center-col">
-      <div id="source-container" :class="style[sourceType].wrapperCss">
+    <div class="center-col ">
+      <div
+        id="source-container"
+        class="container-style"
+        :class="style[sourceType].wrapperCss"
+      >
         <div class="row pointer" v-on:click="expand=!expand">
           <div class="icon-col">
             <fa :icon="style[sourceType].icon" :class="style[sourceType].iconCss"></fa>
           </div>
           <div class="heading-col">
-            Quelle 1
+            {{ressourceBlock.heading}}
           </div>
         </div>
         <div v-if="expand" id="expand-container-row">
@@ -61,14 +65,14 @@ export default class SourceBlock extends Vue {
 
   private style: Style = {
     [RessourceType.IMAGE_SOURCE]: {
-      icon: 'image',
-      iconCss: 'image-icon',
-      wrapperCss: 'image-ressource',
+      icon: 'images',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
     },
     [RessourceType.TEXT_SOURCE]: {
-      icon: 'comment-alt',
-      iconCss: 'text-icon',
-      wrapperCss: 'text-ressource',
+      icon: 'file',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
     },
     [RessourceType.AUDIO_SOURCE]: {
       icon: '',
@@ -110,42 +114,46 @@ export default class SourceBlock extends Vue {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+@import "src/text";
+@import "src/colors";
+
 %icon {
   display: block;
   width: 20px;
-  height: 100%;
+  height: 80%;
 }
 
-.image-icon {
+.ressource-icon {
   @extend %icon;
-  color: rgb(255, 238, 0);
+  color: $color_yellow_4;
 }
 
-.text-icon {
-  @extend %icon;
-  color: rgb(103, 255, 97);
+.container-style {
+  border-radius: 15px;
 }
 
 .icon-col {
-  flex: 5%;
-  padding-left: 5px;
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  margin-right: 7px;
 }
 
 .heading-col {
-  flex: 95%;
+  display: flex;
+  @include regular-text;
+  font-weight: $font_weight_heading;
+  color: $color_yellow_8;
 }
 
 .border {
   border: 3px solid grey;
 }
 
-.image-ressource {
-  background: rgba(255, 255, 126, 0.37);
-}
-
-.text-ressource {
-  background: rgba(150, 255, 146, 0.37);
+.ressource {
+  background-color: $color_yellow_2;
+  border: 2px solid $color_yellow;
 }
 
 .pointer {

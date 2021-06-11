@@ -47,7 +47,7 @@ export default {
           {
             type: ContentBlockType.SOURCE_CONTENT_BLOCK,
             sourceType: RessourceType.TEXT_SOURCE,
-            id: '1',
+            id: '0',
           },
           {
             type: ContentBlockType.TEXT_CONTENT_BLOCK,
@@ -59,7 +59,7 @@ export default {
         ],
       },
       ressources: {
-        textSources: ['1'],
+        textSources: ['0'],
         imageSources: ['0', '1'],
         audioSources: [],
       },
@@ -97,7 +97,7 @@ export default {
         ],
       },
       ressources: {
-        textSources: ['1'],
+        textSources: ['0'],
         imageSources: ['1'],
         audioSources: [],
       },

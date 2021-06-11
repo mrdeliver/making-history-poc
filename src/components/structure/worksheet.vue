@@ -1,10 +1,10 @@
 <template>
   <question v-for="(task, idx) in currentSheet.tasks"
-    :key=idx
+    :key="renderQuestionKey + idx"
     :heading="task.heading"
     :text="task.question"
     :tipps="task.tipps"
-    :canvasId="idx">
+    :canvasId="task.id">
   </question>
 </template>
 
@@ -23,11 +23,14 @@ export default class Source extends Vue {
   @Prop({ type: String })
   private worksheetId = '0';
 
+  private renderQuestionKey = 0;
+
   public currentSheet: Worksheet = {} as Worksheet;
 
   @Watch('worksheetId')
   onWorksheetIdChange(value: string): void {
     this.currentSheet = WorksheetStore.worksheetWithId(value);
+    this.renderQuestionKey += 1;
   }
 
   created(): void {

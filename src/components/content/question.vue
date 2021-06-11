@@ -10,7 +10,7 @@
         <div class="taskInput" v-show="!showCanvas">
           <QuillEditor :options="textEditorOptions" class="editor"/>
         </div>
-        <div id="canvas-container" v-show="showCanvas">
+        <div class="canvas-container" v-show="showCanvas">
           <canvas
             v-bind:id="getCanvasId()"
             class="canvasView"
@@ -167,6 +167,7 @@ export default class Question extends Vue {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getTouchPos(canvas: HTMLCanvasElement, evt: TouchEvent): any {
     const rect = canvas.getBoundingClientRect();
     return {

@@ -21,6 +21,12 @@ export default {
           question: 'Wann war die Französische Revolution vorbei?',
           tipps: [],
         },
+        {
+          id: '13',
+          heading: 'Aufgabe 3',
+          question: 'Wann war die Deutsche Revolution vorbei?',
+          tipps: [],
+        },
       ],
     },
     {
