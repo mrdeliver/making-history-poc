@@ -58,10 +58,6 @@ export interface Ressource {
   content: ContentBlock[]
 }
 
-export interface AudioRessource extends Ressource {
-  url: string,
-}
-
 export enum PageType {
   CHAPTER='chapter',
   SUB_CHAPTER='subchapter'

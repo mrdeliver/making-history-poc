@@ -61,12 +61,17 @@ export default {
             sourceType: RessourceType.VIDEO_SOURCE,
             id: '0',
           },
+          {
+            type: ContentBlockType.SOURCE_CONTENT_BLOCK,
+            sourceType: RessourceType.AUDIO_SOURCE,
+            id: '0',
+          },
         ],
       },
       ressources: {
         textSources: ['0'],
         imageSources: ['0', '1'],
-        audioSources: [],
+        audioSources: ['0'],
         videoSources: ['0', '1'],
       },
       worksheets: ['0', '1'],

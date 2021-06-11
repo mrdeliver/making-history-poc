@@ -5,6 +5,7 @@ import store from './index';
 import ImageRessources, { ImageRessource } from './data/ressources/image-ressources';
 import TextRessources, { TextRessource } from './data/ressources/text-ressources';
 import VideoRessources, { VideoRessource } from './data/ressources/video-ressources';
+import AudioRessources, { AudioRessource } from './data/ressources/audio-ressources';
 import { RessourceType } from './data/data-types';
 
 @Module({ generateMutationSetters: true })
@@ -16,6 +17,8 @@ class RessourceModule extends VuexModule {
 
   private videoRessources: VideoRessource[] = [];
 
+  private audioRessources: AudioRessource[] = [];
+
   // getters
   get ressource(): CallableFunction {
     return (ressourceType: RessourceType, id: string) => {
@@ -25,7 +28,7 @@ class RessourceModule extends VuexModule {
         case RessourceType.TEXT_SOURCE:
           return this.textRessource(id);
         case RessourceType.AUDIO_SOURCE:
-          throw Error('Not implemented');
+          return this.audioRessource(id);
         case RessourceType.VIDEO_SOURCE:
           return this.videoRessource(id);
         default:
@@ -46,6 +49,10 @@ class RessourceModule extends VuexModule {
     return (id: string) => this.videoRessources.filter((re) => re.id === id)[0];
   }
 
+  get audioRessource(): CallableFunction {
+    return (id: string) => this.audioRessources.filter((re) => re.id === id)[0];
+  }
+
   get imageRessourcesWithIds(): CallableFunction {
     return (ids: string[]): ImageRessource[] => ids.map((id) => this.imageRessource(id));
   }
@@ -56,6 +63,10 @@ class RessourceModule extends VuexModule {
 
   get videoRessourcesWithIds(): CallableFunction {
     return (ids: string[]): VideoRessource[] => ids.map((id) => this.videoRessource(id));
+  }
+
+  get audioRessourcesWithIds(): CallableFunction {
+    return (ids: string[]): AudioRessource[] => ids.map((id) => this.audioRessource(id));
   }
 
   @Mutation

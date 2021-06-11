@@ -35,6 +35,7 @@ import RessourceStore from '../../store/ressource-module';
 import InlineImageRessource from './ressources/inline-image-ressource.vue';
 import InlineTextRessource from './ressources/inline-text-ressource.vue';
 import InlineVideoRessource from './ressources/inline-video-ressource.vue';
+import InlineAudioRessource from './ressources/inline-audio-ressource.vue';
 
 interface RessourceStyle {
   icon: string,
@@ -54,6 +55,7 @@ interface Style {
     InlineImageRessource,
     InlineTextRessource,
     InlineVideoRessource,
+    InlineAudioRessource,
   },
 })
 export default class SourceBlock extends Vue {
@@ -77,7 +79,7 @@ export default class SourceBlock extends Vue {
       wrapperCss: 'ressource',
     },
     [RessourceType.AUDIO_SOURCE]: {
-      icon: '',
+      icon: 'volume-up',
       iconCss: 'text',
       wrapperCss: 'yellow-bg',
     },
