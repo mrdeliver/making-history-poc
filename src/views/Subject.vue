@@ -239,7 +239,7 @@ $animation-depth: 40px;
 
 .teacherStore-enter-from {
   opacity: 0;
-  transform: translateY(-$animation-depth);
+  transform: translate(-50%, -$animation-depth);
 }
 
 .teacherStore-enter-active {
@@ -252,7 +252,7 @@ $animation-depth: 40px;
 
 .teacherStore-leave-to {
   opacity: 0;
-  transform: translateY(-$animation-depth);
+  transform: translate(-50%, -$animation-depth);
 }
 
 .frenchRev {
