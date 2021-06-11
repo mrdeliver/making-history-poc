@@ -54,8 +54,8 @@ export default class WorksheetSlider extends Vue {
         content: sheet.heading,
       },
       secondaryLink: {
-        link: `/band/${this.bandId}/page/${this.pageId}`,
-        content: 'Back to page',
+        link: '',
+        content: '',
       },
     }));
   }

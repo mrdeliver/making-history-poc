@@ -10,7 +10,9 @@
       v-for="(link, index) in allLinks" :key="index" >
         <div class="wrapper" :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
           <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
-          <router-link class="secondaryLink"
+          <router-link
+            v-show="subIsActive(link.primaryLink.link) && link.secondaryLink.content != ''"
+            class="secondaryLink"
             @click.stop
             :to="link.secondaryLink.link">
               {{link.secondaryLink.content}}
@@ -61,7 +63,6 @@ export default class Slider extends Vue {
 
   mounted(): void {
     this.scrollSliderToCurrentIndex();
-    this.resizeFont();
     this.observer = new MutationObserver((mutations) => {
       mutations.forEach((m) => {
         const newValue = m.target as HTMLElement;
@@ -81,15 +82,23 @@ export default class Slider extends Vue {
         attributeFilter: ['class'],
       });
     }
+
+    this.setBaseFontSize();
+    this.resizeFont();
   }
 
-  onClassChange(classAttrValue: string, oldAttrValue: string):void {
-    const classList = classAttrValue.split(' ');
+  setBaseFontSize():void {
     const collection = document.getElementsByClassName('carousel-cell');
     for (let i = 0; i < collection.length; i += 1) {
       const collectionChild = collection[i].children[0].children[0] as HTMLElement;
       collectionChild.style.fontSize = '16px';
     }
+  }
+
+  onClassChange(classAttrValue: string, oldAttrValue: string):void {
+    const classList = classAttrValue.split(' ');
+    const collection = document.getElementsByClassName('carousel-cell');
+    this.setBaseFontSize();
     if (classList.includes('is-selected')) {
       this.resizeFont();
     }
@@ -97,11 +106,15 @@ export default class Slider extends Vue {
 
   resizeFont():void {
     const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
-    if (activeElement) {
-      const activeWidth = activeElement.clientWidth;
-      const activeHeight = 100;
-      const child = activeElement.children[0].children[0] as HTMLElement;
-      let fontsize = 26;
+    const activeWidth = activeElement.clientWidth;
+    const activeHeight = 100;
+    const child = activeElement.children[0].children[0] as HTMLElement;
+    let fontsize = 26;
+    child.style.fontSize = `${fontsize}px`;
+    let childWidth = child.clientWidth;
+    let childHeight = child.clientHeight;
+    while (childWidth > activeWidth - 10 || childHeight > activeHeight - 10) {
+      fontsize -= 1;
       child.style.fontSize = `${fontsize}px`;
       let childWidth = child.clientWidth;
       let childHeight = child.clientHeight;
@@ -244,7 +257,7 @@ export default class Slider extends Vue {
   &.is-selected {
     a {
       @include slider-heading;
-      color:$color_grey_10;
+      color:$color_grey_8;
     }
     background-color: $color_grey_0;
     border-color: $color_grey_7;
