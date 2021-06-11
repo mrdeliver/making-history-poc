@@ -13,6 +13,8 @@ export default class SourceSelector extends Vue {
         return pageRessources.imageSources;
       case RessourceType.TEXT_SOURCE:
         return pageRessources.textSources;
+      case RessourceType.VIDEO_SOURCE:
+        return pageRessources.videoSources;
       default:
         return [];
     }
@@ -24,6 +26,8 @@ export default class SourceSelector extends Vue {
         return RessourceStore.imageRessourcesWithIds(ressourceIds);
       case RessourceType.TEXT_SOURCE:
         return RessourceStore.textRessourcesWithIds(ressourceIds);
+      case RessourceType.VIDEO_SOURCE:
+        return RessourceStore.videoRessourcesWithIds(ressourceIds);
       default:
         return [];
     }
@@ -35,6 +39,8 @@ export default class SourceSelector extends Vue {
         return RessourceStore.imageRessource(ressourceId);
       case RessourceType.TEXT_SOURCE:
         return RessourceStore.textRessource(ressourceId);
+      case RessourceType.VIDEO_SOURCE:
+        return RessourceStore.videoRessource(ressourceId);
       default:
         return {} as Ressource;
     }
