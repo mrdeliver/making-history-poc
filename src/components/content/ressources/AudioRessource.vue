@@ -78,4 +78,8 @@ iframe {
   }
 }
 
+audio {
+    width: 100%;
+  }
+
 </style>

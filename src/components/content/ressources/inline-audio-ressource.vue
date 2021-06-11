@@ -12,7 +12,7 @@
         {{caption}}
       </div>
     </div>
-    <div class='row'>
+    <div>
       <text-block v-for="(tb, idx) in content" :key="idx"
       :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
       </text-block>
@@ -76,6 +76,10 @@ export default class InlineVideoRessource extends Vue {
   color: $color_yellow_7;
   text-align: center;
   margin: auto;
+}
+
+audio {
+  width:100%;
 }
 
 </style>
