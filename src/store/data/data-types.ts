@@ -28,7 +28,7 @@ export enum RessourceType {
   IMAGE_SOURCE='image-ressource',
   TEXT_SOURCE='text-ressource',
   AUDIO_SOURCE='audio-ressource',
-  MOVIE_SOURCE='movie-ressource'
+  VIDEO_SOURCE='video-ressource'
 }
 
 export interface SourceContentBlock extends ContentBlock {
@@ -39,7 +39,8 @@ export interface SourceContentBlock extends ContentBlock {
 export interface Ressources {
   textSources: string[],
   imageSources: string[],
-  audioSources: string[]
+  audioSources: string[],
+  videoSources: string[],
 }
 
 export interface Annotation {
@@ -55,10 +56,6 @@ export interface Ressource {
   author: string,
   caption: string,
   content: ContentBlock[]
-}
-
-export interface AudioRessource extends Ressource {
-  url: string,
 }
 
 export enum PageType {
