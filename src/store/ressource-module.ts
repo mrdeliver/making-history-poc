@@ -84,11 +84,17 @@ class RessourceModule extends VuexModule {
     this.videoRessources = ressources;
   }
 
+  @Mutation
+  setAudioRessources(ressources: AudioRessource[]) {
+    this.audioRessources = ressources;
+  }
+
   @Action
   buildRessources(): void {
     this.imageRessources = ImageRessources.result;
     this.textRessources = TextRessources.result;
     this.videoRessources = VideoRessources.result;
+    this.audioRessources = AudioRessources.result;
   }
 }
 

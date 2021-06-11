@@ -79,9 +79,9 @@ export default class SourceBlock extends Vue {
       wrapperCss: 'ressource',
     },
     [RessourceType.AUDIO_SOURCE]: {
-      icon: 'volume-up',
-      iconCss: 'text',
-      wrapperCss: 'yellow-bg',
+      icon: 'file',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
     },
     [RessourceType.VIDEO_SOURCE]: {
       icon: 'images',
@@ -97,7 +97,9 @@ export default class SourceBlock extends Vue {
   }
 
   get ressourceBlock(): Ressource {
-    return RessourceStore.ressource(this.sourceType, this.id);
+    const ressource = RessourceStore.ressource(this.sourceType, this.id);
+    console.log(ressource);
+    return ressource;
   }
 
   getComponentType(): string {
