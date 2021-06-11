@@ -9,7 +9,7 @@ export default {
       typ: RessourceType.VIDEO_SOURCE,
       heading: 'V1',
       author: 'Mr Wissen2go Geschichte',
-      url: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6d/Folge_12_-_Crashkurs_Kapitalismus_%28Meine_Wende_-_Unsere_Einheit%29.webm/Folge_12_-_Crashkurs_Kapitalismus_%28Meine_Wende_-_Unsere_Einheit%29.webm.360p.vp9.webm',
+      url: 'https://youtube.com/embed/4dvyIMwUovo',
       caption: 'Französische Revolution I Beginn I musstewissen Geschichte',
       content: [
         {
