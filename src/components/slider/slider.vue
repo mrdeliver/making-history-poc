@@ -113,12 +113,8 @@ export default class Slider extends Vue {
     child.style.fontSize = `${fontsize}px`;
     let childWidth = child.clientWidth;
     let childHeight = child.clientHeight;
-    while (childWidth > activeWidth - 10 || childHeight > activeHeight - 10) {
-      fontsize -= 1;
-      child.style.fontSize = `${fontsize}px`;
-      let childWidth = child.clientWidth;
-      let childHeight = child.clientHeight;
-      while (childWidth > activeWidth || childHeight > activeHeight) {
+    if (activeElement) {
+      while (childWidth > activeWidth - 10 || childHeight > activeHeight - 10) {
         fontsize -= 1;
         child.style.fontSize = `${fontsize}px`;
         childWidth = child.clientWidth;
