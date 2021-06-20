@@ -1,5 +1,5 @@
 <template>
-  <div v-show="userIsOnSubPage()">
+  <div>
     <div :class="buttonFlavour" class="defaultStyle" v-on:click="goToPage()">
       <fa :icon="iconToDisplay" class="icon"></fa>
     </div>
@@ -29,17 +29,6 @@ export default class BackButton extends Vue {
 
   get iconToDisplay(): string {
     return this.buttonIcon;
-  }
-
-  userIsOnSubPage(): boolean {
-    let userIsOnSubPage = false;
-    const currentPath = this.currentRoute.path;
-    if (currentPath.includes('worksheet')
-    || currentPath.includes('ressource')) {
-      userIsOnSubPage = true;
-    }
-
-    return userIsOnSubPage;
   }
 
   goToPage():void {
