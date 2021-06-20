@@ -6,6 +6,7 @@ import ImageRessources, { ImageRessource } from './data/ressources/image-ressour
 import TextRessources, { TextRessource } from './data/ressources/text-ressources';
 import VideoRessources, { VideoRessource } from './data/ressources/video-ressources';
 import AudioRessources, { AudioRessource } from './data/ressources/audio-ressources';
+import MultiImageRessources, { MultiImageRessource } from './data/ressources/multi-image-ressources';
 import { RessourceType } from './data/data-types';
 
 @Module({ generateMutationSetters: true })
@@ -19,6 +20,8 @@ class RessourceModule extends VuexModule {
 
   private audioRessources: AudioRessource[] = [];
 
+  private multiImageRessources: MultiImageRessource[] = [];
+
   // getters
   get ressource(): CallableFunction {
     return (ressourceType: RessourceType, id: string) => {
@@ -30,6 +33,8 @@ class RessourceModule extends VuexModule {
         case RessourceType.AUDIO_SOURCE:
           return this.audioRessource(id);
         case RessourceType.VIDEO_SOURCE:
+          return this.videoRessource(id);
+        case RessourceType.MULTI_IMAGE_SOURCE:
           return this.videoRessource(id);
         default:
           throw Error('Not implemented');
@@ -53,6 +58,10 @@ class RessourceModule extends VuexModule {
     return (id: string) => this.audioRessources.filter((re) => re.id === id)[0];
   }
 
+  get multiImageRessource(): CallableFunction {
+    return (id: string) => this.multiImageRessources.filter((re) => re.id === id)[0];
+  }
+
   get imageRessourcesWithIds(): CallableFunction {
     return (ids: string[]): ImageRessource[] => ids.map((id) => this.imageRessource(id));
   }
@@ -67,6 +76,10 @@ class RessourceModule extends VuexModule {
 
   get audioRessourcesWithIds(): CallableFunction {
     return (ids: string[]): AudioRessource[] => ids.map((id) => this.audioRessource(id));
+  }
+
+  get multiImageRessourcesWithIds(): CallableFunction {
+    return (ids: string[]): MultiImageRessource[] => ids.map((id) => this.imageRessource(id));
   }
 
   @Mutation
@@ -89,12 +102,18 @@ class RessourceModule extends VuexModule {
     this.audioRessources = ressources;
   }
 
+  @Mutation
+  setMultiImageRessources(ressources: MultiImageRessource[]) {
+    this.multiImageRessources = ressources;
+  }
+
   @Action
   buildRessources(): void {
     this.imageRessources = ImageRessources.result;
     this.textRessources = TextRessources.result;
     this.videoRessources = VideoRessources.result;
     this.audioRessources = AudioRessources.result;
+    this.multiImageRessources = MultiImageRessources.result;
   }
 }
 
