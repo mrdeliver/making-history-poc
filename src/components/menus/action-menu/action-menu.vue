@@ -299,7 +299,7 @@ $animation-depth: 20px;
       }
       @include drop-shadow-elevation-1;
       position: absolute;
-      width: calc(650px/2 - 30px);
+      width: calc(650px/3 - 30px);
       bottom: 45px;
       border: 2px solid $color_blue;
       background-color: $color_blue_2;
