@@ -143,7 +143,7 @@ export default class Slider extends Vue {
     // any options from Flickity can be used
   }
 
-  $refs!:{
+  declare $refs:{
   flickity: typeof Flickity,
   }
 

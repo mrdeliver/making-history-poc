@@ -39,6 +39,10 @@ class PageModule extends VuexModule {
     return this.teacherBandState;
   }
 
+  get chapterPages(): Page[] {
+    return this.pages.filter((page) => page.type === PageType.CHAPTER);
+  }
+
   @Mutation
   toggleTeacherBand() {
     this.teacherBandState = !this.teacherBandState;

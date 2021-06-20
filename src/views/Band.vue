@@ -20,7 +20,7 @@
     <expandable-button v-else style="z-index: 300"
       buttonFlavour="navigationButton"
       buttonOpenIcon="stream">
-      <navigation-menu></navigation-menu>
+      <navigation-menu :bandId="bandId"></navigation-menu>
     </expandable-button>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default class Band extends Vue {
   private router: Router = useRouter();
 
   @Prop({ type: String })
-  private bandId = '';
+  private bandId = '1';
 
   @Prop({ type: String })
   private pageId = '0';

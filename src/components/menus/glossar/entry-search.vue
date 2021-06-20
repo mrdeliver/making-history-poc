@@ -37,7 +37,7 @@ export default class EntrySearch extends Vue {
   get filteredEntries(): Entry[] {
     if (this.searchString !== '') {
       return this.variableEntries.filter(
-        (entry: Entry) => entry.heading.toLowerCase().includes(this.searchString),
+        (entry: Entry) => entry.heading.toLowerCase().includes(this.searchString.toLowerCase()),
       );
     }
     return this.variableEntries;
