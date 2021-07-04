@@ -6,23 +6,10 @@
           <!-- Slideshow container -->
           <div class="slideshow-container">
 
-            <!-- Full-width images with number and caption text -->
-            <div class="mySlides fade">
-              <div class="numbertext">1 / 3</div>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Franz%C3%B6sischer-friedhof-berlin_-_5.jpeg/640px-Franz%C3%B6sischer-friedhof-berlin_-_5.jpeg" style="width:100%">
-              <div class="text">Caption Text</div>
-            </div>
-
-            <div class="mySlides fade">
-              <div class="numbertext">2 / 3</div>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Revolutionary_War_artillery_on_display_at_Yorktown_Battlefield_image_11.jpg/800px-Revolutionary_War_artillery_on_display_at_Yorktown_Battlefield_image_11.jpg" style="width:100%">
-              <div class="text">Caption Two</div>
-            </div>
-
-            <div class="mySlides fade">
-              <div class="numbertext">3 / 3</div>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Franz%C3%B6sischer_Friedhof_Berlin-Mitte_Okt.2016_-_4.jpg/640px-Franz%C3%B6sischer_Friedhof_Berlin-Mitte_Okt.2016_-_4.jpg" style="width:100%">
-              <div class="text">Caption Three</div>
+            <div class="mySlides fade" v-for="(item,idx) in images" :key="idx">
+              <div class="numbertext">{{idx+1}}/{{images.length}}</div>
+              <img :src="item.src" style="width:100%">
+              <div class="text">{{item.title}}</div>
             </div>
 
             <!-- Next and previous buttons -->
@@ -41,11 +28,11 @@
     </div>
     <div class="row">
     </div>
-    <div class='row'>
+    <!-- <div class='row'>
       <text-block v-for="(tb, idx) in content" :key="idx"
       :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
       </text-block>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -63,19 +50,20 @@ import TextBlock from '../text-block.vue';
   },
 })
 export default class InlineMultiImageRessource extends Vue {
-  // items = [
-  //   {
-  //     src: 'https://media.giphy.com/media/IrFqA9fFseZaM/giphy.gif',
-  //     title: 'Smart cow',
-  //   },
-  //   {
-  //     src: 'https://media.giphy.com/media/bympeqWadSL3G/giphy.gif',
-  //     title: 'Friendly cow',
-  //   },
-  //   {
-  //     src: 'https://media.giphy.com/media/LilPRDHg9Qre0/giphy.gif',
-  //   },
-  // ]
+  items = [
+    {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Franz%C3%B6sischer-friedhof-berlin_-_5.jpeg/640px-Franz%C3%B6sischer-friedhof-berlin_-_5.jpeg',
+      title: 'Smart cow',
+    },
+    {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Revolutionary_War_artillery_on_display_at_Yorktown_Battlefield_image_11.jpg/800px-Revolutionary_War_artillery_on_display_at_Yorktown_Battlefield_image_11.jpg',
+      title: 'Friendly cow',
+    },
+    {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Franz%C3%B6sischer_Friedhof_Berlin-Mitte_Okt.2016_-_4.jpg/640px-Franz%C3%B6sischer_Friedhof_Berlin-Mitte_Okt.2016_-_4.jpg',
+      title: 'Tes3',
+    },
+  ]
 
   @Prop()
   id = '';
@@ -84,24 +72,15 @@ export default class InlineMultiImageRessource extends Vue {
   typ: RessourceType = {} as RessourceType;
 
   @Prop()
-  author = '';
-
-  @Prop()
-  caption = '';
-
-  @Prop()
-  content: TextContentBlock[] = [] as TextContentBlock[];
-
-  @Prop()
-  url = '';
-
-  @Prop()
-  annotations: Annotation[] = [];
+  images: RessourceType.IMAGE_SOURCE[] = [];
 
   slideIndex = 1;
 
   mounted(): void {
     this.showSlides(this.slideIndex);
+    console.log(this.id);
+    console.log(this.typ);
+    console.log(this.images);
   }
 
   // Next/previous controls

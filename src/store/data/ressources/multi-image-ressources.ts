@@ -2,6 +2,7 @@
 import {
   Annotation, ContentBlockType, RessourceType, ContentBlock
 } from '../data-types';
+import { ImageRessource} from '../ressources/image-ressources'
 
 export default {
   result: [
@@ -10,6 +11,8 @@ export default {
       typ: RessourceType.MULTI_IMAGE_SOURCE,
       images: [
         {
+          id: '0',
+          typ: RessourceType.IMAGE_SOURCE,
           heading: 'G1-M1',
           author: 'James Gillray  (1756–1815)',
           url: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/James_Gillray_Pinnacle_of_Liberty.jpeg',
@@ -42,6 +45,8 @@ export default {
           ],
         },
         {
+          id: '1',
+          typ: RessourceType.IMAGE_SOURCE,
           heading: 'G1-M2',
           author: 'Jean-Jacques Le Barbier',
           url: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/Declaration_of_the_Rights_of_Man_and_of_the_Citizen_in_1789.jpg',
@@ -65,12 +70,6 @@ export default {
 export interface MultiImageRessource {
   id: string
   typ: RessourceType,
-  images: {
-    heading: string,
-    author: string,
-    caption: string,
-    annotations: Annotation[],
-    content: ContentBlock[],
-  }[],
+  images: ImageRessource[],
 
 }
