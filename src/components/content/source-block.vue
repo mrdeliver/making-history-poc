@@ -79,7 +79,7 @@ export default class SourceBlock extends Vue {
       wrapperCss: 'ressource',
     },
     [RessourceType.AUDIO_SOURCE]: {
-      icon: 'file',
+      icon: 'music',
       iconCss: 'ressource-icon',
       wrapperCss: 'ressource',
     },
