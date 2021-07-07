@@ -9,13 +9,15 @@
             <div class="mySlides fade" v-for="(item,idx) in images" :key="idx">
               <div class="numbertext">{{idx+1}}/{{images.length}}</div>
               <img :src="item.url" style="width:100%">
-              <div class="text">{{item.heading}}</div>
+              <!-- Next and previous buttons -->
+              <a class="prev" @click="plusSlides(-1)">&#10094;</a>
+              <a class="next" @click="plusSlides(1)">&#10095;</a>
 
-                  <div class="row">
-                    <div class="caption-col">
-                      {{item.caption}}
-                    </div>
-                  </div>
+              <div class="row">
+                <div class="caption-col">
+                  {{item.caption}}
+                </div>
+              </div>
 
               <div class='row'>
                 <text-block v-for="(tb, idx) in item.content" :key="idx"
@@ -25,9 +27,6 @@
               </div>
             </div>
 
-            <!-- Next and previous buttons -->
-            <a class="prev" @click="plusSlides(-1)">&#10094;</a>
-            <a class="next" @click="plusSlides(1)">&#10095;</a>
           </div>
 
           <!-- The dots/circles -->
