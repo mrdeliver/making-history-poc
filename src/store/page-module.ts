@@ -128,6 +128,7 @@ class PageModule extends VuexModule {
       imageSources: [],
       audioSources: [],
       videoSources: [],
+      multiImageSources: [],
     };
   }
 }

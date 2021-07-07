@@ -103,6 +103,7 @@
 
 <script lang="ts">
 import { ImageRessource } from '@/store/data/ressources/image-ressources';
+import { MultiImageRessource } from '@/store/data/ressources/multi-image-ressources';
 import { VideoRessource } from '@/store/data/ressources/video-ressources';
 import { AudioRessource } from '@/store/data/ressources/audio-ressources';
 import { Vue, Options } from 'vue-class-component';
@@ -147,6 +148,8 @@ export default class ActionMenu extends Vue {
 
   private videoRessources: VideoRessource[] = [];
 
+  private multiImageRessources: MultiImageRessource[] = [];
+
   private audioRessources: AudioRessource[] = [];
 
   private worksheetIds: string[] = [];
@@ -166,6 +169,7 @@ export default class ActionMenu extends Vue {
     imageRessources: false,
     audioRessources: false,
     videoRessources: false,
+    multiImageRessources: false,
     worksheets: false,
     teacherBand: false,
   }
@@ -188,10 +192,14 @@ export default class ActionMenu extends Vue {
   @Watch('pageId')
   onpageIdChange(value: string): void {
     this.updateMenuContents(value);
+    console.log('update page id worksheets');
+    console.log(this.worksheets);
   }
 
   mounted(): void {
     this.updateMenuContents(this.pageId);
+    console.log('mounted worksheets');
+    console.log(this.worksheets);
   }
 
   updateMenuContents(pageId: string): void {
@@ -205,6 +213,8 @@ export default class ActionMenu extends Vue {
     this.videoRessources = RessourceStore.videoRessourcesWithIds(this.ressourceIds.videoSources);
     this.audioRessources = RessourceStore.audioRessourcesWithIds(this.ressourceIds.audioSources);
     this.worksheets = WorksheetStore.worksheetsWithIds(this.worksheetIds);
+    /* eslint-disable-next-line */
+    this.multiImageRessources = RessourceStore.multiImageRessourcesWithIds(this.ressourceIds.multiImageSources);
   }
 
   private volumeIcon = 'music';
@@ -299,7 +309,7 @@ $animation-depth: 20px;
       }
       @include drop-shadow-elevation-1;
       position: absolute;
-      width: calc(650px/2 - 30px);
+      width: calc(650px/3 - 30px);
       bottom: 45px;
       border: 2px solid $color_blue;
       background-color: $color_blue_2;

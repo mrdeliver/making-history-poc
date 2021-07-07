@@ -13,6 +13,10 @@
   <div v-else>
     <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
   </div>
+  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
+  @buttonToggeled="handleActionsMenuToggle($event)">
+    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
+  </expandable-button>
 </template>
 
 <script lang="ts">
@@ -22,11 +26,15 @@ import BandStore from '@/store/band-module';
 import SubjectStore from '@/store/subject-module';
 import PageStore, { Page } from '../../store/page-module';
 import ContentFrame from '../content/content-frame.vue';
+import ActionMenu from '../menus/action-menu/action-menu.vue';
+import ExpandableButton from '../menus/expandable-button.vue';
 
 @Options({
   name: 'page',
   components: {
     ContentFrame,
+    ActionMenu,
+    ExpandableButton,
   },
 })
 export default class PageComponent extends Vue {
@@ -38,6 +46,18 @@ export default class PageComponent extends Vue {
 
   get teacherBandState(): boolean {
     return PageStore.getTeacherBandState;
+  }
+
+  $refs!: {
+    actionMenu: ActionMenu,
+  }
+
+  handleActionsMenuToggle(buttonExpanded: Event):void {
+    if (!buttonExpanded) {
+      this.$refs.actionMenu.collapseItems();
+    }
+    console.log('Band PageID');
+    console.log(this.pageId);
   }
 
   toggleTeacherBand(): void {

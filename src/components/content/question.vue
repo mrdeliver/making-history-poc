@@ -242,6 +242,7 @@ textarea{
   background-color: $color_blue_2;
   color: $color_blue_9;
   border: 2px solid transparent;
+  border-radius: 15px;
   &.worksheet-button-active{
     border: 2px solid $color_blue;
   }

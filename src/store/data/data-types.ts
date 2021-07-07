@@ -28,7 +28,8 @@ export enum RessourceType {
   IMAGE_SOURCE='image-ressource',
   TEXT_SOURCE='text-ressource',
   AUDIO_SOURCE='audio-ressource',
-  VIDEO_SOURCE='video-ressource'
+  VIDEO_SOURCE='video-ressource',
+  MULTI_IMAGE_SOURCE='multi-image-ressource'
 }
 
 export interface SourceContentBlock extends ContentBlock {
@@ -41,6 +42,7 @@ export interface Ressources {
   imageSources: string[],
   audioSources: string[],
   videoSources: string[],
+  multiImageSources: string[],
 }
 
 export interface Annotation {

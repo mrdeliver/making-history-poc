@@ -11,6 +11,7 @@
     buttonOpenIcon="search">
     <entry-search></entry-search>
   </expandable-button>
+
   <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
   @buttonToggeled="handleActionsMenuToggle($event)">
     <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
@@ -28,6 +29,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+
 import {
   Router, useRouter, useRoute, RouteLocationNormalized,
 } from 'vue-router';
@@ -59,7 +61,14 @@ export default class Band extends Vue {
   private bandId = '1';
 
   @Prop({ type: String })
-  private pageId = '0';
+  private pageId: string | string[] = '0';
+
+  private route = useRoute();
+
+  mounted(): void {
+    console.log(this.route.params.pageId);
+    this.pageId = this.route.params.pageId;
+  }
 
   created(): void {
     PageStore.buildPages(this.bandId);
