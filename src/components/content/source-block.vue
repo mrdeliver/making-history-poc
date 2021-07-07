@@ -98,7 +98,6 @@ export default class SourceBlock extends Vue {
 
   get ressourceBlock(): Ressource {
     const ressource = RessourceStore.ressource(this.sourceType, this.id);
-    console.log(ressource);
     return ressource;
   }
 
