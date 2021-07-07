@@ -4,10 +4,10 @@
     <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
       <div ref="myWrapper"
-      :class="[sliderFlavour]"
+      v-for="(link, index) in allLinks" :key="index"
+      :class="getCurrentCellFlavour(link)"
       class="carousel-cell"
-      @click="setRoute(link.primaryLink.link)"
-      v-for="(link, index) in allLinks" :key="index" >
+      @click="setRoute(link.primaryLink.link)">
         <div class="wrapper" :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
           <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
           <router-link
@@ -28,6 +28,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import Flickity from 'vue-flickity/src/flickity.vue';
 import { Router, useRouter, useRoute } from 'vue-router';
+import { PageType } from '@/store/data/data-types';
 import SliderLink from './slider';
 
 @Options({
@@ -97,7 +98,6 @@ export default class Slider extends Vue {
 
   onClassChange(classAttrValue: string, oldAttrValue: string):void {
     const classList = classAttrValue.split(' ');
-    const collection = document.getElementsByClassName('carousel-cell');
     this.setBaseFontSize();
     if (classList.includes('is-selected')) {
       this.resizeFont();
@@ -130,7 +130,19 @@ export default class Slider extends Vue {
   }
 
   @Prop({ type: String })
-  private sliderFlavour = 'defaultFlavour';
+  private cellFlavour = 'defaultFlavour'
+
+  getCurrentCellFlavour(link: SliderLink): string {
+    if (link.pageType) {
+      if (link.pageType === PageType.CHAPTER) {
+        return 'defaultFlavourChapter';
+      }
+    }
+
+    // every other case
+
+    return this.cellFlavour;
+  }
 
   private router: Router = useRouter();
 
@@ -257,6 +269,24 @@ export default class Slider extends Vue {
     }
     background-color: $color_grey_0;
     border-color: $color_grey_7;
+  }
+}
+
+.defaultFlavourChapter {
+  background-color: $color_grey_5;
+  border-color: $color_grey_2;
+  a {
+    @include slider-heading;
+    color: $color_grey_0;
+    font-size: 20px;
+  }
+  &.is-selected {
+    a {
+      @include slider-heading;
+      color:$color_grey_0;
+    }
+    background-color: $color_grey_5;
+    border-color: $color_grey_2;
   }
 }
 

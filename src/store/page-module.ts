@@ -9,7 +9,7 @@ import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
 
 export interface Page {
-  type: string,
+  type: PageType,
   id?: string,
   heading: string,
   subheading: string,

@@ -1,3 +1,5 @@
+import { PageType } from '@/store/data/data-types';
+
 export default interface SliderLink {
     primaryLink: {
         link: string,
@@ -7,6 +9,7 @@ export default interface SliderLink {
         link: string,
         content: string,
     }
+    pageType?: PageType,
 /* eslint-disable */
 }
 /* eslint-enable */
