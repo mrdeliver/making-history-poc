@@ -24,6 +24,7 @@
 </template>
 
 <script lang="ts">
+import fitty from 'fitty';
 import { Options, Vue } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import Flickity from 'vue-flickity/src/flickity.vue';
@@ -36,7 +37,6 @@ import SliderLink from './slider';
     Flickity,
   },
 })
-
 export default class Slider extends Vue {
   private currentRoute = useRoute();
 
@@ -69,7 +69,7 @@ export default class Slider extends Vue {
         const newValue = m.target as HTMLElement;
         const newValueString: string = newValue.getAttribute(m.attributeName as string) as string;
         this.$nextTick(() => {
-          this.onClassChange(newValueString, m.oldValue as string);
+          this.onClassChange(newValueString);
         });
       });
     });
@@ -96,7 +96,7 @@ export default class Slider extends Vue {
     }
   }
 
-  onClassChange(classAttrValue: string, oldAttrValue: string):void {
+  onClassChange(classAttrValue: string):void {
     const classList = classAttrValue.split(' ');
     this.setBaseFontSize();
     if (classList.includes('is-selected')) {
@@ -106,23 +106,10 @@ export default class Slider extends Vue {
 
   resizeFont():void {
     const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
-    const activeWidth = activeElement.clientWidth;
-    const activeHeight = 100;
     const child = activeElement.children[0].children[0] as HTMLElement;
-    let fontsize = 26;
-    child.style.fontSize = `${fontsize}px`;
-    let childWidth = child.clientWidth;
-    let childHeight = child.clientHeight;
-    if (activeElement) {
-      while (childWidth > activeWidth - 10 || childHeight > activeHeight - 10) {
-        fontsize -= 1;
-        child.style.fontSize = `${fontsize}px`;
-        childWidth = child.clientWidth;
-        childHeight = child.clientHeight;
-      }
-    } else {
-      console.log('No active Element');
-    }
+    child.id = 'selected-element';
+    fitty('#selected-element', { multiLine: true, minSize: 18, maxSize: 26 });
+    child.id = '';
   }
 
   get getIndexInt(): number {
@@ -223,32 +210,41 @@ export default class Slider extends Vue {
   align-items: center;
   a {
     text-decoration: none;
+    font-size: 14px;
   }
 }
+
 .carousel-cell.is-selected {
   @include drop-shadow-elevation-1;
   height: 100px;
   width: $slider-cell-active-with;
   top: 0px;
   a {
-    word-wrap: break-word;
-    text-decoration: none;
-    }
-
+    white-space: pre-wrap !important;
+  }
 }
 
 .wrapper {
   text-align: center;
   display: flex;
+  flex-grow: 2+1;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   width: inherit;
   height: calc(100% - 6px);
+  overflow: hidden;
+  padding-left: 5px;
+  padding-right: 5px;
+  a {
+    width: 100%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+  }
 }
 
 .wrapper-is-active {
-
   border: inherit;
   border-radius: inherit;
   border-width: 3px;
@@ -260,7 +256,6 @@ export default class Slider extends Vue {
   a {
     @include slider-heading;
     color: $color_grey_6;
-    font-size:20px;
   }
   &.is-selected {
     a {
@@ -278,7 +273,6 @@ export default class Slider extends Vue {
   a {
     @include slider-heading;
     color: $color_grey_0;
-    font-size: 20px;
   }
   &.is-selected {
     a {
