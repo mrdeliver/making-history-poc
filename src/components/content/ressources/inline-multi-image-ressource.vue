@@ -8,8 +8,21 @@
 
             <div class="mySlides fade" v-for="(item,idx) in images" :key="idx">
               <div class="numbertext">{{idx+1}}/{{images.length}}</div>
-              <img :src="item.src" style="width:100%">
-              <div class="text">{{item.title}}</div>
+              <img :src="item.url" style="width:100%">
+              <div class="text">{{item.heading}}</div>
+
+                  <div class="row">
+                    <div class="caption-col">
+                      {{item.caption}}
+                    </div>
+                  </div>
+
+              <div class='row'>
+                <text-block v-for="(tb, idx) in item.content" :key="idx"
+                :text="tb.text" :heading="tb.heading" :tipps="tb.tipps"
+                :glossarEntries="tb.glossarEntries">
+                </text-block>
+              </div>
             </div>
 
             <!-- Next and previous buttons -->
@@ -19,20 +32,15 @@
 
           <!-- The dots/circles -->
           <div style="text-align:center">
-            <span class="dot" @click="currentSlide(1)"></span>
-            <span class="dot" @click="currentSlide(2)"></span>
-            <span class="dot" @click="currentSlide(3)"></span>
+            <span class="dot" v-for="(item,idx) in images" :key="idx"
+            @click="currentSlide(idx+1)"></span>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
     </div>
-    <!-- <div class='row'>
-      <text-block v-for="(tb, idx) in content" :key="idx"
-      :text="tb.text" :heading="tb.heading" :tipps="tb.tipps" :glossarEntries="tb.glossarEntries">
-      </text-block>
-    </div> -->
+
   </div>
 </template>
 
@@ -40,9 +48,10 @@
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import {
-  RessourceType, TextContentBlock, Annotation,
+  RessourceType,
 } from '../../../store/data/data-types';
 import TextBlock from '../text-block.vue';
+import { ImageRessource } from '../../../store/data/ressources/image-ressources';
 
 @Options({
   components: {
@@ -50,21 +59,6 @@ import TextBlock from '../text-block.vue';
   },
 })
 export default class InlineMultiImageRessource extends Vue {
-  items = [
-    {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Franz%C3%B6sischer-friedhof-berlin_-_5.jpeg/640px-Franz%C3%B6sischer-friedhof-berlin_-_5.jpeg',
-      title: 'Smart cow',
-    },
-    {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Revolutionary_War_artillery_on_display_at_Yorktown_Battlefield_image_11.jpg/800px-Revolutionary_War_artillery_on_display_at_Yorktown_Battlefield_image_11.jpg',
-      title: 'Friendly cow',
-    },
-    {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Franz%C3%B6sischer_Friedhof_Berlin-Mitte_Okt.2016_-_4.jpg/640px-Franz%C3%B6sischer_Friedhof_Berlin-Mitte_Okt.2016_-_4.jpg',
-      title: 'Tes3',
-    },
-  ]
-
   @Prop()
   id = '';
 
@@ -72,7 +66,7 @@ export default class InlineMultiImageRessource extends Vue {
   typ: RessourceType = {} as RessourceType;
 
   @Prop()
-  images: RessourceType.IMAGE_SOURCE[] = [];
+  images: ImageRessource[] = [];
 
   slideIndex = 1;
 
@@ -214,5 +208,31 @@ export default class InlineMultiImageRessource extends Vue {
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
+}
+
+.block {
+  margin-bottom: 20px;
+}
+
+.text-block {
+  text-align: justify;
+}
+
+.image-col {
+  flex: 80%;
+  padding: 20px;
+}
+
+.caption-col {
+  width: 80%;
+  color: $color_yellow_7;
+  text-align: center;
+  margin: auto;
+}
+
+img {
+  max-width:100%;
+  max-height:100%;
+  border-radius: 15px;
 }
 </style>

@@ -35,7 +35,7 @@ class RessourceModule extends VuexModule {
         case RessourceType.VIDEO_SOURCE:
           return this.videoRessource(id);
         case RessourceType.MULTI_IMAGE_SOURCE:
-          return this.videoRessource(id);
+          return this.multiImageRessource(id);
         default:
           throw Error('Not implemented');
       }

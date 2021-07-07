@@ -17,7 +17,7 @@
         </div>
         <div v-if="expand" id="expand-container-row">
           <component
-          :is="getComponentType(contentBlock)"
+          :is="getComponentType()"
           v-bind="ressourceBlock"
           ></component>
         </div>
@@ -106,7 +106,6 @@ export default class SourceBlock extends Vue {
 
   get ressourceBlock(): Ressource {
     const ressource = RessourceStore.ressource(this.sourceType, this.id);
-    console.log(ressource);
     return ressource;
   }
 
