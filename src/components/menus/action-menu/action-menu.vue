@@ -192,10 +192,14 @@ export default class ActionMenu extends Vue {
   @Watch('pageId')
   onpageIdChange(value: string): void {
     this.updateMenuContents(value);
+    console.log('update page id worksheets');
+    console.log(this.worksheets);
   }
 
   mounted(): void {
     this.updateMenuContents(this.pageId);
+    console.log('mounted worksheets');
+    console.log(this.worksheets);
   }
 
   updateMenuContents(pageId: string): void {

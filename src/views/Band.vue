@@ -11,10 +11,6 @@
     buttonOpenIcon="search">
     <entry-search></entry-search>
   </expandable-button>
-  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
-  @buttonToggeled="handleActionsMenuToggle($event)">
-    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
-  </expandable-button>
   <back-button class="backButton">
   </back-button>
 </template>
@@ -22,7 +18,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Router, useRouter } from 'vue-router';
+import { Router, useRouter, useRoute } from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
 import EntryStore from '../store/search-entry-module';
@@ -47,7 +43,14 @@ export default class Band extends Vue {
   private bandId = '';
 
   @Prop({ type: String })
-  private pageId = '0';
+  private pageId: string | string[] = '0';
+
+  private route = useRoute();
+
+  mounted(): void {
+    console.log(this.route.params.pageId);
+    this.pageId = this.route.params.pageId;
+  }
 
   created(): void {
     PageStore.buildPages(this.bandId);
@@ -55,16 +58,6 @@ export default class Band extends Vue {
     EntryStore.buildEntries();
     WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
-  }
-
-  $refs!: {
-    actionMenu: ActionMenu,
-  }
-
-  handleActionsMenuToggle(buttonExpanded: Event):void {
-    if (!buttonExpanded) {
-      this.$refs.actionMenu.collapseItems();
-    }
   }
 }
 </script>
