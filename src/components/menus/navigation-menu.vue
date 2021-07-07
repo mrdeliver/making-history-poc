@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div class="navigationMenuContainer">
+  <div class="navigationMenuContainer">
+    <div class="navigationEntriesContainer" @scroll="scrollHandler()">
       <div v-for="(chapter, idx) in filteredChapters"
       :key="idx"
-      class="navigationEntry"
+      :class="navigationEntryClass"
       @click="navigateToChaptetPage(chapter)"
       >
         {{chapter.heading}}
       </div>
-      <div class="navigationSearchbar"><input type="search" v-model="searchString"/></div>
     </div>
+    <div class="navigationSearchbar"><input type="search" v-model="searchString"/></div>
   </div>
 </template>
 
@@ -52,37 +52,65 @@ export default class NavigationMenu extends Vue {
     const navigationLink = buildPageLinkString(this.bandId, chapter.id);
     this.router.push(navigationLink);
   }
+
+  private navigationEntryClass = 'navigationEntry'
+
+  private navigationEntries: Element[] = []
+
+  scrollHandler(): void {
+    this.navigationEntries.forEach((entry) => {
+      console.log(entry);
+    });
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
 
+// clean up this shit css wise!
 @import "src/colors";
 @import "src/style";
 @import "src/text";
 
 .navigationMenuContainer {
 
-  width: 200px;
+  width: 300px;
   height: 200px;
   background: transparent;
   position: relative;
 
-  .navigationEntry {
-    font-size: $font_size_text;
-    font-weight: $font_weight_heading;
-    margin-bottom: 5px;
-    padding: 3px;
-    padding-left: 8px;
-    background-color: $color_grey_5;
-    color: $color_grey_0;
-    border-radius: 50px;
-    text-overflow: ellipsis;
-    @include drop-shadow-elevation-2;
+  .navigationEntriesContainer {
+    margin: 4px;
+    height: 100%;
+    position: absolute;
+    bottom: 20px;
+    left: 0px;
+    width: 100%;
+    overflow-x: visible;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
-    &:hover {
-      cursor: pointer;
+    .navigationEntry {
+      font-size: $font_size_text;
+      font-weight: $font_weight_heading;
+      margin-bottom: 7px;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 3px;
+      padding-left: 8px;
+      background-color: $color_grey_5;
+      color: $color_grey_0;
+      border-radius: 50px;
+      text-overflow: ellipsis;
+      @include drop-shadow-elevation-1;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -90,6 +118,7 @@ export default class NavigationMenu extends Vue {
     position: absolute;
     bottom: 0px;
     left: 0px;
+    margin: 4px;
     width: 100%;
 
     input {
@@ -105,7 +134,6 @@ export default class NavigationMenu extends Vue {
       color: $color_grey_5;
       padding-left: 10px;
       box-sizing: content-box;
-      //background-image: url('');
       background-repeat: no-repeat;
       background-position: left center;
       box-sizing: border-box;
