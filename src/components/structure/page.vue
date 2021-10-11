@@ -10,6 +10,9 @@
     </div>
     <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
   </div>
+  <div v-if="pageIsBandOverview">
+    <overview-frame :overviewPage="currentPage"></overview-frame>
+  </div>
   <div v-else>
     <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
   </div>
@@ -26,8 +29,10 @@ import BandStore from '@/store/band-module';
 import SubjectStore from '@/store/subject-module';
 import PageStore, { Page } from '../../store/page-module';
 import ContentFrame from '../content/content-frame.vue';
+import OverviewFrame from '../content/overview-frame.vue';
 import ActionMenu from '../menus/action-menu/action-menu.vue';
 import ExpandableButton from '../menus/expandable-button.vue';
+import { PageType } from '../../store/data/data-types';
 
 @Options({
   name: 'page',
@@ -35,6 +40,7 @@ import ExpandableButton from '../menus/expandable-button.vue';
     ContentFrame,
     ActionMenu,
     ExpandableButton,
+    OverviewFrame,
   },
 })
 export default class PageComponent extends Vue {
@@ -43,6 +49,8 @@ export default class PageComponent extends Vue {
 
   @Prop({ type: String })
   private pageId = '';
+
+  private pageIsBandOverview = false;
 
   get teacherBandState(): boolean {
     return PageStore.getTeacherBandState;
@@ -56,8 +64,6 @@ export default class PageComponent extends Vue {
     if (!buttonExpanded) {
       this.$refs.actionMenu.collapseItems();
     }
-    console.log('Band PageID');
-    console.log(this.pageId);
   }
 
   toggleTeacherBand(): void {
@@ -77,6 +83,7 @@ export default class PageComponent extends Vue {
 
   updatePage(pageId: string): void {
     this.currentPage = PageStore.singlePage(pageId);
+    this.pageIsBandOverview = (this.currentPage.type === PageType.BAND_OVERVIEW);
     this.setLatestRead();
   }
 

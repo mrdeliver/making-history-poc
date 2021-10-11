@@ -60,7 +60,8 @@ export interface Ressource {
 
 export enum PageType {
   CHAPTER='chapter',
-  SUB_CHAPTER='subchapter'
+  SUB_CHAPTER='subchapter',
+  BAND_OVERVIEW='band_overview'
 }
 
 export interface Content {

@@ -19,6 +19,11 @@ export interface Page {
   backwardNavigation?: string,
 }
 
+export interface OverviewPage extends Page {
+  chapterIds: string[],
+  chapterHeadings: string[]
+}
+
 @Module({ generateMutationSetters: true })
 class PageModule extends VuexModule {
   // state
@@ -52,6 +57,8 @@ class PageModule extends VuexModule {
   @Action
   buildPages(bandId: string): void {
     const chapters: Chapter[] = Chapters.result.filter((chapter) => chapter.bandId === bandId);
+    console.log('chapters');
+    console.log(chapters);
     const chapterIds = chapters.map((chapter) => chapter.id);
     const subchapters: Subchapter[] = Subchapters.result.filter(
       (subchapter) => chapterIds.includes(subchapter.chapterId),
@@ -62,14 +69,34 @@ class PageModule extends VuexModule {
       subchapters,
     );
 
-    this.setPages(this.indexPages(unindexedPages));
+    unindexedPages.unshift(this.buildOverviewPageForBand(chapters));
+    const indexPages = this.indexPages(unindexedPages);
+
+    this.setPages(indexPages);
+  }
+
+  buildOverviewPageForBand(chapters: Chapter[]): OverviewPage {
+    const page = {
+      type: PageType.BAND_OVERVIEW,
+      id: undefined,
+      heading: 'TEST OVERVIEW',
+      subheading: 'TEST OVERVIEW',
+      content: {} as Content,
+      ressources: this.emptyRessources(),
+      worksheets: [],
+      backwardNavigation: undefined,
+      chapterIds: chapters.map((chapter) => chapter.id),
+      chapterHeadings: chapters.map((chapter) => chapter.name),
+    };
+
+    return page;
   }
 
   extractPages(chapters: Chapter[], subchapters: Subchapter[]): Page[] {
     const pages: Page[] = [];
     chapters.forEach((chapter) => {
-      pages.push(this.mapChapterToPage(chapter));
-
+      const chapterPage = this.mapChapterToPage(chapter);
+      pages.push(chapterPage);
       const relatedSubchapters = subchapters.filter(
         (subchapter) => subchapter.chapterId === chapter.id,
       );
