@@ -9,6 +9,7 @@ export default {
     {
       id: '0',
       typ: RessourceType.MULTI_IMAGE_SOURCE,
+      heading: 'G1',
       images: [
         {
           id: '0',
@@ -68,8 +69,9 @@ export default {
 };
 
 export interface MultiImageRessource {
-  id: string
+  id: string,
   typ: RessourceType,
+  heading: string,
   images: ImageRessource[],
 
 }
