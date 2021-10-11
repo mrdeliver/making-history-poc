@@ -2,7 +2,7 @@
   <div class="page-slider-container">
     <Slider
     :allLinks="sliderLinks"
-    sliderFlavour="sourcesSlider"
+    cellFlavour="sourcesSlider"
     :currentIndex="ressourceId"
     :key="sliderReloadKey">
     </Slider>

@@ -4,10 +4,10 @@
     <div class="overlay-L"></div>
     <flickity ref="flickity" :options="flickityOptions">
       <div ref="myWrapper"
-      :class="[sliderFlavour]"
+      v-for="(link, index) in allLinks" :key="index"
+      :class="getCurrentCellFlavour(link)"
       class="carousel-cell"
-      @click="setRoute(link.primaryLink.link)"
-      v-for="(link, index) in allLinks" :key="index" >
+      @click="setRoute(link.primaryLink.link)">
         <div class="wrapper" :class="{'wrapper-is-active': subIsActive(link.primaryLink.link)}">
           <router-link :to="link.primaryLink.link">{{link.primaryLink.content}}</router-link>
           <router-link
@@ -24,10 +24,12 @@
 </template>
 
 <script lang="ts">
+import fitty from 'fitty';
 import { Options, Vue } from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import Flickity from 'vue-flickity/src/flickity.vue';
 import { Router, useRouter, useRoute } from 'vue-router';
+import { PageType } from '@/store/data/data-types';
 import SliderLink from './slider';
 
 @Options({
@@ -35,7 +37,6 @@ import SliderLink from './slider';
     Flickity,
   },
 })
-
 export default class Slider extends Vue {
   private currentRoute = useRoute();
 
@@ -68,7 +69,7 @@ export default class Slider extends Vue {
         const newValue = m.target as HTMLElement;
         const newValueString: string = newValue.getAttribute(m.attributeName as string) as string;
         this.$nextTick(() => {
-          this.onClassChange(newValueString, m.oldValue as string);
+          this.onClassChange(newValueString);
         });
       });
     });
@@ -95,9 +96,8 @@ export default class Slider extends Vue {
     }
   }
 
-  onClassChange(classAttrValue: string, oldAttrValue: string):void {
+  onClassChange(classAttrValue: string):void {
     const classList = classAttrValue.split(' ');
-    const collection = document.getElementsByClassName('carousel-cell');
     this.setBaseFontSize();
     if (classList.includes('is-selected')) {
       this.resizeFont();
@@ -106,23 +106,10 @@ export default class Slider extends Vue {
 
   resizeFont():void {
     const activeElement: HTMLElement = document.getElementsByClassName('is-selected')[0] as HTMLElement;
-    const activeWidth = activeElement.clientWidth;
-    const activeHeight = 100;
     const child = activeElement.children[0].children[0] as HTMLElement;
-    let fontsize = 26;
-    child.style.fontSize = `${fontsize}px`;
-    let childWidth = child.clientWidth;
-    let childHeight = child.clientHeight;
-    if (activeElement) {
-      while (childWidth > activeWidth - 10 || childHeight > activeHeight - 10) {
-        fontsize -= 1;
-        child.style.fontSize = `${fontsize}px`;
-        childWidth = child.clientWidth;
-        childHeight = child.clientHeight;
-      }
-    } else {
-      console.log('No active Element');
-    }
+    child.id = 'selected-element';
+    fitty('#selected-element', { multiLine: true, minSize: 18, maxSize: 26 });
+    child.id = '';
   }
 
   get getIndexInt(): number {
@@ -130,7 +117,19 @@ export default class Slider extends Vue {
   }
 
   @Prop({ type: String })
-  private sliderFlavour = 'defaultFlavour';
+  private cellFlavour = 'defaultFlavour'
+
+  getCurrentCellFlavour(link: SliderLink): string {
+    if (link.pageType) {
+      if (link.pageType === PageType.CHAPTER) {
+        return 'defaultFlavourChapter';
+      }
+    }
+
+    // every other case
+
+    return this.cellFlavour;
+  }
 
   private router: Router = useRouter();
 
@@ -143,7 +142,7 @@ export default class Slider extends Vue {
     // any options from Flickity can be used
   }
 
-  $refs!:{
+  declare $refs:{
   flickity: typeof Flickity,
   }
 
@@ -211,32 +210,41 @@ export default class Slider extends Vue {
   align-items: center;
   a {
     text-decoration: none;
+    font-size: 14px;
   }
 }
+
 .carousel-cell.is-selected {
   @include drop-shadow-elevation-1;
   height: 100px;
   width: $slider-cell-active-with;
   top: 0px;
   a {
-    word-wrap: break-word;
-    text-decoration: none;
-    }
-
+    white-space: pre-wrap !important;
+  }
 }
 
 .wrapper {
   text-align: center;
   display: flex;
+  flex-grow: 2+1;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   width: inherit;
   height: calc(100% - 6px);
+  overflow: hidden;
+  padding-left: 5px;
+  padding-right: 5px;
+  a {
+    width: 100%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+  }
 }
 
 .wrapper-is-active {
-
   border: inherit;
   border-radius: inherit;
   border-width: 3px;
@@ -248,7 +256,6 @@ export default class Slider extends Vue {
   a {
     @include slider-heading;
     color: $color_grey_6;
-    font-size:20px;
   }
   &.is-selected {
     a {
@@ -257,6 +264,23 @@ export default class Slider extends Vue {
     }
     background-color: $color_grey_0;
     border-color: $color_grey_7;
+  }
+}
+
+.defaultFlavourChapter {
+  background-color: $color_grey_5;
+  border-color: $color_grey_2;
+  a {
+    @include slider-heading;
+    color: $color_grey_0;
+  }
+  &.is-selected {
+    a {
+      @include slider-heading;
+      color:$color_grey_0;
+    }
+    background-color: $color_grey_5;
+    border-color: $color_grey_2;
   }
 }
 

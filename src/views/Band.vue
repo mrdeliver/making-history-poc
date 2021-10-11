@@ -11,14 +11,28 @@
     buttonOpenIcon="search">
     <entry-search></entry-search>
   </expandable-button>
-  <back-button class="backButton">
-  </back-button>
+
+  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
+  @buttonToggeled="handleActionsMenuToggle($event)">
+    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
+  </expandable-button>
+  <div class="secondaryThumbButtonContainer">
+    <back-button v-if="userIsOnSubPage()"></back-button>
+    <expandable-button v-else style="z-index: 300"
+      buttonFlavour="navigationButton"
+      buttonOpenIcon="stream">
+      <navigation-menu :bandId="bandId"></navigation-menu>
+    </expandable-button>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Router, useRouter, useRoute } from 'vue-router';
+
+import {
+  Router, useRouter, useRoute, RouteLocationNormalized,
+} from 'vue-router';
 import PageStore from '../store/page-module';
 import RessourceStore from '../store/ressource-module';
 import EntryStore from '../store/search-entry-module';
@@ -26,6 +40,7 @@ import WorksheetStore from '../store/worksheet-module';
 import EntrySearch from '../components/menus/glossar/entry-search.vue';
 import ExpandableButton from '../components/menus/expandable-button.vue';
 import BackButton from '../components/menus/back-button.vue';
+import NavigationMenu from '../components/menus/navigation-menu.vue';
 import ActionMenu from '../components/menus/action-menu/action-menu.vue';
 
 @Options({
@@ -34,13 +49,16 @@ import ActionMenu from '../components/menus/action-menu/action-menu.vue';
     ExpandableButton,
     BackButton,
     ActionMenu,
+    NavigationMenu,
   },
 })
 export default class Band extends Vue {
+  private currentRoute: RouteLocationNormalized = useRoute();
+
   private router: Router = useRouter();
 
   @Prop({ type: String })
-  private bandId = '';
+  private bandId = '1';
 
   @Prop({ type: String })
   private pageId: string | string[] = '0';
@@ -57,6 +75,27 @@ export default class Band extends Vue {
     EntryStore.buildEntries();
     WorksheetStore.buildWorksheets();
     this.router.push({ name: 'Page', params: { pageId: this.pageId, bandId: this.bandId } });
+  }
+
+  declare $refs: {
+    actionMenu: ActionMenu,
+  }
+
+  handleActionsMenuToggle(buttonExpanded: Event):void {
+    if (!buttonExpanded) {
+      this.$refs.actionMenu.collapseItems();
+    }
+  }
+
+  userIsOnSubPage(): boolean {
+    let userIsOnSubPage = false;
+    const currentPath = this.currentRoute.path;
+    if (currentPath.includes('worksheet')
+    || currentPath.includes('ressource')) {
+      userIsOnSubPage = true;
+    }
+
+    return userIsOnSubPage;
   }
 }
 </script>
@@ -118,9 +157,14 @@ $slider_height: 115px;
   background-color: $color_grey_5;
 }
 
-.backButton {
+.secondaryThumbButtonContainer {
   position: fixed;
   left: 20px;
   bottom: 20px;
+}
+
+.navigationButton {
+  @include drop-shadow-elevation-2;
+  background-color: $color_grey_5;
 }
 </style>

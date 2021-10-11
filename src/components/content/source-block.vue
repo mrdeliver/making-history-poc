@@ -17,7 +17,7 @@
         </div>
         <div v-if="expand" id="expand-container-row">
           <component
-          :is="getComponentType(contentBlock)"
+          :is="getComponentType()"
           v-bind="ressourceBlock"
           ></component>
         </div>
@@ -36,6 +36,7 @@ import InlineImageRessource from './ressources/inline-image-ressource.vue';
 import InlineTextRessource from './ressources/inline-text-ressource.vue';
 import InlineVideoRessource from './ressources/inline-video-ressource.vue';
 import InlineAudioRessource from './ressources/inline-audio-ressource.vue';
+import InlineMultiImageRessource from './ressources/inline-multi-image-ressource.vue';
 
 interface RessourceStyle {
   icon: string,
@@ -48,6 +49,7 @@ interface Style {
   [RessourceType.TEXT_SOURCE]: RessourceStyle,
   [RessourceType.AUDIO_SOURCE]: RessourceStyle,
   [RessourceType.VIDEO_SOURCE]: RessourceStyle
+  [RessourceType.MULTI_IMAGE_SOURCE]: RessourceStyle,
 }
 
 @Options({
@@ -56,6 +58,7 @@ interface Style {
     InlineTextRessource,
     InlineVideoRessource,
     InlineAudioRessource,
+    InlineMultiImageRessource,
   },
 })
 export default class SourceBlock extends Vue {
@@ -88,6 +91,11 @@ export default class SourceBlock extends Vue {
       iconCss: 'ressource-icon',
       wrapperCss: 'ressource',
     },
+    [RessourceType.MULTI_IMAGE_SOURCE]: {
+      icon: 'images',
+      iconCss: 'ressource-icon',
+      wrapperCss: 'ressource',
+    },
   }
 
   private expand = false;
@@ -98,7 +106,6 @@ export default class SourceBlock extends Vue {
 
   get ressourceBlock(): Ressource {
     const ressource = RessourceStore.ressource(this.sourceType, this.id);
-    console.log(ressource);
     return ressource;
   }
 
@@ -112,6 +119,8 @@ export default class SourceBlock extends Vue {
         return 'InlineAudioRessource';
       case RessourceType.VIDEO_SOURCE:
         return 'InlineVideoRessource';
+      case RessourceType.MULTI_IMAGE_SOURCE:
+        return 'InlineMultiImageRessource';
       default:
         return 'DefaultBlock';
     }
