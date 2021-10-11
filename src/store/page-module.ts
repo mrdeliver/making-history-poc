@@ -48,6 +48,11 @@ class PageModule extends VuexModule {
     return this.pages.filter((page) => page.type === PageType.CHAPTER);
   }
 
+  getPageIdForChapterId(heading: string): string {
+    const pageId = this.chapterPages.filter((chapterPage) => chapterPage.heading === heading)[0].id;
+    return pageId || '';
+  }
+
   @Mutation
   toggleTeacherBand() {
     this.teacherBandState = !this.teacherBandState;
