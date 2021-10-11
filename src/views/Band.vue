@@ -11,11 +11,6 @@
     buttonOpenIcon="search">
     <entry-search></entry-search>
   </expandable-button>
-
-  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
-  @buttonToggeled="handleActionsMenuToggle($event)">
-    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
-  </expandable-button>
   <div class="secondaryThumbButtonContainer">
     <back-button v-if="userIsOnSubPage()"></back-button>
     <expandable-button v-else style="z-index: 300"
@@ -66,8 +61,7 @@ export default class Band extends Vue {
   private route = useRoute();
 
   mounted(): void {
-    console.log(this.route.params.pageId);
-    this.pageId = this.route.params.pageId;
+    console.log('Band mounted');
   }
 
   created(): void {
