@@ -2,7 +2,7 @@
   <div class="page-slider-container">
     <Slider
     :allLinks="sliderLinks"
-    sliderFlavour="worksheetSlider"
+    cellFlavour="worksheetSlider"
     :currentIndex="worksheetId">
     </Slider>
   </div>

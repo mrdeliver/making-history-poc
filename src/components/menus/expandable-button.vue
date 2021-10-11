@@ -34,7 +34,7 @@ export default class ExpandableButton extends Vue {
 
   private closeIcon = 'times';
 
-  $refs!:{
+  declare $refs:{
     button: HTMLElement;
   }
 

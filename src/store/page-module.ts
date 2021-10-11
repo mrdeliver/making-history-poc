@@ -9,7 +9,7 @@ import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
 
 export interface Page {
-  type: string,
+  type: PageType,
   id?: string,
   heading: string,
   subheading: string,
@@ -37,6 +37,10 @@ class PageModule extends VuexModule {
 
   get getTeacherBandState(): boolean {
     return this.teacherBandState;
+  }
+
+  get chapterPages(): Page[] {
+    return this.pages.filter((page) => page.type === PageType.CHAPTER);
   }
 
   @Mutation
