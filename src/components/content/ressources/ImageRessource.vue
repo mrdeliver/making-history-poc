@@ -1,12 +1,19 @@
 <template>
+  <PresenterImageRessource :url="url" v-if="presenterEnabled"></PresenterImageRessource>
   <div class="image-block">
     <div class="side-col"></div>
     <div class="center-col">
-      <button @click="toggleAnnotations()"
-      class="annotations-toggle"
-      :class="annotationsToggleStateClass">
-        <fa icon="lightbulb" class="icon"></fa> Annotationen {{annotationsToggleStateAction}}
-      </button>
+      <div class="button-container">
+        <button @click="toggleAnnotations()"
+        class="annotations-toggle"
+        :class="annotationsToggleStateClass">
+          <fa icon="lightbulb" class="icon"></fa> Annotationen {{annotationsToggleStateAction}}
+        </button>
+        <button @click="togglePresenterMode()"
+                class="annotations-toggle left-margin">
+          <fa icon="lightbulb" class="icon"></fa>Präsentationsmodus
+        </button>
+      </div>
       <div ></div>
       <div class="image-container">
         <div
@@ -34,6 +41,7 @@
 import { Annotation, ContentBlock } from '@/store/data/data-types';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import PresenterImageRessource from '@/components/content/ressources/PresenterImageRessource.vue';
 import ContentFrame from '../content-frame.vue';
 import Tipp from '../../menus/tipps/tipp.vue';
 
@@ -41,6 +49,7 @@ import Tipp from '../../menus/tipps/tipp.vue';
   components: {
     ContentFrame,
     Tipp,
+    PresenterImageRessource,
   },
 })
 export default class ImageRessource extends Vue {
@@ -65,6 +74,12 @@ export default class ImageRessource extends Vue {
     this.annotationsToggleStateAction = this.annotationsEnabled ? 'aus' : 'an';
   }
 
+  private presenterEnabled = false;
+
+  togglePresenterMode(): void {
+    this.presenterEnabled = !this.presenterEnabled;
+  }
+
   @Prop({})
   private author = '';
 
@@ -85,6 +100,9 @@ export default class ImageRessource extends Vue {
 
 @mixin info-color-ressource {
   color: $color_yellow_8;
+}
+.button-container {
+  display:flex;
 }
 
 .annotations-toggle {
@@ -112,6 +130,10 @@ export default class ImageRessource extends Vue {
     margin-right: 4px;
     color: $color_green;
   }
+}
+
+.left-margin {
+  margin-left: 10px;
 }
 
 .image-block {
