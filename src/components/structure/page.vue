@@ -1,4 +1,7 @@
 <template>
+  <div v-if="pageIsChapter">
+    <chapter-outline :subchapterIds="currentPage.subchapterIds"></chapter-outline>
+  </div>
   <div v-if="teacherBandState">
     <div class="infoContainer">
       <div class="teacherInfo" @click="toggleTeacherBand()">
@@ -29,6 +32,7 @@ import BandStore from '@/store/band-module';
 import SubjectStore from '@/store/subject-module';
 import PageStore, { Page } from '../../store/page-module';
 import ContentFrame from '../content/content-frame.vue';
+import ChapterOutline from '../content/chapter-outline.vue';
 import OverviewFrame from '../content/overview-frame.vue';
 import ActionMenu from '../menus/action-menu/action-menu.vue';
 import ExpandableButton from '../menus/expandable-button.vue';
@@ -41,6 +45,7 @@ import { PageType } from '../../store/data/data-types';
     ActionMenu,
     ExpandableButton,
     OverviewFrame,
+    ChapterOutline,
   },
 })
 export default class PageComponent extends Vue {
@@ -51,6 +56,8 @@ export default class PageComponent extends Vue {
   private pageId = '';
 
   private pageIsBandOverview = false;
+
+  private pageIsChapter = false;
 
   get teacherBandState(): boolean {
     return PageStore.getTeacherBandState;
@@ -84,6 +91,7 @@ export default class PageComponent extends Vue {
   updatePage(pageId: string): void {
     this.currentPage = PageStore.singlePage(pageId);
     this.pageIsBandOverview = (this.currentPage.type === PageType.BAND_OVERVIEW);
+    this.pageIsChapter = (this.currentPage.type === PageType.CHAPTER);
     this.setLatestRead();
   }
 

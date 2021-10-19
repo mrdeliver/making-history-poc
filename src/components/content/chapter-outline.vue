@@ -1,7 +1,6 @@
 <template>
-  <div v-for="heading in overviewPage.chapterHeadings" :key="heading"
-  @click="updatePageId(heading)">
-    {{ heading }}
+  <div v-for="page in subchapterPages" :key="page.id" @click="updatePageId(page)">
+    {{ page.heading }}
   </div>
 </template>
 
@@ -11,34 +10,33 @@ import {
 } from 'vue-router';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import PageStore, { OverviewPage } from '../../store/page-module';
+import PageStore, { Page } from '../../store/page-module';
 import TextBlock from './text-block.vue';
 import SourceBlock from './source-block.vue';
 
 @Options({
-  name: 'overview-frame',
+  name: 'chapter-outline',
   components: {
     TextBlock,
     SourceBlock,
   },
 })
-export default class OverviewFrame extends Vue {
+export default class ChapterOutline extends Vue {
   @Prop({ })
-  private overviewPage: OverviewPage = {} as OverviewPage;
+  private subchapterIds: string[] = [] as string[];
 
   private router: Router = useRouter();
 
   private route = useRoute();
 
-  mounted(): void {
-    console.log('Mounted in OverviewFrame');
-    console.log(this.overviewPage);
+  get subchapterPages() {
+    return this.subchapterIds.map((id) => PageStore.getPageForSubchapterId(id));
   }
 
-  updatePageId(heading: string): void {
-    const pageIdForChapter = PageStore.getPageIdForChapterHeading(heading);
+  updatePageId(page: Page): void {
     const { bandId } = this.route.params;
-    this.router.push({ name: 'Page', params: { pageId: pageIdForChapter, bandId } });
+    const id = page.id ? page.id : '0';
+    this.router.push({ name: 'Page', params: { pageId: id, bandId } });
   }
 }
 </script>
