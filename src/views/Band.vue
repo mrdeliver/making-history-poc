@@ -2,7 +2,7 @@
   <div id="content-slider">
     <router-view id="slider-view" name='slider'></router-view>
   </div>
-  <div id="content">
+  <div id="content" v-touch:swipe.left="swipeLeft" v-touch:swipe.right="swipeRight">
     <router-view id="content-view"></router-view>
   </div>
   <expandable-button style="z-index: 300"
@@ -56,7 +56,7 @@ export default class Band extends Vue {
   private bandId = '1';
 
   @Prop({ type: String })
-  private pageId: string | string[] = '0';
+  private pageId = '0';
 
   private route = useRoute();
 
@@ -91,6 +91,14 @@ export default class Band extends Vue {
     }
 
     return userIsOnSubPage;
+  }
+
+  swipeLeft(): void {
+    this.router.push({ name: 'Page', params: { pageId: (parseInt(this.pageId, 10) + 1).toString(), bandId: this.bandId } });
+  }
+
+  swipeRight(): void {
+    this.router.push({ name: 'Page', params: { pageId: (parseInt(this.pageId, 10) - 1).toString(), bandId: this.bandId } });
   }
 }
 </script>
