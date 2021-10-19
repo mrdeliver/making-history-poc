@@ -1,37 +1,34 @@
 <template>
-  <outline-frame :outline="outlineItems"></outline-frame>
+  <div v-for="item in outline" :key="item.heading">
+    {{ item.heading }}
+  </div>
 </template>
 
 <script lang="ts">
+import {
+  Router, useRouter, useRoute, RouteLocationNormalized,
+} from 'vue-router';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import PageStore, { OverviewPage } from '../../store/page-module';
+import PageStore from '../../store/page-module';
 import TextBlock from './text-block.vue';
 import SourceBlock from './source-block.vue';
-import OutlineFrame from './outline-frame.vue';
 import { OutlineItem } from '../../store/data/data-types';
 
 @Options({
-  name: 'overview-frame',
+  name: 'outline-frame',
   components: {
     TextBlock,
     SourceBlock,
-    OutlineFrame,
   },
 })
 export default class OverviewFrame extends Vue {
   @Prop({ })
-  private overviewPage: OverviewPage = {} as OverviewPage;
+  private outline: OutlineItem[] = [];
 
-  get outlineItems() : OutlineItem[] {
-    return this.overviewPage.chapterHeadings.map((heading) => (
-      {
-        heading,
-        pageId: PageStore.getPageIdForChapterHeading(heading),
-        number: '1',
-      }
-    ));
-  }
+  private router: Router = useRouter();
+
+  private route = useRoute();
 }
 </script>
 

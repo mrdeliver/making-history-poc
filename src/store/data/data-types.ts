@@ -51,6 +51,12 @@ export interface Annotation {
   y: number
 }
 
+export interface OutlineItem {
+  heading: string,
+  pageId: string,
+  number: string
+}
+
 export interface Ressource {
   id: string
   typ: RessourceType,

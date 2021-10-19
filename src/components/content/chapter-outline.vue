@@ -13,6 +13,7 @@ import { Prop } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
 import TextBlock from './text-block.vue';
 import SourceBlock from './source-block.vue';
+import { OutlineItem } from '../../store/data/data-types';
 
 @Options({
   name: 'chapter-outline',
@@ -28,6 +29,16 @@ export default class ChapterOutline extends Vue {
   private router: Router = useRouter();
 
   private route = useRoute();
+
+  get outlineItems() : OutlineItem[] {
+    return this.subchapterPages.map((page) => (
+      {
+        heading: page.heading,
+        pageId: page.id ? page.id : '0',
+        number: '1',
+      }
+    ));
+  }
 
   get subchapterPages() {
     return this.subchapterIds.map((id) => PageStore.getPageForSubchapterId(id));
