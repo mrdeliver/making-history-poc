@@ -1,28 +1,28 @@
 <template>
-  <div v-if="pageIsChapter">
-    <chapter-outline :subchapterIds="currentPage.subchapterIds"></chapter-outline>
-  </div>
-  <div v-if="teacherBandState">
-    <div class="infoContainer">
-      <div class="teacherInfo" @click="toggleTeacherBand()">
-      <div class="teacherInfoTextWrapper">
-        <div class="teacherInfoText">Lehrerband</div>
-      </div>
-        <fa :icon="crossIcon" class="icon sources-icon"></fa>
-      </div>
+    <div v-if="pageIsChapter">
+      <chapter-outline :subchapterIds="currentPage.subchapterIds"></chapter-outline>
     </div>
-    <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
-  </div>
-  <div v-if="pageIsBandOverview">
-    <overview-frame :overviewPage="currentPage"></overview-frame>
-  </div>
-  <div v-else>
-    <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
-  </div>
-  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
-  @buttonToggeled="handleActionsMenuToggle($event)">
-    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
-  </expandable-button>
+    <div v-if="teacherBandState">
+      <div class="infoContainer">
+        <div class="teacherInfo" @click="toggleTeacherBand()">
+        <div class="teacherInfoTextWrapper">
+          <div class="teacherInfoText">Lehrerband</div>
+        </div>
+          <fa :icon="crossIcon" class="icon sources-icon"></fa>
+        </div>
+      </div>
+      <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
+    </div>
+    <div v-if="pageIsBandOverview">
+      <overview-frame :overviewPage="currentPage"></overview-frame>
+    </div>
+    <div v-else>
+      <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
+    </div>
+    <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
+    @buttonToggeled="handleActionsMenuToggle($event)">
+      <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
+    </expandable-button>
 </template>
 
 <script lang="ts">

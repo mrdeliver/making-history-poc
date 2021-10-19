@@ -1,34 +1,27 @@
 <template>
-  <div v-for="page in subchapterPages" :key="page.id" @click="updatePageId(page)">
-    {{ page.heading }}
-  </div>
+  <outline-frame :outline="outlineItems"></outline-frame>
 </template>
 
 <script lang="ts">
-import {
-  Router, useRouter, useRoute, RouteLocationNormalized,
-} from 'vue-router';
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import PageStore, { Page } from '../../store/page-module';
 import TextBlock from './text-block.vue';
 import SourceBlock from './source-block.vue';
 import { OutlineItem } from '../../store/data/data-types';
+import OutlineFrame from './outline-frame.vue';
 
 @Options({
   name: 'chapter-outline',
   components: {
     TextBlock,
     SourceBlock,
+    OutlineFrame,
   },
 })
 export default class ChapterOutline extends Vue {
   @Prop({ })
   private subchapterIds: string[] = [] as string[];
-
-  private router: Router = useRouter();
-
-  private route = useRoute();
 
   get outlineItems() : OutlineItem[] {
     return this.subchapterPages.map((page) => (
@@ -42,12 +35,6 @@ export default class ChapterOutline extends Vue {
 
   get subchapterPages() {
     return this.subchapterIds.map((id) => PageStore.getPageForSubchapterId(id));
-  }
-
-  updatePageId(page: Page): void {
-    const { bandId } = this.route.params;
-    const id = page.id ? page.id : '0';
-    this.router.push({ name: 'Page', params: { pageId: id, bandId } });
   }
 }
 </script>
