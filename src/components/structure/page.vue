@@ -48,7 +48,7 @@ export default class PageComponent extends Vue {
     return PageStore.getTeacherBandState;
   }
 
-  $refs!: {
+  declare $refs: {
     actionMenu: ActionMenu,
   }
 
