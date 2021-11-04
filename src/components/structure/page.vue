@@ -1,22 +1,28 @@
 <template>
-  <div v-if="teacherBandState">
-    <div class="infoContainer">
-      <div class="teacherInfo" @click="toggleTeacherBand()">
-      <div class="teacherInfoTextWrapper">
-        <div class="teacherInfoText">Lehrerband</div>
-      </div>
-        <fa :icon="crossIcon" class="icon sources-icon"></fa>
-      </div>
+    <div v-if="pageIsChapter">
+      <chapter-outline :subchapterIds="currentPage.subchapterIds"></chapter-outline>
     </div>
-    <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
-  </div>
-  <div v-else>
-    <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
-  </div>
-  <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
-  @buttonToggeled="handleActionsMenuToggle($event)">
-    <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
-  </expandable-button>
+    <div v-if="teacherBandState">
+      <div class="infoContainer">
+        <div class="teacherInfo" @click="toggleTeacherBand()">
+        <div class="teacherInfoTextWrapper">
+          <div class="teacherInfoText">Lehrerband</div>
+        </div>
+          <fa :icon="crossIcon" class="icon sources-icon"></fa>
+        </div>
+      </div>
+      <content-frame :contentBlocks="currentPage.content.teacherContent"></content-frame>
+    </div>
+    <div v-if="pageIsBandOverview">
+      <overview-frame :overviewPage="currentPage"></overview-frame>
+    </div>
+    <div v-else>
+      <content-frame :contentBlocks="currentPage.content.studentContent"></content-frame>
+    </div>
+    <expandable-button class="positionFixed" buttonFlavour="actionMenuButton"
+    @buttonToggeled="handleActionsMenuToggle($event)">
+      <action-menu ref="actionMenu" :pageId="pageId" :bandId="bandId"/>
+    </expandable-button>
 </template>
 
 <script lang="ts">
@@ -26,8 +32,11 @@ import BandStore from '@/store/band-module';
 import SubjectStore from '@/store/subject-module';
 import PageStore, { Page } from '../../store/page-module';
 import ContentFrame from '../content/content-frame.vue';
+import ChapterOutline from '../content/chapter-outline.vue';
+import OverviewFrame from '../content/overview-frame.vue';
 import ActionMenu from '../menus/action-menu/action-menu.vue';
 import ExpandableButton from '../menus/expandable-button.vue';
+import { PageType } from '../../store/data/data-types';
 
 @Options({
   name: 'page',
@@ -35,6 +44,8 @@ import ExpandableButton from '../menus/expandable-button.vue';
     ContentFrame,
     ActionMenu,
     ExpandableButton,
+    OverviewFrame,
+    ChapterOutline,
   },
 })
 export default class PageComponent extends Vue {
@@ -43,6 +54,10 @@ export default class PageComponent extends Vue {
 
   @Prop({ type: String })
   private pageId = '';
+
+  private pageIsBandOverview = false;
+
+  private pageIsChapter = false;
 
   get teacherBandState(): boolean {
     return PageStore.getTeacherBandState;
@@ -56,8 +71,6 @@ export default class PageComponent extends Vue {
     if (!buttonExpanded) {
       this.$refs.actionMenu.collapseItems();
     }
-    console.log('Band PageID');
-    console.log(this.pageId);
   }
 
   toggleTeacherBand(): void {
@@ -77,6 +90,8 @@ export default class PageComponent extends Vue {
 
   updatePage(pageId: string): void {
     this.currentPage = PageStore.singlePage(pageId);
+    this.pageIsBandOverview = (this.currentPage.type === PageType.BAND_OVERVIEW);
+    this.pageIsChapter = (this.currentPage.type === PageType.CHAPTER);
     this.setLatestRead();
   }
 

@@ -7,6 +7,8 @@ import {
 } from './data/data-types';
 import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
+import Bands, { Band } from './data/band';
+// import band from './data/band';
 
 export interface Page {
   type: PageType,
@@ -17,6 +19,13 @@ export interface Page {
   ressources: Ressources,
   worksheets: string[],
   backwardNavigation?: string,
+  subchapterIds?: string[],
+  relatedChapterId?: string,
+}
+
+export interface OverviewPage extends Page {
+  chapterIds: string[],
+  chapterHeadings: string[]
 }
 
 @Module({ generateMutationSetters: true })
@@ -31,6 +40,10 @@ class PageModule extends VuexModule {
     return this.pages;
   }
 
+  get bands(): Band[] {
+    return Bands.result;
+  }
+
   get singlePage(): CallableFunction {
     return (pageId: string): Page => this.pages[parseInt(pageId, 10)];
   }
@@ -41,6 +54,25 @@ class PageModule extends VuexModule {
 
   get chapterPages(): Page[] {
     return this.pages.filter((page) => page.type === PageType.CHAPTER);
+  }
+
+  get subchapterPages(): Page[] {
+    return this.pages.filter((page) => page.type === PageType.SUB_CHAPTER);
+  }
+
+  getPageIdForChapterHeading(heading: string): string {
+    const pageId = this.chapterPages.filter((chapterPage) => chapterPage.heading === heading)[0].id;
+    return pageId || '';
+  }
+
+  getPageForSubchapterId(subchapterId: string): Page {
+    const subchapter = Subchapters.result.filter((subchap) => subchap.id === subchapterId)[0];
+    const page = this.subchapterPages.filter((subchapterPage) => {
+      const sameHeading = (subchapterPage.heading === subchapter.name);
+      const sameChapter = (subchapterPage.relatedChapterId === subchapter.chapterId);
+      return sameHeading && sameChapter;
+    })[0];
+    return page;
   }
 
   @Mutation
@@ -66,17 +98,40 @@ class PageModule extends VuexModule {
       subchapters,
     );
 
-    this.setPages(this.indexPages(unindexedPages));
+    unindexedPages.unshift(this.buildOverviewPageForBand(chapters));
+    const indexPages = this.indexPages(unindexedPages);
+
+    this.setPages(indexPages);
+  }
+
+  buildOverviewPageForBand(chapters: Chapter[]): OverviewPage {
+    // get heading for band
+    const matchingBand = this.bands.filter((b) => b.id === chapters[0].bandId)[0];
+    const page = {
+      type: PageType.BAND_OVERVIEW,
+      id: undefined,
+      heading: matchingBand.heading,
+      subheading: 'Band Übersicht',
+      content: {} as Content,
+      ressources: this.emptyRessources(),
+      worksheets: [],
+      backwardNavigation: undefined,
+      chapterIds: chapters.map((chapter) => chapter.id),
+      chapterHeadings: chapters.map((chapter) => chapter.name),
+    };
+
+    return page;
   }
 
   extractPages(chapters: Chapter[], subchapters: Subchapter[]): Page[] {
     const pages: Page[] = [];
     chapters.forEach((chapter) => {
-      pages.push(this.mapChapterToPage(chapter));
-
       const relatedSubchapters = subchapters.filter(
         (subchapter) => subchapter.chapterId === chapter.id,
       );
+
+      const chapterPage = this.mapChapterToPage(chapter, relatedSubchapters);
+      pages.push(chapterPage);
 
       relatedSubchapters.forEach((subchapter) => {
         pages.push(this.mapSubChapterToPage(subchapter, chapter));
@@ -86,7 +141,7 @@ class PageModule extends VuexModule {
     return pages;
   }
 
-  mapChapterToPage(chapter: Chapter): Page {
+  mapChapterToPage(chapter: Chapter, subchapters: Subchapter[]): Page {
     const chapterResources = this.emptyRessources();
     return {
       type: PageType.CHAPTER,
@@ -95,6 +150,7 @@ class PageModule extends VuexModule {
       content: chapter.content,
       ressources: chapterResources,
       worksheets: [],
+      subchapterIds: subchapters.map((subchapter) => subchapter.id),
     };
   }
 
@@ -106,6 +162,7 @@ class PageModule extends VuexModule {
       content: subchapter.content,
       ressources: subchapter.ressources,
       worksheets: subchapter.worksheets,
+      relatedChapterId: chapter.id,
     };
   }
 

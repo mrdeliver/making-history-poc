@@ -61,7 +61,6 @@ export default class Band extends Vue {
   private route = useRoute();
 
   mounted(): void {
-    console.log('Band mounted');
   }
 
   created(): void {
