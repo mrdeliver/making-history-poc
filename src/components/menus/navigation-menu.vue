@@ -125,12 +125,12 @@ export default class NavigationMenu extends Vue {
       @include drop-shadow-elevation-2;
       font-size: $font_size_text;
       font-weight: $font_weight_text;
-      line-height: calc($font_size_text + 4);
+      line-height: calc(#{$font_size_text} + 4);
       width: 100%;
       background-color: $color_grey_0;
       border: 3px transparent;
       border-radius: 30px;
-      height: calc($font_size_text + 4);
+      height: calc(#{$font_size_text} + 4);
       color: $color_grey_5;
       padding-left: 10px;
       box-sizing: content-box;
