@@ -79,7 +79,7 @@ export default class WorksheetSlider extends Vue {
   &.is-selected {
     a {
       @include slider-heading;
-      color:$color_blue_9;
+      color:$color_blue_8;
     }
     background-color: $color_blue_1;
     border-color: $color_blue;

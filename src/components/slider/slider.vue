@@ -15,6 +15,7 @@
             class="secondaryLink"
             @click.stop
             :to="link.secondaryLink.link">
+              <fa :icon="buttonIcon" class="icon sources-icon"></fa>
               {{link.secondaryLink.content}}
            </router-link>
         </div>
@@ -45,6 +46,8 @@ export default class Slider extends Vue {
 
   @Prop({})
   currentIndex = '0';
+
+  private buttonIcon = 'backward';
 
   private observer = {} as MutationObserver
 
@@ -286,5 +289,18 @@ export default class Slider extends Vue {
 
 .secondaryLink {
   font-size: 12px !important;
+  .icon {
+    display: inline;
+    height: 12px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 3px;
+    color: $color_grey_4;
+  }
+  #text {
+    display: inline;
+    vertical-align: middle;
+  }
 }
+
 </style>

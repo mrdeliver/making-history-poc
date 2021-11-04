@@ -24,6 +24,7 @@
     "vue-flickity": "^1.2.1",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.0.0-0",
+    "vue3-touch-events": "^4.1.0",
     "vuex": "^4.0.0-0",
     "vuex-class": "^0.3.2",
     "vuex-class-modules": "^1.3.0"

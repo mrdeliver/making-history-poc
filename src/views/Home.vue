@@ -9,7 +9,7 @@
           @click="goToSubjectOverview(sb.id)"
           :class="sb.backgroundClass"
           >
-          <div class="overlay"></div>
+          <div class="overlay-band"></div>
           <!-- <div class="subjectLastReadIndicator">{{sb.lastRead}}</div> -->
           <div class="subjectTileHeading">
             {{sb.heading}}
@@ -87,7 +87,7 @@ export default class Band extends Vue {
         cursor: pointer;
       }
 
-      .overlay {
+      .overlay-band {
         border-radius: 15px;
         left: 0;
         top: 0;
