@@ -76,6 +76,7 @@ export default class OverviewFrame extends Vue {
     @include regular-text;
     margin: 4px;
     float: left;
+    cursor: pointer;
   }
 
   .item-number {
@@ -94,11 +95,14 @@ export default class OverviewFrame extends Vue {
 
   .item-heading {
     height: 30px;
+    width: 280px;
     background: $color_grey_2;
     padding-left: 35px;
-    display: flex;
     border-radius: 30px;
     color: $color_grey_7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .frame {

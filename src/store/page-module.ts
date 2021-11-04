@@ -7,6 +7,8 @@ import {
 } from './data/data-types';
 import Subchapters, { Subchapter } from './data/subchapters';
 import store from './index';
+import Bands, { Band } from './data/band';
+// import band from './data/band';
 
 export interface Page {
   type: PageType,
@@ -36,6 +38,10 @@ class PageModule extends VuexModule {
   // getters
   get allPages(): Page[] {
     return this.pages;
+  }
+
+  get bands(): Band[] {
+    return Bands.result;
   }
 
   get singlePage(): CallableFunction {
@@ -99,11 +105,13 @@ class PageModule extends VuexModule {
   }
 
   buildOverviewPageForBand(chapters: Chapter[]): OverviewPage {
+    // get heading for band
+    const matchingBand = this.bands.filter((b) => b.id === chapters[0].bandId)[0];
     const page = {
       type: PageType.BAND_OVERVIEW,
       id: undefined,
-      heading: 'TEST OVERVIEW',
-      subheading: 'TEST OVERVIEW',
+      heading: matchingBand.heading,
+      subheading: 'Band Übersicht',
       content: {} as Content,
       ressources: this.emptyRessources(),
       worksheets: [],

@@ -24,11 +24,11 @@ export default class ChapterOutline extends Vue {
   private subchapterIds: string[] = [] as string[];
 
   get outlineItems() : OutlineItem[] {
-    return this.subchapterPages.map((page) => (
+    return this.subchapterPages.map((page, index) => (
       {
         heading: page.heading,
         pageId: page.id ? page.id : '0',
-        number: '1',
+        number: (index + 1).toString(),
       }
     ));
   }

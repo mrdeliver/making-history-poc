@@ -24,11 +24,11 @@ export default class OverviewFrame extends Vue {
   private overviewPage: OverviewPage = {} as OverviewPage;
 
   get outlineItems() : OutlineItem[] {
-    return this.overviewPage.chapterHeadings.map((heading) => (
+    return this.overviewPage.chapterHeadings.map((heading, index) => (
       {
         heading,
         pageId: PageStore.getPageIdForChapterHeading(heading),
-        number: '1',
+        number: (index + 1).toString(),
       }
     ));
   }
