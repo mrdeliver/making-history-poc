@@ -105,13 +105,12 @@ class PageModule extends VuexModule {
   }
 
   buildOverviewPageForBand(chapters: Chapter[]): OverviewPage {
-    // get heading for band
     const matchingBand = this.bands.filter((b) => b.id === chapters[0].bandId)[0];
     const page = {
       type: PageType.BAND_OVERVIEW,
       id: undefined,
       heading: matchingBand.heading,
-      subheading: 'Band Übersicht',
+      subheading: '',
       content: {} as Content,
       ressources: this.emptyRessources(),
       worksheets: [],
