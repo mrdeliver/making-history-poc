@@ -51,6 +51,12 @@ export interface Annotation {
   y: number
 }
 
+export interface OutlineItem {
+  heading: string,
+  pageId: string,
+  number: string
+}
+
 export interface Ressource {
   id: string
   typ: RessourceType,
@@ -62,7 +68,8 @@ export interface Ressource {
 
 export enum PageType {
   CHAPTER='chapter',
-  SUB_CHAPTER='subchapter'
+  SUB_CHAPTER='subchapter',
+  BAND_OVERVIEW='band_overview'
 }
 
 export interface Content {
